@@ -28,11 +28,24 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
         let product1 = Product(name: "Test1", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
         let product2 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 10, cost: 10)
         let product3 = Product(name: "Test3", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
-        
+        let product4 = Product(name: "Test1", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
+        let product5 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 10, cost: 10)
+        let product6 = Product(name: "Test3", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
+        let product7 = Product(name: "Test1", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
+        let product8 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 10, cost: 10)
+        let product9 = Product(name: "Test3", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
         
         products.append(product1!)
         products.append(product2!)
         products.append(product3!)
+        products.append(product4!)
+        products.append(product5!)
+        products.append(product6!)
+        products.append(product7!)
+        products.append(product8!)
+        products.append(product9!)
+        
+        
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmisKeyBoard))
         view.addGestureRecognizer(tapGesture)
