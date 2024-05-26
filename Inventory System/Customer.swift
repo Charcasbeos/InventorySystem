@@ -14,10 +14,17 @@ class Customer {
     
     //MaRK : Constructor
     
-    init(name: String, phoneNumber: String, accumulatedMoney: Int) {
+    init?(name: String, phoneNumber: String, accumulatedMoney: Int) {
+        if(name.isEmpty){
+            return nil
+        }
+        if(phoneNumber.isEmpty){
+            return nil
+        }
         self.name = name
         self.phoneNumber = phoneNumber
         self.accumulatedMoney = accumulatedMoney
     }
+    
     
 }
