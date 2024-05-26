@@ -24,6 +24,7 @@ class ProductOfBillCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        selectionStyle = .none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -40,4 +41,5 @@ class ProductOfBillCell: UITableViewCell {
     override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return (touch.view == self.contentView)
     }
+   
 }

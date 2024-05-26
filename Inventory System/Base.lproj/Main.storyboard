@@ -1111,9 +1111,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="bLo-4x-fkN">
+                            <rect key="frame" x="0.0" y="0.0" width="430" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <items>
+                                <navigationItem title="Created Bill" id="8Hf-Ri-Qxs"/>
+                            </items>
+                        </navigationBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductOfBillCell" rowHeight="107" id="JiH-l9-Uya" customClass="ProductOfBillCell" customModule="Inventory_System" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="430" height="107"/>
+                            <tableViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductOfBillCell" rowHeight="107" id="JiH-l9-Uya" customClass="ProductOfBillCell" customModule="Inventory_System" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="94" width="430" height="107"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JiH-l9-Uya" id="2Gl-o1-rNj">
                                     <rect key="frame" x="0.0" y="0.0" width="430" height="107"/>
@@ -1139,31 +1147,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="11s-h7-Yhu" customClass="UIProductStepper" customModule="Inventory_System" customModuleProvider="target">
-                                            <rect key="frame" x="284" y="37.666666666666664" width="126" height="31.999999999999993"/>
-                                            <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1WD-P1-qzP">
-                                                    <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="Ley-KO-fhA"/>
-                                                        <constraint firstAttribute="height" constant="32" id="Wmo-YK-nas"/>
-                                                    </constraints>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="JUY-l5-04H">
-                                                    <rect key="frame" x="32" y="0.0" width="94" height="32"/>
-                                                    <color key="backgroundColor" red="0.34117650989999998" green="0.34117650989999998" blue="0.34117650989999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="32" id="Sua-Ea-leF"/>
-                                                        <constraint firstAttribute="width" constant="94" id="ebi-I5-1GY"/>
-                                                    </constraints>
-                                                </stepper>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="JUY-l5-04H" firstAttribute="leading" secondItem="1WD-P1-qzP" secondAttribute="trailing" id="VLI-pi-I8F"/>
-                                            </constraints>
+                                            <rect key="frame" x="284" y="37.666666666666664" width="126" height="31.666666666666664"/>
                                         </stackView>
                                     </subviews>
                                     <constraints>
@@ -1176,6 +1160,7 @@
                                         <constraint firstItem="tMm-pE-Fnc" firstAttribute="centerY" secondItem="NhW-j5-r2O" secondAttribute="centerY" id="Xx9-Ix-63I"/>
                                         <constraint firstItem="tMm-pE-Fnc" firstAttribute="leading" secondItem="2Gl-o1-rNj" secondAttribute="leadingMargin" id="Z8T-fa-jvo"/>
                                         <constraint firstItem="11s-h7-Yhu" firstAttribute="trailing" secondItem="2Gl-o1-rNj" secondAttribute="trailingMargin" id="c4t-uU-c1A"/>
+                                        <constraint firstItem="11s-h7-Yhu" firstAttribute="top" secondItem="2Gl-o1-rNj" secondAttribute="topMargin" constant="26.666666666666657" id="ly5-mb-Qh3"/>
                                         <constraint firstItem="4a6-ru-nD7" firstAttribute="leading" secondItem="tMm-pE-Fnc" secondAttribute="trailing" constant="8" id="us9-SW-aoP"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -1184,7 +1169,6 @@
                                     <outlet property="productImage" destination="tMm-pE-Fnc" id="WhC-Nz-03x"/>
                                     <outlet property="productName" destination="4a6-ru-nD7" id="whZ-lB-DBG"/>
                                     <outlet property="productPrice" destination="NhW-j5-r2O" id="JvW-jP-tW1"/>
-                                    <outlet property="stepper" destination="11s-h7-Yhu" id="iye-iB-sgI"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1193,6 +1177,9 @@
                             <outlet property="delegate" destination="2ZD-di-pEo" id="aq1-Yu-wQ9"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="navigation" destination="8Hf-Ri-Qxs" id="AYD-Zw-cal"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VAi-sI-b6a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1226,7 +1213,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="vSt-ks-QvA">
-                                            <rect key="frame" x="20" y="9" width="132" height="47.666666666666671"/>
+                                            <rect key="frame" x="20" y="8.9999999999999964" width="132" height="47.666666666666657"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ten Khach Hang" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yoh-9A-NL8">
                                                     <rect key="frame" x="0.0" y="0.0" width="132" height="20.333333333333332"/>

@@ -6,14 +6,24 @@
 //
 
 import UIKit
+import OSLog
 
-class AddProductToBillController: UITableViewController {
+class AddProductToBillController: UITableViewController, UITabBarControllerDelegate {
 
     var products:[Product] = []
     
+    
+    @IBOutlet weak var navigation: UINavigationItem!
+    let cartButton = UIButton(type: .custom)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        cartButton.setImage(UIImage(named: "shopping-cart"), for: .normal)
+              cartButton.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
+              cartButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         
+        navigation.rightBarButtonItem = UIBarButtonItem(customView: cartButton)
         
         let product1 = Product(name: "Test1", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
         let product2 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 10, cost: 10)
@@ -24,6 +34,13 @@ class AddProductToBillController: UITableViewController {
         products.append(product2!)
         products.append(product3!)
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmisKeyBoard))
+        view.addGestureRecognizer(tapGesture)
+        
+    }
+    
+    @objc func dissmisKeyBoard(){
+        view.endEditing(true)
     }
 
     // MARK: - Table view data source
@@ -55,7 +72,7 @@ class AddProductToBillController: UITableViewController {
         
 //         Add gesture recognizer if not already added
 //        if cell.onTapped == nil {
-//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(editMeal))
+//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectedProduct))
 //            cell.addGestureRecognizer(tapGestureRecognizer)
 //            cell.onTapped = tapGestureRecognizer
 //        }
@@ -63,7 +80,11 @@ class AddProductToBillController: UITableViewController {
         
     }
     
-
+    @objc func cartButtonTapped(){
+        os_log("Cart Button Tapped")
+    }
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
