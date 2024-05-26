@@ -35,6 +35,8 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
         let product8 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 10, cost: 10)
         let product9 = Product(name: "Test3", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
         
+        
+        
         products.append(product1!)
         products.append(product2!)
         products.append(product3!)
@@ -44,6 +46,9 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
         products.append(product7!)
         products.append(product8!)
         products.append(product9!)
+        
+        
+        
         
         
         

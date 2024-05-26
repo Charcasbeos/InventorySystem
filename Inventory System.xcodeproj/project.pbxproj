@@ -42,6 +42,7 @@
 		F85B9CB12BFBA10A001A8B37 /* AddProductToBillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85B9CB02BFBA10A001A8B37 /* AddProductToBillController.swift */; };
 		F88127522C019AAD0027D87A /* UIProductStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88127512C019AAD0027D87A /* UIProductStepper.swift */; };
 		F88127542C01CD750027D87A /* ProductOfBillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88127532C01CD750027D87A /* ProductOfBillCell.swift */; };
+		F8B6AD092C033F12003CD04E /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD082C033F12003CD04E /* Bill.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		F85B9CB02BFBA10A001A8B37 /* AddProductToBillController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductToBillController.swift; sourceTree = "<group>"; };
 		F88127512C019AAD0027D87A /* UIProductStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProductStepper.swift; sourceTree = "<group>"; };
 		F88127532C01CD750027D87A /* ProductOfBillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductOfBillCell.swift; sourceTree = "<group>"; };
+		F8B6AD082C033F12003CD04E /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,7 @@
 				F816B1582BFC907D00AD387D /* Customer.swift */,
 				8D7C81542BFE46D300DDC23F /* Product.swift */,
 				8D7C81562BFEF1E700DDC23F /* ImportExport.swift */,
+				F8B6AD082C033F12003CD04E /* Bill.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				F84980CD2BFBABFF00F6B2CB /* (null) in Sources */,
 				F85B9CB12BFBA10A001A8B37 /* AddProductToBillController.swift in Sources */,
 				F8031F7E2BE334B800CE8604 /* SceneDelegate.swift in Sources */,
+				F8B6AD092C033F12003CD04E /* Bill.swift in Sources */,
 				8D7C81592BFEFF9600DDC23F /* UpdateProductController.swift in Sources */,
 				F816B1592BFC907D00AD387D /* Customer.swift in Sources */,
 				F84980D22BFC590000F6B2CB /* CustomItem.swift in Sources */,
