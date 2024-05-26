@@ -150,7 +150,7 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
                 collectionView.reloadData()
                 
             case .editProduct:
-                product.id = products[selectedIndexPath].id
+//                product.id = products[selectedIndexPath].id
                 let _ = dao.updateProduct(product: product)
                 //Reload lai du lieu moi cho collection view
                 dao.readProducts(products: &products)

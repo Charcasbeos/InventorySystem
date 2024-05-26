@@ -16,7 +16,7 @@ class UpdateProductController: UIViewController,UIImagePickerControllerDelegate,
     }
     //Dinh nghia bien dung danh dau duong di
     var actionType:ActionType = .newProduct
-   
+    var id:Int = -1
     //UI
     @IBOutlet weak var navigation: UINavigationItem!
     @IBOutlet weak var name: UITextField!
@@ -34,7 +34,7 @@ class UpdateProductController: UIViewController,UIImagePickerControllerDelegate,
         profit.delegate = self
         unit.delegate = self
         if let p = product{
-            
+            id = Int(p.id)
             actionType = .editProduct
             navigation.title = "Edit product"
             name.text = p.name
@@ -124,7 +124,7 @@ class UpdateProductController: UIViewController,UIImagePickerControllerDelegate,
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if let listProductCotroller = segue.destination as? ListProductViewController {
+        if segue.destination is ListProductViewController {
             switch actionType {
             case .newProduct:
                 actionType = .newProduct
@@ -145,7 +145,7 @@ class UpdateProductController: UIViewController,UIImagePickerControllerDelegate,
                         //Cap nhat trang thai
                         actionType = .editProduct
                         
-                        product = Product(name: name, image: productImage.image, unit: product!.unit, profit: Double(profit)!, quantity: product!.quantity, cost: product!.cost)
+                        product = Product(id:Int32(id), name: name, image: productImage.image, unit: product!.unit, profit: Double(profit)!, quantity: product!.quantity, cost: product!.cost)
                         print("pofit \(profit)")
                         print("pofit \(product!.profit)")
                         

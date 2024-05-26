@@ -35,7 +35,7 @@ class ProductCollectionViewCell: UICollectionViewCell,UIGestureRecognizerDelegat
         if let updateProduct = parent!.storyboard!.instantiateViewController(withIdentifier: "updateProduct") as? UpdateProductController {
             //Dua du lieu can truyen vao bien product cua man hinh ImportExportTable
             updateProduct.actionType = .editProduct
-            updateProduct.product = parent!.products[index]
+            updateProduct.product = parent!.filteredProducts[index]
             parent!.selectedIndexPath = index
             //Hien thi man hinh ImportExportTable
             parent!.present(updateProduct, animated: true)
@@ -49,7 +49,7 @@ class ProductCollectionViewCell: UICollectionViewCell,UIGestureRecognizerDelegat
                 // Thêm hành động cho nút "Xoá"
                 alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { action in
                     // Gọi hàm xoá sản phẩm tại đây
-                    self.dao!.deleteProduct(id: Int(self.parent!.products[self.index].id))
+                    self.dao!.deleteProduct(id: Int(self.parent!.filteredProducts[self.index].id))
                     let _ = self.dao!.readProducts(products: &self.parent!.products)
                     self.parent!.filteredProducts = self.parent!.products
                     self.parent!.collectionView.reloadData()

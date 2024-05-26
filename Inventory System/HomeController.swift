@@ -54,8 +54,10 @@ class HomeController: UIViewController {
                     //Xem tap da tap chua
                     print("1 view tapped")
                 case 2:
-                    //Xem tap da tap chua
-                    print("2 view tapped")
+                    if let storage = self.storyboard!.instantiateViewController(withIdentifier: "ListProduct") as? ListProductViewController
+                    {
+                        present(storage, animated: true)
+                    }
                 case 3:
                     //Xem tap da tap chua
                     print("3 view tapped")

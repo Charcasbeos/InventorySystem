@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hr9-df-Ko0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hr9-df-Ko0">
     <device id="retina6_72" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
@@ -157,8 +158,8 @@
         <!--List Product View Controller-->
         <scene sceneID="n4o-7u-mmC">
             <objects>
-                <viewController id="A2T-HV-nsa" customClass="ListProductViewController" customModule="Inventory_System" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="njg-79-WKB">
+                <viewController storyboardIdentifier="ListProduct" modalPresentationStyle="fullScreen" id="A2T-HV-nsa" customClass="ListProductViewController" customModule="Inventory_System" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="ListProduct" id="njg-79-WKB">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -187,7 +188,7 @@
                                     <outlet property="delegate" destination="A2T-HV-nsa" id="gep-48-fRU"/>
                                 </connections>
                             </searchBar>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" preservesSuperviewLayoutMargins="YES" dataMode="prototypes" id="aJR-h0-Wh4">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" preservesSuperviewLayoutMargins="YES" contentInsetAdjustmentBehavior="scrollableAxes" dataMode="prototypes" id="aJR-h0-Wh4">
                                 <rect key="frame" x="0.0" y="164" width="430" height="729"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -563,7 +564,6 @@
             </objects>
             <point key="canvasLocation" x="1735.8139534883721" y="-3.218884120171674"/>
         </scene>
-       
         <!--View Controller-->
         <scene sceneID="oKI-sQ-9iz">
             <objects>
@@ -698,9 +698,8 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QrW-57-rxc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-355.81395348837208" y="679.82832618025759"/>
+            <point key="canvasLocation" x="1407" y="704"/>
         </scene>
-        
         <!--Update Product Controller-->
         <scene sceneID="I6h-ZQ-u2q">
             <objects>
@@ -792,7 +791,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.arrow.up.on.square" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="TM8-kt-xwz">
-                                <rect key="frame" x="20" y="363" width="390" height="394.33333333333337"/>
+                                <rect key="frame" x="20" y="361.66666666666663" width="390" height="395.66666666666674"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="TM8-kt-xwz" secondAttribute="height" multiplier="1:1" id="Aci-Re-nxo"/>
@@ -1370,18 +1369,18 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KEt-tO-0BQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-800.93023255813955" y="688.84120171673828"/>
+            <point key="canvasLocation" x="-922" y="680"/>
         </scene>
         <!--Add Custom Controller-->
         <scene sceneID="xuY-Hm-ex5">
             <objects>
                 <viewController id="AWW-p0-lIy" customClass="AddCustomController" customModule="Inventory_System" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TEE-tc-kCT">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="863"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="31" translatesAutoresizingMaskIntoConstraints="NO" id="iqO-os-Idr">
-                                <rect key="frame" x="20" y="159" width="390" height="183"/>
+                                <rect key="frame" x="20" y="100" width="390" height="183"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fg1-tP-GAq">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="76"/>
@@ -1454,7 +1453,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RYc-xB-HPx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="kSy-WG-Evy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="263.72093023255815" y="674.67811158798293"/>
+            <point key="canvasLocation" x="3" y="680"/>
         </scene>
     </scenes>
     <resources>
@@ -1465,7 +1464,6 @@
         <image name="draft" width="170.66667175292969" height="170.66667175292969"/>
         <image name="eye" catalog="system" width="128" height="79"/>
         <image name="history" width="170.66667175292969" height="170.66667175292969"/>
-
         <image name="pencil.line" catalog="system" width="128" height="117"/>
         <image name="square.and.arrow.up" catalog="system" width="108" height="128"/>
         <image name="square.and.arrow.up.on.square" catalog="system" width="113" height="128"/>
@@ -1476,7 +1474,6 @@
         </systemColor>
         <systemColor name="tintColor">
             <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-
         </systemColor>
         <systemColor name="underPageBackgroundColor">
             <color red="0.70980392156862748" green="0.71764705882352942" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
