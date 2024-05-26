@@ -14,7 +14,7 @@ class ImportExportTableViewController: UITableViewController {
     private var import_exports = [ImportExport]()
     //Khai bao doi tuong xu dung CSDL
     private let dao = Database()
-    //Bien product dung de truyen tham so giua man hinh productTable va man hinh nay
+    //Bien product dung de truyen tham so giua man hinh listProductViewController va man hinh nay
         var product:Product?
     //UI
     @IBOutlet weak var navigation: UINavigationItem!
@@ -22,6 +22,10 @@ class ImportExportTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigation.title = "\(product!.name) - \(product!.profit)%"
+        if let product = product{
+            dao.readImportExportsByProductID(productID: Int(product.id), importexports: &import_exports)
+        }
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -85,6 +89,7 @@ class ImportExportTableViewController: UITableViewController {
         // Tao doi tuong man hinh UpdateProductController
         if let updateProduct = self.storyboard!.instantiateViewController(withIdentifier: "updateProduct") as? UpdateProductController {
             updateProduct.product = product
+            updateProduct.actionType = .editProduct
             //Hien thi man hinh UpdateProductController
             present(updateProduct, animated: true)
             

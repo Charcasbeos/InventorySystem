@@ -16,6 +16,7 @@ class UpdateProductController: UIViewController,UIImagePickerControllerDelegate,
     }
     //Dinh nghia bien dung danh dau duong di
     var actionType:ActionType = .newProduct
+   
     //UI
     @IBOutlet weak var navigation: UINavigationItem!
     @IBOutlet weak var name: UITextField!
@@ -32,12 +33,13 @@ class UpdateProductController: UIViewController,UIImagePickerControllerDelegate,
         name.delegate = self
         profit.delegate = self
         unit.delegate = self
-        if let product = product{
+        if let p = product{
+            
             actionType = .editProduct
             navigation.title = "Edit product"
-            name.text = product.name
-            profit.text = "\(product.profit)"
-            unit.text = product.unit
+            name.text = p.name
+            profit.text = "\(p.profit)"
+            unit.text = p.unit
             unit.isEnabled = false
         }
     }
@@ -122,10 +124,10 @@ class UpdateProductController: UIViewController,UIImagePickerControllerDelegate,
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        //TH1. Tu man hinh ProductTableView chuyen sang
-        if let productTable = segue.destination as? ProductsTableViewController {
+        if let listProductCotroller = segue.destination as? ListProductViewController {
             switch actionType {
             case .newProduct:
+                actionType = .newProduct
                 //tao doi tuong khi có các field khác rỗng
                 if let name = name.text
                     ,let profit = profit.text
@@ -142,7 +144,11 @@ class UpdateProductController: UIViewController,UIImagePickerControllerDelegate,
                     if !name.isEmpty && !profit.isEmpty && !unit.isEmpty{
                         //Cap nhat trang thai
                         actionType = .editProduct
-                        product = Product(name: name, image: productImage.image, unit: product!.unit, profit: product!.profit, quantity: product!.quantity, cost: product!.cost)
+                        
+                        product = Product(name: name, image: productImage.image, unit: product!.unit, profit: Double(profit)!, quantity: product!.quantity, cost: product!.cost)
+                        print("pofit \(profit)")
+                        print("pofit \(product!.profit)")
+                        
                     }
                     
                 }
