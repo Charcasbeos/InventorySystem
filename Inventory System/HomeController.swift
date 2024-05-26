@@ -44,7 +44,7 @@ class HomeController: UIViewController {
                 //Ket noi doi tuong vao view
                 view.addGestureRecognizer(tapGesture)
             }
-            
+            //Dung @objc de lam viec voi Obj-C , gọi Interface Storyboard
             // Xu ly ham tap
             @objc private func handleTap(_ sender: UITapGestureRecognizer) {
                 guard let tappedView = sender.view else { return }
@@ -66,8 +66,10 @@ class HomeController: UIViewController {
                     print("4 view tapped")
                 case 5:
                     //Chuyen trang
+                    //self.storyboard than chieu den man hinh hien tai
                     if let customer = self.storyboard!.instantiateViewController(withIdentifier: "Customer") as? CustomerTableViewController
                     {
+                        customer.modalPresentationStyle = .fullScreen
                         present(customer, animated: true)
                     }
                 case 6:

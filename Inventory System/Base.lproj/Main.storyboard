@@ -1251,7 +1251,7 @@
                                         <barButtonItem systemItem="add" id="NYE-W3-a9V">
                                             <color key="tintColor" systemColor="tintColor"/>
                                             <connections>
-                                                <segue destination="AWW-p0-lIy" kind="show" id="YdA-LQ-2jX"/>
+                                                <action selector="newCustomer:" destination="Ueh-Yd-hxO" id="sGH-d5-vD5"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem systemItem="trash" id="jkg-pS-OB3"/>
@@ -1350,6 +1350,7 @@
                                     <outlet property="accumulatedMoneyCustomer" destination="BoV-m1-43y" id="1QO-1s-z6l"/>
                                     <outlet property="nameCustomer" destination="Yoh-9A-NL8" id="ho5-Yp-KUI"/>
                                     <outlet property="phoneCustomer" destination="Spd-Yx-kmM" id="4w6-sp-XUq"/>
+                                    <segue destination="AWW-p0-lIy" kind="showDetail" id="3bz-7D-1I9"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1358,7 +1359,9 @@
                             <outlet property="delegate" destination="Ueh-Yd-hxO" id="k77-yN-bUY"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="MfK-cZ-g7q"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="delete" destination="jkg-pS-OB3" id="LdE-XL-eu6"/>
                         <outlet property="navigation" destination="R4H-17-tZS" id="7ZQ-cK-dld"/>
@@ -1371,7 +1374,7 @@
         <!--Add Custom Controller-->
         <scene sceneID="xuY-Hm-ex5">
             <objects>
-                <viewController id="AWW-p0-lIy" customClass="AddCustomController" customModule="Inventory_System" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="CustomerDetail" storyboardIdentifier="CustomerDetail" id="AWW-p0-lIy" customClass="AddCustomController" customModule="Inventory_System" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TEE-tc-kCT">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="922"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1414,7 +1417,7 @@
                                 </subviews>
                             </stackView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tao-Ea-A0l">
-                                <rect key="frame" x="-1" y="0.0" width="430" height="44"/>
+                                <rect key="frame" x="-1" y="0.0" width="429" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Add Customer" id="YEq-AG-SHK">
@@ -1425,6 +1428,7 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Ysl-8l-WAI">
                                             <connections>
+                                                <action selector="testSave:" destination="kSy-WG-Evy" id="7vP-Gz-gWL"/>
                                                 <segue destination="kSy-WG-Evy" kind="unwind" unwindAction="unwindFromAddCustomer:" id="cu8-Eo-9XK"/>
                                             </connections>
                                         </barButtonItem>
@@ -1445,6 +1449,7 @@
                         <outlet property="inputName" destination="qEM-nO-I4K" id="qkt-zC-eL1"/>
                         <outlet property="inputPhone" destination="Tl4-aV-ecb" id="U0r-Dl-kyG"/>
                         <outlet property="navigation" destination="YEq-AG-SHK" id="84V-8u-uF4"/>
+                        <outlet property="testSave" destination="Ysl-8l-WAI" id="DCa-qk-35f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RYc-xB-HPx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
