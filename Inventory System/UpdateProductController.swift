@@ -38,6 +38,7 @@ class UpdateProductController: UIViewController,UIImagePickerControllerDelegate,
             actionType = .editProduct
             navigation.title = "Edit product"
             name.text = p.name
+            productImage.image = p.image
             profit.text = "\(p.profit)"
             unit.text = p.unit
             unit.isEnabled = false

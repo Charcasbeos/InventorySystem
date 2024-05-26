@@ -18,7 +18,7 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
     private let dao = Database()
     //UI
     @IBOutlet weak var navigation: UINavigationItem!
-    
+
     @IBOutlet weak var searchbar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
     //MARK: viewDidLoad
@@ -42,7 +42,6 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
         if searchText.isEmpty {
             // Hiển thị tất cả sản phẩm nếu không có từ khóa tìm kiếm
             filteredProducts = products
-            searchBar.resignFirstResponder()
             isSearching = false
             print("empty")
         }
@@ -52,6 +51,8 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
             filteredProducts = products.filter{product in
                 return product.name.lowercased().contains(searchText.lowercased()) }
             print("has")
+            
+            
         }
        
         // Cập nhật CollectionView
@@ -59,12 +60,12 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
         print("Cancel btn")
         isSearching = false
         searchBar.text = ""
         searchBar.resignFirstResponder()
-        
+        filteredProducts = products
+        collectionView.reloadData()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -89,10 +90,10 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
             //Lay phan tu thu i trong mang
             let product = filteredProducts[indexPath.row]
             //Do du lieu vao cell
-            cell.cost.text = "\(0)"
-            cell.price.text = "\(0)"
-            cell.quantity.text = "\(0) \(product.unit)"
-            cell.profit.text = "\(product.profit)"
+            cell.cost.text = "\(String(format: "%.2f", product.cost))"
+            cell.price.text = "\(String(format: "%.2f",product.cost * ((product.profit/100)+1)))"
+            cell.quantity.text = "\(product.quantity) \(product.unit)"
+            cell.profit.text = "\(String(format: "%.2f",product.profit)) %"
             cell.productName.text = product.name
             cell.productImage.image = product.image
             cell.parent = self
@@ -136,8 +137,12 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
         }
         
     }
+    
+   
     //Doc du lieu tu man hinh update product
-    @IBAction func unwindFromUpdateProductsTable(_ segue:UIStoryboardSegue){
+    @IBAction func unwindAtListProductViewController(_ segue:UIStoryboardSegue){
+        // Search bả quay ve trang thai ban dau
+        searchbar.text=""
         //B1. Lay doi tuong man hinh updateProduct va lay bien product truyen ve
         if let updateProductController = segue.source as? UpdateProductController,
            let product = updateProductController.product{
@@ -145,20 +150,16 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
             case .newProduct:
                 //Ghi vao co so du lieu
                 let _ = dao.insertProduct(product: product)
-                dao.readProducts(products: &products)
-                filteredProducts = products
-                collectionView.reloadData()
-                
             case .editProduct:
-//                product.id = products[selectedIndexPath].id
+                
                 let _ = dao.updateProduct(product: product)
-                //Reload lai du lieu moi cho collection view
-                dao.readProducts(products: &products)
-                filteredProducts = products
-                collectionView.reloadData()
             }
             
         }
+        //Reload lai du lieu moi cho collection view
+        dao.readProducts(products: &products)
+        filteredProducts = products
+        collectionView.reloadData()
     }
 
 }

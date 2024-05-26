@@ -31,20 +31,14 @@
                                     <barButtonItem key="leftBarButtonItem" title="Back" image="arrow.backward" catalog="system" id="3aC-0Z-dWM">
                                         <connections>
                                             <action selector="back:" destination="4am-Td-bDs" id="Azb-Hk-KD5"/>
+                                            <segue destination="VBZ-ct-5uN" kind="unwind" unwindAction="unwindAtListProductViewController:" id="RHW-0b-nYf"/>
                                         </connections>
                                     </barButtonItem>
-                                    <rightBarButtonItems>
-                                        <barButtonItem image="pencil.line" catalog="system" id="lj4-km-7gP">
-                                            <connections>
-                                                <action selector="editProduct:" destination="4am-Td-bDs" id="FiS-db-0vk"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem systemItem="add" id="yb6-g7-JkC">
-                                            <connections>
-                                                <action selector="addItem:" destination="4am-Td-bDs" id="h0o-5E-6Bc"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </rightBarButtonItems>
+                                    <barButtonItem key="rightBarButtonItem" systemItem="add" id="yb6-g7-JkC">
+                                        <connections>
+                                            <action selector="addItem:" destination="4am-Td-bDs" id="h0o-5E-6Bc"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </navigationItem>
                             </items>
                         </navigationBar>
@@ -152,6 +146,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pdU-FL-yQR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="VBZ-ct-5uN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="888.83720930232562" y="-3.218884120171674"/>
         </scene>
@@ -159,7 +154,7 @@
         <scene sceneID="n4o-7u-mmC">
             <objects>
                 <viewController storyboardIdentifier="ListProduct" modalPresentationStyle="fullScreen" id="A2T-HV-nsa" customClass="ListProductViewController" customModule="Inventory_System" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" restorationIdentifier="ListProduct" id="njg-79-WKB">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" restorationIdentifier="ListProduct" id="njg-79-WKB">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -180,10 +175,10 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <searchBar contentMode="redraw" restorationIdentifier="searchBar" text="" translatesAutoresizingMaskIntoConstraints="NO" id="iFL-l9-Ee3">
+                            <searchBar multipleTouchEnabled="YES" contentMode="redraw" restorationIdentifier="searchBar" text="" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iFL-l9-Ee3">
                                 <rect key="frame" x="0.0" y="103" width="430" height="56"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="A2T-HV-nsa" id="gep-48-fRU"/>
                                 </connections>
@@ -398,6 +393,8 @@
                             <constraint firstItem="gJ0-Zc-dsN" firstAttribute="bottom" secondItem="aJR-h0-Wh4" secondAttribute="bottom" constant="5" id="yZh-h7-lWR"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="aJR-h0-Wh4" id="nhO-1V-pxM"/>
                         <outlet property="navigation" destination="Ert-dX-oza" id="NMv-ZD-ruT"/>
@@ -433,7 +430,7 @@
                                         <barButtonItem key="rightBarButtonItem" title="Save" id="ot9-AK-DbW">
                                             <connections>
                                                 <action selector="save:" destination="XKt-aG-5J7" id="pPd-rC-2hp"/>
-                                                <segue destination="vhR-ty-SBQ" kind="unwind" unwindAction="unwindFromUpdateImportExport:" id="f6V-E8-T2r"/>
+                                                <segue destination="vhR-ty-SBQ" kind="unwind" unwindAction="unwindAtImportExportTableViewController:" id="hX2-uQ-dQ6"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -724,7 +721,7 @@
                                         <barButtonItem key="rightBarButtonItem" title="Save" id="sY8-ke-FU1">
                                             <connections>
                                                 <action selector="save:" destination="hHo-w7-lYc" id="ZtH-xK-ELz"/>
-                                                <segue destination="bFd-8P-zcI" kind="unwind" unwindAction="unwindFromUpdateProductsTable:" id="8ym-0N-Xhi"/>
+                                                <segue destination="bFd-8P-zcI" kind="unwind" unwindAction="unwindAtListProductViewController:" id="UMY-lR-lPM"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -850,7 +847,7 @@
         <!--Home Controller-->
         <scene sceneID="d4v-Bl-1M2">
             <objects>
-                <viewController id="hr9-df-Ko0" customClass="HomeController" customModule="Inventory_System" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="partialCurl" modalPresentationStyle="fullScreen" id="hr9-df-Ko0" customClass="HomeController" customModule="Inventory_System" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wO4-fT-nVj">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

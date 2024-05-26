@@ -233,6 +233,53 @@ class Database {
             }
         }
     }
+    func readProductByID(id:Int)->Product?{
+        var productRs:Product? = nil
+        if open(){
+            if  database!.tableExists(PRODUCT_TABLE_NAME){
+                
+                //Cau lenh sql
+                let sql = "SELECT * FROM \(PRODUCT_TABLE_NAME) WHERE \(PRODUCT_ID) = \(id)"
+                //Du lieu doc ve tu CSDL
+                var result:FMResultSet?
+                do{
+                    result = try database!.executeQuery(sql, values: nil)
+                    
+                }
+                catch{
+                    os_log("Khong the truy van CSDL")
+                }
+                //Thuc hien doc du lieu tu doi tuong FMResultSet,
+                //tao bien product moi va dua vao datasource
+                if let result = result{
+                    while result.next(){
+                        var image:UIImage? = nil
+                        let name = result.string(forColumn: PRODUCT_NAME) ?? ""
+                        let unit = result.string(forColumn: PRODUCT_UNIT) ?? ""
+                        let id = result.int(forColumn: PRODUCT_ID)
+                        let quantity = result.int(forColumn: PRODUCT_QUANTITY)
+                        let cost = result.double(forColumn: PRODUCT_COST)
+                        let profit = result.double(forColumn: PRODUCT_PROFIT)
+                        if let strImage = result.string(forColumn: PRODUCT_IMAGE), !strImage.isEmpty{
+                            //Buoc 1. Chuyen strImage thanh Data
+                            let dataImage = Data(base64Encoded: strImage, options: .ignoreUnknownCharacters)
+                            //Buoc 2. Chuyen dataImage thanh UIImage
+                            image = UIImage(data: dataImage!)
+                        }
+                        
+                        //Tao bien product moi tu du lieu doc trong csdl
+                        if let product = Product(id:id, name: name, image:image, unit: unit , profit: profit, quantity: Int(quantity), cost: cost){
+                            productRs = product
+                        }
+                    }
+                }
+                //Dong csdl
+                close()
+            }
+        }
+        return productRs
+    }
+    
     ///2.2 ImportExport
     func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExport]){
         if open(){
@@ -251,6 +298,7 @@ class Database {
                 //Thuc hien doc du lieu tu doi tuong FMResultSet,
                 //tao bien importexport moi va dua vao datasource
                 if let result = result{
+                    importexports = [ImportExport]()
                     while result.next(){
                         let productID = result.int(forColumn: IMPORTEXPOR_PRODUCTID)
                         let quantity = result.int(forColumn: IMPORTEXPOR_QUANTITY)
@@ -277,7 +325,7 @@ class Database {
             if  database!.tableExists(PRODUCT_TABLE_NAME){
                 //Cau lenh sql de them du lieu vao CSDL
                 let sql = "UPDATE \(PRODUCT_TABLE_NAME) SET "
-                + "\(PRODUCT_NAME) = ?,\(PRODUCT_IMAGE) = ? ,\(PRODUCT_PROFIT) = ?  WHERE \(PRODUCT_ID) = ?"
+                + "\(PRODUCT_NAME) = ?,\(PRODUCT_IMAGE) = ? ,\(PRODUCT_PROFIT) = ?,\(PRODUCT_QUANTITY) = ?, \(PRODUCT_COST) = ?  WHERE \(PRODUCT_ID) = ?"
                 //Chuyen UIImage thanh chuoi
                 var strImage = ""
                 if let image = product.image{
@@ -287,7 +335,7 @@ class Database {
                     strImage = nsdataImage.base64EncodedString(options: .lineLength64Characters)
                 }
                 //Luu gia tri meal vao CSDL
-                if database!.executeUpdate(sql, withArgumentsIn: [product.name, strImage, product.profit, product.id]){
+                if database!.executeUpdate(sql, withArgumentsIn: [product.name, strImage, product.profit, product.quantity, product.cost, product.id]){
             
                     os_log("Sua du lieu product thanh cong")
                     OK = true
