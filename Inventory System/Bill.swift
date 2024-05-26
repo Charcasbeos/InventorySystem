@@ -14,6 +14,6 @@ class Bill{
     //MARK: init
     init(products: [Product]) {
         self.products = products
-        self.date = Date.now        
+        self.date = Date.now
     }
 }

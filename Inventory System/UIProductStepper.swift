@@ -62,6 +62,8 @@ class UIProductStepper: UIStackView, UITextFieldDelegate{
         }
     }
     
+   
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpView()
@@ -85,6 +87,7 @@ class UIProductStepper: UIStackView, UITextFieldDelegate{
         stepper.addTarget(self, action: #selector(stepperValueChanged(_:)), for: .valueChanged)
         quantityTextField.addTarget(self, action: #selector(textFieldValueChanged(_:)), for: .editingChanged)
         
+        
         updateUI()
     }
     
@@ -103,5 +106,7 @@ class UIProductStepper: UIStackView, UITextFieldDelegate{
         }
         return true
     }
+    
+    
 
 }

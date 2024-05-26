@@ -1128,10 +1128,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tMm-pE-Fnc">
-                                            <rect key="frame" x="20" y="8" width="110" height="91"/>
+                                            <rect key="frame" x="20" y="8.6666666666666643" width="110" height="90"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="90" id="azN-9t-ZUG"/>
-                                                <constraint firstAttribute="width" constant="110" id="o3h-uf-Vxb"/>
+                                                <constraint firstAttribute="width" constant="110" id="o7V-Hm-EM7"/>
+                                                <constraint firstAttribute="height" constant="90" id="v53-Hw-p38"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Regular Tea" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4a6-ru-nD7">
@@ -1147,21 +1147,20 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="11s-h7-Yhu" customClass="UIProductStepper" customModule="Inventory_System" customModuleProvider="target">
-                                            <rect key="frame" x="284" y="37.666666666666664" width="126" height="31.666666666666664"/>
+                                            <rect key="frame" x="284" y="32" width="126" height="31.666666666666671"/>
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="tMm-pE-Fnc" firstAttribute="centerY" secondItem="2Gl-o1-rNj" secondAttribute="centerY" id="0xo-GJ-ctQ"/>
-                                        <constraint firstItem="4a6-ru-nD7" firstAttribute="leading" secondItem="NhW-j5-r2O" secondAttribute="leading" id="8Xj-D1-ItX"/>
-                                        <constraint firstItem="NhW-j5-r2O" firstAttribute="centerY" secondItem="11s-h7-Yhu" secondAttribute="centerY" id="DE0-SK-qox"/>
-                                        <constraint firstItem="4a6-ru-nD7" firstAttribute="top" secondItem="2Gl-o1-rNj" secondAttribute="topMargin" id="LKb-dd-aNM"/>
-                                        <constraint firstItem="11s-h7-Yhu" firstAttribute="leading" secondItem="NhW-j5-r2O" secondAttribute="trailing" constant="73" id="NuX-7X-dUk"/>
-                                        <constraint firstItem="tMm-pE-Fnc" firstAttribute="top" secondItem="2Gl-o1-rNj" secondAttribute="topMargin" constant="-3" id="Ub6-gy-KVh"/>
-                                        <constraint firstItem="tMm-pE-Fnc" firstAttribute="centerY" secondItem="NhW-j5-r2O" secondAttribute="centerY" id="Xx9-Ix-63I"/>
-                                        <constraint firstItem="tMm-pE-Fnc" firstAttribute="leading" secondItem="2Gl-o1-rNj" secondAttribute="leadingMargin" id="Z8T-fa-jvo"/>
-                                        <constraint firstItem="11s-h7-Yhu" firstAttribute="trailing" secondItem="2Gl-o1-rNj" secondAttribute="trailingMargin" id="c4t-uU-c1A"/>
-                                        <constraint firstItem="11s-h7-Yhu" firstAttribute="top" secondItem="2Gl-o1-rNj" secondAttribute="topMargin" constant="26.666666666666657" id="ly5-mb-Qh3"/>
-                                        <constraint firstItem="4a6-ru-nD7" firstAttribute="leading" secondItem="tMm-pE-Fnc" secondAttribute="trailing" constant="8" id="us9-SW-aoP"/>
+                                        <constraint firstItem="11s-h7-Yhu" firstAttribute="top" secondItem="2Gl-o1-rNj" secondAttribute="topMargin" constant="20.999999999999996" id="66s-tw-ib5"/>
+                                        <constraint firstItem="NhW-j5-r2O" firstAttribute="centerY" secondItem="tMm-pE-Fnc" secondAttribute="centerY" id="Ass-Mt-gsP"/>
+                                        <constraint firstItem="NhW-j5-r2O" firstAttribute="centerY" secondItem="2Gl-o1-rNj" secondAttribute="centerY" id="JR8-x0-AuI"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="11s-h7-Yhu" secondAttribute="bottom" constant="32.333333333333343" id="TcE-WD-Xgd"/>
+                                        <constraint firstItem="11s-h7-Yhu" firstAttribute="leading" secondItem="NhW-j5-r2O" secondAttribute="trailing" constant="73" id="Xif-EB-0b1"/>
+                                        <constraint firstItem="NhW-j5-r2O" firstAttribute="top" secondItem="4a6-ru-nD7" secondAttribute="bottom" constant="8.3333333333333286" id="qrG-9T-fAT"/>
+                                        <constraint firstItem="11s-h7-Yhu" firstAttribute="trailing" secondItem="2Gl-o1-rNj" secondAttribute="trailingMargin" id="tBq-lP-IH4"/>
+                                        <constraint firstItem="NhW-j5-r2O" firstAttribute="leading" secondItem="tMm-pE-Fnc" secondAttribute="trailing" constant="8" id="ua6-8K-tcH"/>
+                                        <constraint firstItem="11s-h7-Yhu" firstAttribute="leading" secondItem="2Gl-o1-rNj" secondAttribute="leading" constant="284" id="wrt-B2-PnV"/>
+                                        <constraint firstItem="NhW-j5-r2O" firstAttribute="leading" secondItem="4a6-ru-nD7" secondAttribute="leading" id="zF6-bC-xm1"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1169,6 +1168,7 @@
                                     <outlet property="productImage" destination="tMm-pE-Fnc" id="WhC-Nz-03x"/>
                                     <outlet property="productName" destination="4a6-ru-nD7" id="whZ-lB-DBG"/>
                                     <outlet property="productPrice" destination="NhW-j5-r2O" id="JvW-jP-tW1"/>
+                                    <outlet property="stepper" destination="11s-h7-Yhu" id="tcV-C7-JsV"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1213,7 +1213,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="vSt-ks-QvA">
-                                            <rect key="frame" x="20" y="8.9999999999999964" width="132" height="47.666666666666657"/>
+                                            <rect key="frame" x="20" y="9" width="132" height="47.666666666666671"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ten Khach Hang" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yoh-9A-NL8">
                                                     <rect key="frame" x="0.0" y="0.0" width="132" height="20.333333333333332"/>

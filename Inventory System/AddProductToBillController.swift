@@ -13,17 +13,50 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
     var products:[Product] = []
     
     
+    
     @IBOutlet weak var navigation: UINavigationItem!
-    let cartButton = UIButton(type: .custom)
+    let cartButton = UIButton(type: .custom)    
+    let draftAndSaveButton = UIDraftAndSaveButton()
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //custom UI for cart button
         cartButton.setImage(UIImage(named: "shopping-cart"), for: .normal)
-              cartButton.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
-              cartButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        cartButton.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
+        cartButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        
+        //custom UI for back button
+        
+        
+        
         
         navigation.rightBarButtonItem = UIBarButtonItem(customView: cartButton)
+        
+        
+        // Add draftAndSaveButton as a subview to the footview
+        let footerView = UIView()
+        footerView.addSubview(draftAndSaveButton)
+        
+        
+
+        draftAndSaveButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+               draftAndSaveButton.leadingAnchor.constraint(equalTo: footerView.leadingAnchor),
+               draftAndSaveButton.trailingAnchor.constraint(equalTo: footerView.trailingAnchor),
+               draftAndSaveButton.topAnchor.constraint(equalTo: footerView.topAnchor),
+               draftAndSaveButton.bottomAnchor.constraint(equalTo: footerView.bottomAnchor),
+               draftAndSaveButton.heightAnchor.constraint(equalToConstant: 50)
+           ])
+           
+           tableView.tableFooterView = footerView
+           footerView.frame.size.height = 50
+        
+        
+        
         
         let product1 = Product(name: "Test1", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
         let product2 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 10, cost: 10)
@@ -48,13 +81,12 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
         products.append(product9!)
         
         
-        
-        
-        
+        updateCartBadge()
+
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmisKeyBoard))
         view.addGestureRecognizer(tapGesture)
-        
+
     }
     
     @objc func dissmisKeyBoard(){
@@ -83,26 +115,65 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
             cell.productName.text = product.name
             cell.productPrice.text = product.unit
             
+            
+        
+            
+            //         Add gesture recognizer if not already added
+            //            if cell.onTapped == nil {
+            //                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectedProduct))
+            //                cell.addGestureRecognizer(tapGestureRecognizer)
+            //                cell.onTapped = tapGestureRecognizer
+            //            }
+            
             return cell
         }
         
-
-        
-//         Add gesture recognizer if not already added
-//        if cell.onTapped == nil {
-//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectedProduct))
-//            cell.addGestureRecognizer(tapGestureRecognizer)
-//            cell.onTapped = tapGestureRecognizer
-//        }
         fatalError("Cell hasn't been created !!!")
         
     }
+    
+    func updateCartBadge() {
+        
+        
+        cartButton.subviews.forEach { subview in
+            if subview.tag == 99 { subview.removeFromSuperview() }
+        }
+        
+        let totalProducts = getTotalProductsInCart()
+        
+        if totalProducts > 0 {
+            let badgeLabel = UILabel()
+            badgeLabel.text = "\(totalProducts)"
+            badgeLabel.textColor = .white
+            badgeLabel.backgroundColor = .red
+            badgeLabel.textAlignment = .center
+            badgeLabel.font = UIFont.systemFont(ofSize: 12)
+            badgeLabel.layer.cornerRadius = 10
+            badgeLabel.clipsToBounds = true
+            badgeLabel.tag = 99
+            
+            let badgeSize: CGFloat = 20
+            badgeLabel.frame = CGRect(x: cartButton.frame.width - badgeSize / 2,
+                                      y: -badgeSize / 2,
+                                      width: badgeSize,
+                                      height: badgeSize)
+            
+            cartButton.addSubview(badgeLabel)
+        }
+    }
+        
+    func getTotalProductsInCart() -> Int {
+        // Return the actual total products count from your cart data source
+        return 10 // Placeholder
+    }
+
+
     
     @objc func cartButtonTapped(){
         os_log("Cart Button Tapped")
     }
     
-    
+   
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -110,6 +181,7 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
         return true
     }
     */
+    
 
     /*
     // Override to support editing the table view.
