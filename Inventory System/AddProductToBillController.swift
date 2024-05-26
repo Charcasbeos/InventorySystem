@@ -9,37 +9,60 @@ import UIKit
 
 class AddProductToBillController: UITableViewController {
 
+    var products:[Product] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        
+        let product1 = Product(name: "Test1", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
+        let product2 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 10, cost: 10)
+        let product3 = Product(name: "Test3", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
+        
+        
+        products.append(product1!)
+        products.append(product2!)
+        products.append(product3!)
+        
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return products.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let reuseCell = "ProductOfBillCell"
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: reuseCell, for: indexPath) as? ProductOfBillCell{
+            
+            let product = products[indexPath.row]
+            cell.productName.text = product.name
+            cell.productPrice.text = product.unit
+            
+            return cell
+        }
+        
 
-        // Configure the cell...
-
-        return cell
+        
+//         Add gesture recognizer if not already added
+//        if cell.onTapped == nil {
+//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(editMeal))
+//            cell.addGestureRecognizer(tapGestureRecognizer)
+//            cell.onTapped = tapGestureRecognizer
+//        }
+        fatalError("Cell hasn't been created !!!")
+        
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

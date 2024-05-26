@@ -1,22 +1,24 @@
 //
-//  ProductCell.swift
+//  ProductOfBillCell.swift
 //  Inventory System
 //
-//  Created by tran thu on 23/05/2024.
+//  Created by DaiTran on 25/5/24.
 //
 
 import UIKit
 
-class ProductCell: UITableViewCell {
+class ProductOfBillCell: UITableViewCell {
 
+    //MARK: Properties
+    
+    
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productName: UILabel!
-    @IBOutlet weak var quantity: UILabel!
+    @IBOutlet weak var productPrice: UILabel!
+    @IBOutlet weak var stepper: UIProductStepper!
     
-    @IBOutlet weak var price: UILabel!
-    @IBOutlet weak var profit: UILabel!
-    @IBOutlet weak var cost: UILabel!
-    var opTap:UIGestureRecognizer?
+    var onTapped: UIGestureRecognizer?
+    
     
     
     override func awakeFromNib() {
@@ -28,12 +30,14 @@ class ProductCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-        if opTap != nil {
-            opTap!.delegate = self
+        if let onTapped = onTapped{
+            onTapped.delegate = self
         }
+
+        // Configure the view for the selected state
     }
-    //B1.Dinh nghia ham uy quyen cho Guesture recognizer
+        
     override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return(touch.view == self.contentView)
+        return (touch.view == self.contentView)
     }
 }

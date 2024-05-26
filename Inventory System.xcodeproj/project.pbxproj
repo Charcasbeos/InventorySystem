@@ -40,6 +40,8 @@
 		F84980D22BFC590000F6B2CB /* CustomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84980D12BFC590000F6B2CB /* CustomItem.swift */; };
 		F84980D52BFC5A7000F6B2CB /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84980D42BFC5A7000F6B2CB /* HomeController.swift */; };
 		F85B9CB12BFBA10A001A8B37 /* AddProductToBillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85B9CB02BFBA10A001A8B37 /* AddProductToBillController.swift */; };
+		F88127522C019AAD0027D87A /* UIProductStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88127512C019AAD0027D87A /* UIProductStepper.swift */; };
+		F88127542C01CD750027D87A /* ProductOfBillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88127532C01CD750027D87A /* ProductOfBillCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +105,8 @@
 		F84980D12BFC590000F6B2CB /* CustomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomItem.swift; sourceTree = "<group>"; };
 		F84980D42BFC5A7000F6B2CB /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		F85B9CB02BFBA10A001A8B37 /* AddProductToBillController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductToBillController.swift; sourceTree = "<group>"; };
+		F88127512C019AAD0027D87A /* UIProductStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProductStepper.swift; sourceTree = "<group>"; };
+		F88127532C01CD750027D87A /* ProductOfBillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductOfBillCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +285,8 @@
 				F816B15B2BFC93FF00AD387D /* CellCustomer.swift */,
 				8D7C815A2BFF264800DDC23F /* ProductCell.swift */,
 				8D7C81602BFF893200DDC23F /* ImportExportCell.swift */,
+				F88127512C019AAD0027D87A /* UIProductStepper.swift */,
+				F88127532C01CD750027D87A /* ProductOfBillCell.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -431,12 +437,14 @@
 				F8031F802BE334B800CE8604 /* ViewController.swift in Sources */,
 				8D6769BD2BFDC1E6002C790A /* FMDatabaseQueue.m in Sources */,
 				F8031F7C2BE334B800CE8604 /* AppDelegate.swift in Sources */,
+				F88127522C019AAD0027D87A /* UIProductStepper.swift in Sources */,
 				8D7C815F2BFF848300DDC23F /* ImportExportTableViewController.swift in Sources */,
 				8DA847622BFBA50D0046551B /* ProductsTableViewController.swift in Sources */,
 				8D6769BC2BFDC1E6002C790A /* FMDatabase.m in Sources */,
 				F8031F7E2BE334B800CE8604 /* SceneDelegate.swift in Sources */,
 				8D6769BE2BFDC1E6002C790A /* FMResultSet.m in Sources */,
 				8D6769BF2BFDC1E6002C790A /* FMDatabasePool.m in Sources */,
+				F88127542C01CD750027D87A /* ProductOfBillCell.swift in Sources */,
 				8DCF00732BFC79AC005A6B0F /* UpdateStorageController.swift in Sources */,
 				8D6769BB2BFDC1E6002C790A /* FMDatabaseAdditions.m in Sources */,
 				F84980CD2BFBABFF00F6B2CB /* (null) in Sources */,
