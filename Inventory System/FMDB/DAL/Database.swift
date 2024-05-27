@@ -33,8 +33,14 @@ class Database {
     private let IMPORTEXPOR_QUANTITY = "quantity"
     private let IMPORTEXPOR_COST = "cost"
     private let IMPORTEXPOR_DATE = "date"
-
-        
+    //3. Customer
+    private let CUSTOMER_TABLE_NAME = "customers"
+    private let CUSTOMER_ID = "_id"
+    private let CUSTOMER_NAME = "name"
+    private let CUSTOMER_PHONE = "phone"
+    private let CUSTOMER_ACCUMULATED_MONEY = "accumulated_money"
+    
+    
     //MARK: Constructor
     init(){
         //Lay tat ca duong dan den cac thu muc doccument trong mot ung dung iOS
@@ -63,8 +69,13 @@ class Database {
             + "\(IMPORTEXPOR_QUANTITY) INTEGER ,"
             + "\(IMPORTEXPOR_COST) DOUBLE ,"
             + "\(IMPORTEXPOR_DATE) DEFAULT CURRENT_DATE)"
+            //3. Customer
+            let sql_customers = "Create table \(CUSTOMER_TABLE_NAME)("
+            + "\(CUSTOMER_ID) INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "\(CUSTOMER_NAME) TEXT ,"
+            + "\(CUSTOMER_PHONE) TEXT ,"
+            + "\(CUSTOMER_ACCUMULATED_MONEY) DOUBLE)"
             
-
             if open(){
                 if !database!.tableExists(PRODUCT_TABLE_NAME){
                     if createTable(sql: sql_products){
@@ -81,8 +92,15 @@ class Database {
                         os_log("Tao bang importexport khong thanh cong")
                     }
                 }
+                if !database!.tableExists(CUSTOMER_TABLE_NAME){
+                    if createTable(sql: sql_customers){
+                        os_log("Tao bang customers thanh cong")
+                    }else{
+                        os_log("Tao bang customers khong thanh cong")
+                    }
+                }
             }
-           
+            
             
         }
         else{
@@ -182,5 +200,107 @@ class Database {
             
         }
         return OK
+    }
+    
+    //3. Insert
+    ///3.1 Customers
+    func insertCustomer(customer:Customer)->Bool{
+        
+        
+        var OK = false
+        if open(){
+            //Kiem tra su ton tai cua bang du lieu
+            if  database!.tableExists(CUSTOMER_TABLE_NAME){
+                //Cau lenh sql de them du lieu vao CSDL
+                let sql = "INSERT INTO \(CUSTOMER_TABLE_NAME) "
+                + "(\(CUSTOMER_NAME) ,\(CUSTOMER_PHONE),\(CUSTOMER_ACCUMULATED_MONEY)) VALUES (?,?,?)"
+               
+                //Luu gia tri customer vao CSDL
+                if database!.executeUpdate(sql, withArgumentsIn: [customer.name,customer.phoneNumber,customer.accumulatedMoney]){
+                    os_log("Them du lieu customer thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Them du lieu customer khong thanh cong")
+                }
+            }
+            
+        }
+        return OK
+    }
+    //// 3.2 Read Customer
+    func readAllCustomer(customers: inout [Customer]) {
+        if open() {
+            if database!.tableExists(CUSTOMER_TABLE_NAME) {
+                // Câu lệnh sql truy vấn dữ liệu từ csdl
+                let sql = "SELECT * FROM \(CUSTOMER_TABLE_NAME) ORDER BY \(CUSTOMER_ID) DESC"
+                // Khai báo biến chứa dữ liệu trả về
+                var result:FMResultSet?
+                do {
+                    os_log("Truy vấn csdl thành công")
+                    result = try database!.executeQuery(sql, values: nil)
+                }
+                catch {
+                    os_log("Không thể truy vấn csdl")
+                }
+                // Đọc dữ liệu ra từ đối tượng result
+                if let result = result {
+                    while result.next() {
+                        let name = result.string(forColumn: CUSTOMER_NAME) ?? ""
+                        let phone  = result.string(forColumn: CUSTOMER_PHONE) ?? ""
+                        let accumulated_money = result.double(forColumn: CUSTOMER_ACCUMULATED_MONEY)
+                        let id = result.int(forColumn: CUSTOMER_ID)
+                        // Tạo đối tượng customer từ dữ liệu đọc được
+                        if let customer = Customer(name: name, phoneNumber: phone, accumulatedMoney: accumulated_money,id: id) {
+                            customers.append(customer)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ////3.3 Delete Custome
+    func deleteCustomerById(id:Int32) -> Bool {
+        var OK = false
+        if open() {
+            if database!.tableExists(CUSTOMER_TABLE_NAME) {
+                // cau lenh
+                let sql = "DELETE FROM \(CUSTOMER_TABLE_NAME) WHERE \(CUSTOMER_ID) = ?"
+                // THUC THI
+                if database!.executeUpdate(sql, withArgumentsIn: [id]) {
+                    os_log("xoa phan tu \(id) thanh cong")
+                    OK = true
+                }
+                else {
+                    os_log("xoa phan tu \(id) thanh bai")
+                }
+                close()
+            }
+        }
+        return OK;
+    }
+    ///3.4 Update Customer
+    func updateCustomer(customer:Customer) ->Bool {
+        var OK = false
+        if open(){
+            if database!.tableExists(CUSTOMER_TABLE_NAME) {
+                // CAU LENH
+                let sql = "UPDATE \(CUSTOMER_TABLE_NAME) SET \(CUSTOMER_NAME) = ?, \(CUSTOMER_PHONE) = ?, \(CUSTOMER_ACCUMULATED_MONEY) = ? WHERE \(CUSTOMER_ID) = ?"
+               
+                //THUC thi cau lenh sql
+                if database!.executeUpdate(sql, withArgumentsIn: [customer.name, customer.phoneNumber, customer.accumulatedMoney, customer.id]) {
+                    os_log("cap nhap customer thu \(customer.id) thanh cong ")
+                    OK = true
+                }
+                else {
+                    os_log("cap nhap customer thu \(customer.id) ko thanh cong ")
+                }
+                //dong
+                close()
+            }
+        }
+        return OK;
     }
 }
