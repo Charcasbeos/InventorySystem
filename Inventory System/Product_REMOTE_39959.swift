@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-class Product : Hashable {
+class Product {
     //MARK : Properties
     var id:Int32 = -1
     var name: String

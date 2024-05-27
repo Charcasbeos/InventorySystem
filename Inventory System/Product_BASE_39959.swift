@@ -7,9 +7,9 @@
 
 import Foundation
 import UIKit
-class Product : Hashable {
+class Product {
     //MARK : Properties
-    var id:Int32 = -1
+    var id:Int
     var name: String
     var image:UIImage?
     var unit : String
@@ -19,11 +19,11 @@ class Product : Hashable {
     
     
     //MaRK : Constructor
-    init?(id:Int32 = -1 , name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
+    init?( name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
         if name.isEmpty || unit.isEmpty{
             return nil
         }
-        self.id = id
+        self.id = 0
         self.name = name
         self.image = image
         self.unit = unit
