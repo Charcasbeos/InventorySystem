@@ -16,8 +16,6 @@
 		8D7C81552BFE46D300DDC23F /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7C81542BFE46D300DDC23F /* Product.swift */; };
 		8D7C81572BFEF1E700DDC23F /* ImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7C81562BFEF1E700DDC23F /* ImportExport.swift */; };
 		8D7C81592BFEFF9600DDC23F /* UpdateProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7C81582BFEFF9600DDC23F /* UpdateProductController.swift */; };
-		8D7C815B2BFF264800DDC23F /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7C815A2BFF264800DDC23F /* ProductCell.swift */; };
-		8D7C815D2BFF7DC300DDC23F /* EditProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7C815C2BFF7DC300DDC23F /* EditProductController.swift */; };
 		8D7C815F2BFF848300DDC23F /* ImportExportTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7C815E2BFF848300DDC23F /* ImportExportTableViewController.swift */; };
 		8D7C81612BFF893200DDC23F /* ImportExportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7C81602BFF893200DDC23F /* ImportExportCell.swift */; };
 		8D7C81632BFF8BF900DDC23F /* UpdateImportExportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7C81622BFF8BF900DDC23F /* UpdateImportExportController.swift */; };
@@ -45,6 +43,7 @@
 		F8B6AD092C033F12003CD04E /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD082C033F12003CD04E /* Bill.swift */; };
 		F8B6AD0B2C0350CB003CD04E /* UIDraftAndSaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */; };
 		F8B6AD0E2C0414F9003CD04E /* UIProductStepperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */; };
+		F8F55D492C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F55D482C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +113,7 @@
 		F8B6AD082C033F12003CD04E /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDraftAndSaveButton.swift; sourceTree = "<group>"; };
 		F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProductStepperDelegate.swift; sourceTree = "<group>"; };
+		F8F55D482C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductOfBillCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,6 +298,7 @@
 				F88127512C019AAD0027D87A /* UIProductStepper.swift */,
 				F88127532C01CD750027D87A /* ProductOfBillCell.swift */,
 				F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */,
+				F8F55D482C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -464,7 +465,6 @@
 				8D6769BE2BFDC1E6002C790A /* FMResultSet.m in Sources */,
 				8D6769BF2BFDC1E6002C790A /* FMDatabasePool.m in Sources */,
 				F88127542C01CD750027D87A /* ProductOfBillCell.swift in Sources */,
-				8DCF00732BFC79AC005A6B0F /* UpdateStorageController.swift in Sources */,
 				F8B6AD0B2C0350CB003CD04E /* UIDraftAndSaveButton.swift in Sources */,
 				8D6769BB2BFDC1E6002C790A /* FMDatabaseAdditions.m in Sources */,
 				F84980CD2BFBABFF00F6B2CB /* (null) in Sources */,
@@ -484,6 +484,7 @@
 				8D7C81532BFE437D00DDC23F /* Database.swift in Sources */,
 				F816B15E2BFC965F00AD387D /* CustomerTableViewController.swift in Sources */,
 				8D7C81632BFF8BF900DDC23F /* UpdateImportExportController.swift in Sources */,
+				F8F55D492C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

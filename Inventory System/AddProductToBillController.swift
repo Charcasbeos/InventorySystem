@@ -20,6 +20,8 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
     let cartButton = UIButton(type: .custom)    
     let draftAndSaveButton = UIDraftAndSaveButton()
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     
     override func viewDidLoad() {
