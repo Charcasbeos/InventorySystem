@@ -18,7 +18,6 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
     private let dao = Database()
     //UI
     @IBOutlet weak var navigation: UINavigationItem!
-
     @IBOutlet weak var searchbar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
     //MARK: viewDidLoad
