@@ -29,7 +29,7 @@ class Database {
     //2.ImportExport
     private let IMPORTEXPORT_TABLE_NAME = "import_export"
     private let IMPORTEXPORT_ID = "_id"
-    private let IMPORTEXPOR_PRODUCTID = "productID"
+    private let IMPORTEXPOR_PRODUCT_ID = "product_id"
     private let IMPORTEXPOR_QUANTITY = "quantity"
     private let IMPORTEXPOR_COST = "cost"
     private let IMPORTEXPOR_DATE = "date"
@@ -39,8 +39,20 @@ class Database {
     private let CUSTOMER_NAME = "name"
     private let CUSTOMER_PHONE = "phone"
     private let CUSTOMER_ACCUMULATED_MONEY = "accumulated_money"
-    
-    
+    //4. Bill
+    private let BILL_TABLE_NAME = "bills"
+    private let BILL_ID = "_id"
+    private let BILL_CUSTOMER_ID = "custormer_id"
+    private let BILL_STATUS = "status"
+    private let BILL_DATE = "date"
+    //4. Bill
+    private let BILL_DETAIL_TABLE_NAME = "bill_detail"
+    private let BILL_DETAIL_BILL_ID = "bill_id"
+    private let BILL_DETAIL_PRODUCT_ID = "product_id"
+    private let BILL_DETAIL_PRODUCT_NAME = "product_name"
+    private let BILL_DETAIL_PRODUCT_PROFIT = "product_profit"
+    private let BILL_DETAIL_PRODUCT_COST = "product_cost"
+    private let BILL_DETAIL_QUANTITY = "quantity"
     //MARK: Constructor
     init(){
         //Lay tat ca duong dan den cac thu muc doccument trong mot ung dung iOS
@@ -65,7 +77,7 @@ class Database {
             //2.ImportExport
             let sql_import_export = "Create table \(IMPORTEXPORT_TABLE_NAME)("
             + "\(IMPORTEXPORT_ID) INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "\(IMPORTEXPOR_PRODUCTID) INTEGER ,"
+            + "\(IMPORTEXPOR_PRODUCT_ID) INTEGER ,"
             + "\(IMPORTEXPOR_QUANTITY) INTEGER ,"
             + "\(IMPORTEXPOR_COST) DOUBLE ,"
             + "\(IMPORTEXPOR_DATE) DEFAULT CURRENT_DATE)"
@@ -75,6 +87,20 @@ class Database {
             + "\(CUSTOMER_NAME) TEXT ,"
             + "\(CUSTOMER_PHONE) TEXT ,"
             + "\(CUSTOMER_ACCUMULATED_MONEY) DOUBLE)"
+            //4. Bill
+            let sql_bill = "Create table \(BILL_TABLE_NAME)("
+            + "\(BILL_ID) INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "\(BILL_CUSTOMER_ID) INTEGER ,"
+            + "\(BILL_STATUS) INTEGER ,"
+            + "\(BILL_DATE) DATE)"
+            //4. BillDetail
+            let sql_bill_detail = "Create table \(BILL_DETAIL_TABLE_NAME)("
+            + "\(BILL_DETAIL_BILL_ID) INTEGER , "
+            + "\(BILL_DETAIL_PRODUCT_ID) INTEGER ,"
+            + "\(BILL_DETAIL_PRODUCT_NAME) TEXT ,"
+            + "\(BILL_DETAIL_PRODUCT_PROFIT) DOUBLE ,"
+            + "\(BILL_DETAIL_PRODUCT_COST) DOUBLE ,"
+            + "\(BILL_DETAIL_QUANTITY) INTEGER)"
             
             if open(){
                 if !database!.tableExists(PRODUCT_TABLE_NAME){
@@ -97,6 +123,20 @@ class Database {
                         os_log("Tao bang customers thanh cong")
                     }else{
                         os_log("Tao bang customers khong thanh cong")
+                    }
+                }
+                if !database!.tableExists(BILL_TABLE_NAME){
+                    if createTable(sql: sql_bill){
+                        os_log("Tao bang bills thanh cong")
+                    }else{
+                        os_log("Tao bang bills khong thanh cong")
+                    }
+                }
+                if !database!.tableExists(BILL_DETAIL_TABLE_NAME){
+                    if createTable(sql: sql_bill_detail){
+                        os_log("Tao bang bill detail thanh cong")
+                    }else{
+                        os_log("Tao bang bill detail khong thanh cong")
                     }
                 }
             }
@@ -187,7 +227,7 @@ class Database {
             if  database!.tableExists(PRODUCT_TABLE_NAME){
                 //Cau lenh sql de them du lieu vao CSDL
                 let sql = "INSERT INTO \(IMPORTEXPORT_TABLE_NAME) "
-                + "(\(IMPORTEXPOR_PRODUCTID),\(IMPORTEXPOR_QUANTITY),\(IMPORTEXPOR_COST),\(IMPORTEXPOR_DATE)) VALUES (?,?,?,?)"
+                + "(\(IMPORTEXPOR_PRODUCT_ID),\(IMPORTEXPOR_QUANTITY),\(IMPORTEXPOR_COST),\(IMPORTEXPOR_DATE)) VALUES (?,?,?,?)"
                 
                 //Luu gia tri meal vao CSDL
                 if database!.executeUpdate(sql, withArgumentsIn: [importexport.productID, importexport.quantity, importexport.cost, importexport.date]){
@@ -304,7 +344,7 @@ class Database {
         if open(){
             if  database!.tableExists(IMPORTEXPORT_TABLE_NAME){
                 //Cau lenh sql
-                let sql = "SELECT * FROM \(IMPORTEXPORT_TABLE_NAME) WHERE \(IMPORTEXPOR_PRODUCTID) = \(productID) ORDER BY \(IMPORTEXPOR_DATE) DESC"
+                let sql = "SELECT * FROM \(IMPORTEXPORT_TABLE_NAME) WHERE \(IMPORTEXPOR_PRODUCT_ID) = \(productID) ORDER BY \(IMPORTEXPOR_DATE) DESC"
                 //Du lieu doc ve tu CSDL
                 var result:FMResultSet?
                 do{
@@ -319,7 +359,7 @@ class Database {
                 if let result = result{
                     importexports = [ImportExport]()
                     while result.next(){
-                        let productID = result.int(forColumn: IMPORTEXPOR_PRODUCTID)
+                        let productID = result.int(forColumn: IMPORTEXPOR_PRODUCT_ID)
                         let quantity = result.int(forColumn: IMPORTEXPOR_QUANTITY)
                         let cost = result.double(forColumn: IMPORTEXPOR_COST)
                         let date = result.date(forColumn: IMPORTEXPOR_DATE) ?? Date()
@@ -514,5 +554,104 @@ class Database {
             }
         }
         return OK;
+    }
+    
+    //Bills
+    func insertBill(bill:Bill)->Bool{
+        var OK = false
+        if open(){
+            //Kiem tra su ton tai cua bang du lieu
+            if  database!.tableExists(PRODUCT_TABLE_NAME){
+                //Cau lenh sql de them du lieu vao CSDL
+                let sql = "INSERT INTO \(BILL_TABLE_NAME) "
+                + "(\(BILL_CUSTOMER_ID),\(BILL_STATUS),\(BILL_DATE)) VALUES (?,?,?)"
+                
+                //Luu gia tri meal vao CSDL
+                if database!.executeUpdate(sql, withArgumentsIn: [bill.customerID, bill.status, bill.date]){
+                    os_log("Them du lieu bill thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Them du lieu bill khong thanh cong")
+                }
+            }
+            
+        }
+        return OK
+    }
+    func updateSatusBill(billID:Int,status:Int)->Bool{
+        var OK = false
+        if open(){
+            //Kiem tra su ton tai cua bang du lieu
+            if  database!.tableExists(BILL_TABLE_NAME){
+                //Cau lenh sql de cap nhat du lieu vao CSDL
+                let sql = "UPDATE \(BILL_TABLE_NAME) SET "
+                + "\(BILL_STATUS) = ? WHERE \(BILL_ID) = ?"
+                
+                //Luu gia tri meal vao CSDL
+                if database!.executeUpdate(sql, withArgumentsIn: [status,billID]){
+                    os_log("Cap nhat trang thai bill thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Cap nhat trang thai bill khong thanh cong")
+                }
+            }
+            
+        }
+        return OK
+    }
+    //BillDetail
+    func insertBillDetail(billDetail:BillDetail)->Bool{
+        var OK = false
+        if open(){
+            //Kiem tra su ton tai cua bang du lieu
+            if  database!.tableExists(BILL_DETAIL_TABLE_NAME){
+                //Cau lenh sql de them du lieu vao CSDL
+                let sql = "INSERT INTO \(BILL_DETAIL_TABLE_NAME) "
+                + "(\(BILL_DETAIL_BILL_ID),\(BILL_DETAIL_PRODUCT_ID),\(BILL_DETAIL_PRODUCT_NAME),\(BILL_DETAIL_PRODUCT_PROFIT),\(BILL_DETAIL_PRODUCT_COST),\(BILL_DETAIL_QUANTITY) VALUES (?,?,?,?,?,?)"
+                
+                //Luu gia tri meal vao CSDL
+                if database!.executeUpdate(sql, withArgumentsIn: [billDetail.billID,billDetail.productID,billDetail.productName,billDetail.productProfit, billDetail.productCost, billDetail.quantity]){
+                    os_log("Them du lieu bill detail thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Them du lieu bill detail khong thanh cong")
+                }
+            }
+            
+        }
+        return OK
+    }
+    func updateBillDetail(billDetail:BillDetail)->Bool{
+        var OK = false
+        if open(){
+            //Kiem tra su ton tai cua bang du lieu
+            if  database!.tableExists(BILL_DETAIL_TABLE_NAME){
+                //Cau lenh sql de them du lieu vao CSDL
+                let sql = "UPDATE \(BILL_DETAIL_TABLE_NAME) "
+                + "SET \(BILL_DETAIL_PRODUCT_NAME) = ? ,\(BILL_DETAIL_PRODUCT_PROFIT) = ? ,\(BILL_DETAIL_PRODUCT_COST) = ? ,\(BILL_DETAIL_QUANTITY) = ? WHERE \(BILL_DETAIL_BILL_ID) = ? AND \(BILL_DETAIL_PRODUCT_ID) = ? "
+                
+                //Luu gia tri meal vao CSDL
+                if database!.executeUpdate(sql, withArgumentsIn: [billDetail.billID,billDetail.productID,billDetail.productName,billDetail.productProfit, billDetail.productCost, billDetail.quantity]){
+                    os_log("Sua du lieu bill detail thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Sua du lieu bill detail khong thanh cong")
+                }
+            }
+            
+        }
+        return OK
     }
 }

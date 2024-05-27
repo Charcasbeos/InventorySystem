@@ -21,6 +21,10 @@
 		8D7C81632BFF8BF900DDC23F /* UpdateImportExportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7C81622BFF8BF900DDC23F /* UpdateImportExportController.swift */; };
 		8DAD34B32C01B6B1006D8910 /* ListProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD34B22C01B6B1006D8910 /* ListProductViewController.swift */; };
 		8DAD34B52C01BF53006D8910 /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD34B42C01BF53006D8910 /* ProductCollectionViewCell.swift */; };
+		8DC2CB432C0429CA00C14AA7 /* ListBillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2CB422C0429CA00C14AA7 /* ListBillViewController.swift */; };
+		8DC2CB452C0430C000C14AA7 /* BillCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2CB442C0430C000C14AA7 /* BillCollectionViewCell.swift */; };
+		8DC2CB472C043A5E00C14AA7 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2CB462C043A5E00C14AA7 /* Bill.swift */; };
+		8DC2CB492C043A6C00C14AA7 /* BillDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2CB482C043A6C00C14AA7 /* BillDetail.swift */; };
 		8DCF00862BFCFF00005A6B0F /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DCF00852BFCFF00005A6B0F /* libsqlite3.0.tbd */; };
 		CE73EB552C0198790056FFFE /* AddCustomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73EB542C0198790056FFFE /* AddCustomController.swift */; };
 		F8031F7C2BE334B800CE8604 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8031F7B2BE334B800CE8604 /* AppDelegate.swift */; };
@@ -43,6 +47,7 @@
 		F8B6AD092C033F12003CD04E /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD082C033F12003CD04E /* Bill.swift */; };
 		F8B6AD0B2C0350CB003CD04E /* UIDraftAndSaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */; };
 		F8B6AD0E2C0414F9003CD04E /* UIProductStepperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */; };
+		F8F55D492C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F55D482C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +92,10 @@
 		8DC2CB392C0319FB00C14AA7 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = System/Library/Frameworks/Charts.framework; sourceTree = SDKROOT; };
 		8DC2CB3E2C031ED400C14AA7 /* Charts-master */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Charts-master"; sourceTree = "<group>"; };
 		8DC2CB3F2C03206D00C14AA7 /* DGCharts.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = DGCharts.podspec; path = "Charts-master/DGCharts.podspec"; sourceTree = "<group>"; };
+		8DC2CB422C0429CA00C14AA7 /* ListBillViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBillViewController.swift; sourceTree = "<group>"; };
+		8DC2CB442C0430C000C14AA7 /* BillCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillCollectionViewCell.swift; sourceTree = "<group>"; };
+		8DC2CB462C043A5E00C14AA7 /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
+		8DC2CB482C043A6C00C14AA7 /* BillDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetail.swift; sourceTree = "<group>"; };
 		8DCF00852BFCFF00005A6B0F /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		CE73EB542C0198790056FFFE /* AddCustomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomController.swift; sourceTree = "<group>"; };
 		F8031F782BE334B800CE8604 /* Inventory System.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Inventory System.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +121,7 @@
 		F8B6AD082C033F12003CD04E /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDraftAndSaveButton.swift; sourceTree = "<group>"; };
 		F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProductStepperDelegate.swift; sourceTree = "<group>"; };
+		F8F55D482C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductOfBillCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +282,7 @@
 				8D7C81622BFF8BF900DDC23F /* UpdateImportExportController.swift */,
 				8DAD34B22C01B6B1006D8910 /* ListProductViewController.swift */,
 				CE73EB542C0198790056FFFE /* AddCustomController.swift */,
+				8DC2CB422C0429CA00C14AA7 /* ListBillViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -282,7 +293,12 @@
 				F816B1582BFC907D00AD387D /* Customer.swift */,
 				8D7C81542BFE46D300DDC23F /* Product.swift */,
 				8D7C81562BFEF1E700DDC23F /* ImportExport.swift */,
+<<<<<<< HEAD
 				F8B6AD082C033F12003CD04E /* Bill.swift */,
+=======
+				8DC2CB462C043A5E00C14AA7 /* Bill.swift */,
+				8DC2CB482C043A6C00C14AA7 /* BillDetail.swift */,
+>>>>>>> main
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -292,12 +308,14 @@
 			children = (
 				F816B15B2BFC93FF00AD387D /* CellCustomer.swift */,
 				8D7C81602BFF893200DDC23F /* ImportExportCell.swift */,
+				8DAD34B42C01BF53006D8910 /* ProductCollectionViewCell.swift */,
 <<<<<<< HEAD
 				F88127512C019AAD0027D87A /* UIProductStepper.swift */,
 				F88127532C01CD750027D87A /* ProductOfBillCell.swift */,
 				F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */,
+				F8F55D482C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift */,
 =======
-				8DAD34B42C01BF53006D8910 /* ProductCollectionViewCell.swift */,
+				8DC2CB442C0430C000C14AA7 /* BillCollectionViewCell.swift */,
 >>>>>>> main
 			);
 			name = Controls;
@@ -386,7 +404,7 @@
 					New,
 				);
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					F8031F772BE334B800CE8604 = {
 						CreatedOnToolsVersion = 15.3;
@@ -464,18 +482,18 @@
 				F8031F7E2BE334B800CE8604 /* SceneDelegate.swift in Sources */,
 				8D6769BE2BFDC1E6002C790A /* FMResultSet.m in Sources */,
 				8D6769BF2BFDC1E6002C790A /* FMDatabasePool.m in Sources */,
-<<<<<<< HEAD
 				F88127542C01CD750027D87A /* ProductOfBillCell.swift in Sources */,
-				8DCF00732BFC79AC005A6B0F /* UpdateStorageController.swift in Sources */,
 				F8B6AD0B2C0350CB003CD04E /* UIDraftAndSaveButton.swift in Sources */,
-=======
->>>>>>> main
 				8D6769BB2BFDC1E6002C790A /* FMDatabaseAdditions.m in Sources */,
 				F84980CD2BFBABFF00F6B2CB /* (null) in Sources */,
 				CE73EB552C0198790056FFFE /* AddCustomController.swift in Sources */,
+				8DC2CB452C0430C000C14AA7 /* BillCollectionViewCell.swift in Sources */,
+				8DC2CB432C0429CA00C14AA7 /* ListBillViewController.swift in Sources */,
 				F85B9CB12BFBA10A001A8B37 /* AddProductToBillController.swift in Sources */,
+				F8031F7E2BE334B800CE8604 /* SceneDelegate.swift in Sources */,
 				F8B6AD092C033F12003CD04E /* Bill.swift in Sources */,
 				8D7C81592BFEFF9600DDC23F /* UpdateProductController.swift in Sources */,
+				8DC2CB472C043A5E00C14AA7 /* Bill.swift in Sources */,
 				F816B1592BFC907D00AD387D /* Customer.swift in Sources */,
 				F84980D22BFC590000F6B2CB /* CustomItem.swift in Sources */,
 				8D7C81572BFEF1E700DDC23F /* ImportExport.swift in Sources */,
@@ -486,7 +504,9 @@
 				8D7C81552BFE46D300DDC23F /* Product.swift in Sources */,
 				8D7C81532BFE437D00DDC23F /* Database.swift in Sources */,
 				F816B15E2BFC965F00AD387D /* CustomerTableViewController.swift in Sources */,
+				8DC2CB492C043A6C00C14AA7 /* BillDetail.swift in Sources */,
 				8D7C81632BFF8BF900DDC23F /* UpdateImportExportController.swift in Sources */,
+				F8F55D492C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
