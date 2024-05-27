@@ -43,7 +43,6 @@
 		F84980D52BFC5A7000F6B2CB /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84980D42BFC5A7000F6B2CB /* HomeController.swift */; };
 		F85B9CB12BFBA10A001A8B37 /* AddProductToBillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85B9CB02BFBA10A001A8B37 /* AddProductToBillController.swift */; };
 		F88127522C019AAD0027D87A /* UIProductStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88127512C019AAD0027D87A /* UIProductStepper.swift */; };
-		F8B6AD092C033F12003CD04E /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD082C033F12003CD04E /* Bill.swift */; };
 		F8B6AD0B2C0350CB003CD04E /* UIDraftAndSaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */; };
 		F8B6AD0E2C0414F9003CD04E /* UIProductStepperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */; };
 		F8F55D492C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F55D482C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift */; };
@@ -489,7 +488,6 @@
 				8DC2CB432C0429CA00C14AA7 /* ListBillViewController.swift in Sources */,
 				F85B9CB12BFBA10A001A8B37 /* AddProductToBillController.swift in Sources */,
 				F8031F7E2BE334B800CE8604 /* SceneDelegate.swift in Sources */,
-				F8B6AD092C033F12003CD04E /* Bill.swift in Sources */,
 				8D7C81592BFEFF9600DDC23F /* UpdateProductController.swift in Sources */,
 				8DC2CB472C043A5E00C14AA7 /* Bill.swift in Sources */,
 				F816B1592BFC907D00AD387D /* Customer.swift in Sources */,

@@ -18,6 +18,6 @@ class Bill{
         self.id = id
         self.customerID = customerID
         self.status = status
-        self.date = date.now
+        self.date = date
     }
 }
