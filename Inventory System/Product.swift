@@ -31,5 +31,20 @@ class Product : Hashable {
         self.profit = profit
         self.quantity = quantity
     }
-    
+    //MARK: - Hashable
+       static func == (lhs: Product, rhs: Product) -> Bool {
+           return lhs.name == rhs.name &&
+                  lhs.unit == rhs.unit &&
+                  lhs.cost == rhs.cost &&
+                  lhs.profit == rhs.profit &&
+                  lhs.quantity == rhs.quantity
+       }
+
+       func hash(into hasher: inout Hasher) {
+           hasher.combine(name)
+           hasher.combine(unit)
+           hasher.combine(cost)
+           hasher.combine(profit)
+           hasher.combine(quantity)
+       }
 }
