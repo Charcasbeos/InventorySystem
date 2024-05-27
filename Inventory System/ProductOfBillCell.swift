@@ -24,7 +24,7 @@ class ProductOfBillCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        selectionStyle = .none3
+        selectionStyle = .none
         
     }
 

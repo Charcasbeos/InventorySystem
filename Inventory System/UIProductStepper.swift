@@ -9,9 +9,14 @@ import OSLog
 
 class UIProductStepper: UIStackView, UITextFieldDelegate{
     
+    weak var delegate: UIProductStepperDelegate?
+
+    
     private var _quantityValue: Int = 0 {
         didSet {
             updateUI()
+            delegate?.productStepper(self, didChangeQuantity: _quantityValue)
+            
         }
     }
     

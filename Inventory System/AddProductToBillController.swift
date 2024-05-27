@@ -8,10 +8,12 @@
 import UIKit
 import OSLog
 
-class AddProductToBillController: UITableViewController, UITabBarControllerDelegate {
+class AddProductToBillController: UITableViewController, UITabBarControllerDelegate, UIProductStepperDelegate {
+
+    
 
     var products:[Product] = []
-    
+    var cart: [Product:Int] = [:]
     
     
     @IBOutlet weak var navigation: UINavigationItem!
@@ -28,8 +30,6 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
         cartButton.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
         cartButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         
-        //custom UI for back button
-        
         
         
         
@@ -41,19 +41,19 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
         footerView.addSubview(draftAndSaveButton)
         
         
-
+        
         draftAndSaveButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-               draftAndSaveButton.leadingAnchor.constraint(equalTo: footerView.leadingAnchor),
-               draftAndSaveButton.trailingAnchor.constraint(equalTo: footerView.trailingAnchor),
-               draftAndSaveButton.topAnchor.constraint(equalTo: footerView.topAnchor),
-               draftAndSaveButton.bottomAnchor.constraint(equalTo: footerView.bottomAnchor),
-               draftAndSaveButton.heightAnchor.constraint(equalToConstant: 50)
-           ])
-           
-           tableView.tableFooterView = footerView
-           footerView.frame.size.height = 50
+            draftAndSaveButton.leadingAnchor.constraint(equalTo: footerView.leadingAnchor),
+            draftAndSaveButton.trailingAnchor.constraint(equalTo: footerView.trailingAnchor),
+            draftAndSaveButton.topAnchor.constraint(equalTo: footerView.topAnchor),
+            draftAndSaveButton.bottomAnchor.constraint(equalTo: footerView.bottomAnchor),
+            draftAndSaveButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        tableView.tableFooterView = footerView
+        footerView.frame.size.height = 50
         
         
         
@@ -82,11 +82,11 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
         
         
         updateCartBadge()
-
+        
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmisKeyBoard))
         view.addGestureRecognizer(tapGesture)
-
+        
     }
     
     @objc func dissmisKeyBoard(){
@@ -115,15 +115,10 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
             cell.productName.text = product.name
             cell.productPrice.text = product.unit
             
+            // Set delegate for product stepper
+            cell.stepper.delegate = self
+            cell.stepper.tag = indexPath.row
             
-        
-            
-            //         Add gesture recognizer if not already added
-            //            if cell.onTapped == nil {
-            //                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectedProduct))
-            //                cell.addGestureRecognizer(tapGestureRecognizer)
-            //                cell.onTapped = tapGestureRecognizer
-            //            }
             
             return cell
         }
@@ -132,8 +127,14 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
         
     }
     
+    //MARK: Add product to cart
+    func addToCart(product: Product,quantity: Int){
+        cart[product] = quantity
+        updateCartBadge()
+    }
+    
+    //MARK: update car badge
     func updateCartBadge() {
-        
         
         cartButton.subviews.forEach { subview in
             if subview.tag == 99 { subview.removeFromSuperview() }
@@ -164,10 +165,19 @@ class AddProductToBillController: UITableViewController, UITabBarControllerDeleg
         
     func getTotalProductsInCart() -> Int {
         // Return the actual total products count from your cart data source
-        return 10 // Placeholder
+        return cart.values.reduce(0, +)
     }
 
-
+    func productStepper(_ stepper: UIProductStepper, didChangeQuantity quantity: Int) {
+        //The tag property is used to store the index of the product in the products array.
+        let productIndex = stepper.tag
+        let product = products[productIndex]
+        
+        addToCart(product: product, quantity: quantity)
+        
+        
+    }
+    
     
     @objc func cartButtonTapped(){
         os_log("Cart Button Tapped")

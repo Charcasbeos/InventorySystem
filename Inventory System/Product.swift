@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-class Product {
+class Product : Hashable {
     //MARK : Properties
     var id:Int
     var name: String
@@ -18,7 +18,7 @@ class Product {
     var quantity : Int
     
     
-    //MaRK : Constructor
+    //MARK : Constructor
     init?( name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
         if name.isEmpty || unit.isEmpty{
             return nil
@@ -32,4 +32,16 @@ class Product {
         self.quantity = quantity
     }
     
+    //MARK: - Hashable
+    static func == (lhs: Product, rhs: Product) -> Bool {
+        return lhs.name == rhs.name && lhs.unit == rhs.unit && lhs.cost == rhs.cost && lhs.profit == rhs.profit && lhs.quantity == rhs.quantity
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(unit)
+        hasher.combine(cost)
+        hasher.combine(profit)
+        hasher.combine(quantity)
+    }
 }

@@ -44,6 +44,7 @@
 		F88127542C01CD750027D87A /* ProductOfBillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88127532C01CD750027D87A /* ProductOfBillCell.swift */; };
 		F8B6AD092C033F12003CD04E /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD082C033F12003CD04E /* Bill.swift */; };
 		F8B6AD0B2C0350CB003CD04E /* UIDraftAndSaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */; };
+		F8B6AD0E2C0414F9003CD04E /* UIProductStepperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		F88127532C01CD750027D87A /* ProductOfBillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductOfBillCell.swift; sourceTree = "<group>"; };
 		F8B6AD082C033F12003CD04E /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDraftAndSaveButton.swift; sourceTree = "<group>"; };
+		F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProductStepperDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +216,7 @@
 		F8031F7A2BE334B800CE8604 /* Inventory System */ = {
 			isa = PBXGroup;
 			children = (
+				F8B6AD0C2C0414CA003CD04E /* Protocol */,
 				8D6769AD2BFDC1A1002C790A /* FMDB */,
 				F816B15A2BFC93C200AD387D /* Controls */,
 				F816B1552BFC8FDC00AD387D /* Models */,
@@ -303,6 +306,14 @@
 				F84980D12BFC590000F6B2CB /* CustomItem.swift */,
 			);
 			name = Customs;
+			sourceTree = "<group>";
+		};
+		F8B6AD0C2C0414CA003CD04E /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */,
+			);
+			name = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -443,6 +454,7 @@
 				F8031F802BE334B800CE8604 /* ViewController.swift in Sources */,
 				8D6769BD2BFDC1E6002C790A /* FMDatabaseQueue.m in Sources */,
 				F8031F7C2BE334B800CE8604 /* AppDelegate.swift in Sources */,
+				F8B6AD0E2C0414F9003CD04E /* UIProductStepperDelegate.swift in Sources */,
 				F88127522C019AAD0027D87A /* UIProductStepper.swift in Sources */,
 				8D7C815F2BFF848300DDC23F /* ImportExportTableViewController.swift in Sources */,
 				8DA847622BFBA50D0046551B /* ProductsTableViewController.swift in Sources */,
