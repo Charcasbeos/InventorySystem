@@ -43,7 +43,6 @@
 		F84980D52BFC5A7000F6B2CB /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84980D42BFC5A7000F6B2CB /* HomeController.swift */; };
 		F85B9CB12BFBA10A001A8B37 /* AddProductToBillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85B9CB02BFBA10A001A8B37 /* AddProductToBillController.swift */; };
 		F88127522C019AAD0027D87A /* UIProductStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88127512C019AAD0027D87A /* UIProductStepper.swift */; };
-		F88127542C01CD750027D87A /* ProductOfBillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88127532C01CD750027D87A /* ProductOfBillCell.swift */; };
 		F8B6AD092C033F12003CD04E /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD082C033F12003CD04E /* Bill.swift */; };
 		F8B6AD0B2C0350CB003CD04E /* UIDraftAndSaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */; };
 		F8B6AD0E2C0414F9003CD04E /* UIProductStepperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */; };
@@ -117,7 +116,6 @@
 		F84980D42BFC5A7000F6B2CB /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		F85B9CB02BFBA10A001A8B37 /* AddProductToBillController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductToBillController.swift; sourceTree = "<group>"; };
 		F88127512C019AAD0027D87A /* UIProductStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProductStepper.swift; sourceTree = "<group>"; };
-		F88127532C01CD750027D87A /* ProductOfBillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductOfBillCell.swift; sourceTree = "<group>"; };
 		F8B6AD082C033F12003CD04E /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDraftAndSaveButton.swift; sourceTree = "<group>"; };
 		F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProductStepperDelegate.swift; sourceTree = "<group>"; };
@@ -211,6 +209,7 @@
 				F8031F912BE334BA00CE8604 /* Inventory SystemTests */,
 				8DCF00812BFCFBFF005A6B0F /* Frameworks */,
 				F8031F9B2BE334BA00CE8604 /* Inventory SystemUITests */,
+				F8F55D4A2C04CAAB00254CF1 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -307,7 +306,6 @@
 				8DAD34B42C01BF53006D8910 /* ProductCollectionViewCell.swift */,
 				8DC2CB442C0430C000C14AA7 /* BillCollectionViewCell.swift */,
 				F88127512C019AAD0027D87A /* UIProductStepper.swift */,
-				F88127532C01CD750027D87A /* ProductOfBillCell.swift */,
 				F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */,
 				F8F55D482C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift */,
 			);
@@ -328,6 +326,14 @@
 				F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */,
 			);
 			name = Protocol;
+			sourceTree = "<group>";
+		};
+		F8F55D4A2C04CAAB00254CF1 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				F8B6AD082C033F12003CD04E /* Bill.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -475,7 +481,6 @@
 				F8031F7E2BE334B800CE8604 /* SceneDelegate.swift in Sources */,
 				8D6769BE2BFDC1E6002C790A /* FMResultSet.m in Sources */,
 				8D6769BF2BFDC1E6002C790A /* FMDatabasePool.m in Sources */,
-				F88127542C01CD750027D87A /* ProductOfBillCell.swift in Sources */,
 				F8B6AD0B2C0350CB003CD04E /* UIDraftAndSaveButton.swift in Sources */,
 				8D6769BB2BFDC1E6002C790A /* FMDatabaseAdditions.m in Sources */,
 				F84980CD2BFBABFF00F6B2CB /* (null) in Sources */,
