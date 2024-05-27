@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 class Product : Hashable {
     //MARK : Properties
-    var id:Int
+    var id:Int32 = -1
     var name: String
     var image:UIImage?
     var unit : String
@@ -18,12 +18,17 @@ class Product : Hashable {
     var quantity : Int
     
     
+<<<<<<< .merge_file_Br3bBQ
     //MARK : Constructor
     init?( name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
+=======
+    //MaRK : Constructor
+    init?(id:Int32 = -1 , name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
+>>>>>>> .merge_file_Q9W1hK
         if name.isEmpty || unit.isEmpty{
             return nil
         }
-        self.id = 0
+        self.id = id
         self.name = name
         self.image = image
         self.unit = unit
