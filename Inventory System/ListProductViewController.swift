@@ -107,6 +107,10 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     // MARK: - Navigation
+    
+    @IBAction func back(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
     //Chuyen sang man hinh update product
     @IBAction func addItem(_ sender: UIBarButtonItem) {
         if isSearching{

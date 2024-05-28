@@ -59,8 +59,13 @@ class HomeController: UIViewController {
                         present(storage, animated: true)
                     }
                 case 3:
-                    //Xem tap da tap chua
-                    print("3 view tapped")
+                    //Chuyen trang
+                    //self.storyboard than chieu den man hinh hien tai
+                    if let bills = self.storyboard!.instantiateViewController(withIdentifier: "ListBill") as? ListBillViewController
+                    {
+                        bills.modalPresentationStyle = .fullScreen
+                        present(bills, animated: true)
+                    }
                 case 4:
                     //Xem tap da tap chua
                     print("4 view tapped")
