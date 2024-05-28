@@ -15,6 +15,7 @@ class ProductCollectionViewCell: UICollectionViewCell,UIGestureRecognizerDelegat
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var profit: UILabel!
     @IBOutlet weak var cost: UILabel!
+    
     var parent:ListProductViewController?
     var index = 0
     var dao:Database? = nil

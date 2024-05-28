@@ -17,9 +17,14 @@ class Product : Hashable {
     var profit : Double
     var quantity : Int
     
-
+    
+<<<<<<<<< Temporary merge branch 1
     //MaRK : Constructor
     init?(id:Int32 = -1 , name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
+=========
+    //MARK : Constructor
+    init?( name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
+>>>>>>>>> Temporary merge branch 2
         if name.isEmpty || unit.isEmpty{
             return nil
         }
@@ -31,20 +36,17 @@ class Product : Hashable {
         self.profit = profit
         self.quantity = quantity
     }
+    
     //MARK: - Hashable
-       static func == (lhs: Product, rhs: Product) -> Bool {
-           return lhs.name == rhs.name &&
-                  lhs.unit == rhs.unit &&
-                  lhs.cost == rhs.cost &&
-                  lhs.profit == rhs.profit &&
-                  lhs.quantity == rhs.quantity
-       }
+    static func == (lhs: Product, rhs: Product) -> Bool {
+        return lhs.name == rhs.name && lhs.unit == rhs.unit && lhs.cost == rhs.cost && lhs.profit == rhs.profit && lhs.quantity == rhs.quantity
+    }
 
-       func hash(into hasher: inout Hasher) {
-           hasher.combine(name)
-           hasher.combine(unit)
-           hasher.combine(cost)
-           hasher.combine(profit)
-           hasher.combine(quantity)
-       }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(unit)
+        hasher.combine(cost)
+        hasher.combine(profit)
+        hasher.combine(quantity)
+    }
 }

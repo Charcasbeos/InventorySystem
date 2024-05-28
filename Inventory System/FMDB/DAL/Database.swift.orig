@@ -244,6 +244,8 @@ class Database {
         return OK
     }
     
+<<<<<<< HEAD
+=======
     //2. Select
     ///2.1 Product
     func readProducts(products: inout [Product]){
@@ -411,6 +413,7 @@ class Database {
         return OK
     }
     
+>>>>>>> features/bill-detail-ui
     //3. Insert
     ///3.1 Customers
     func insertCustomer(customer:Customer)->Bool{

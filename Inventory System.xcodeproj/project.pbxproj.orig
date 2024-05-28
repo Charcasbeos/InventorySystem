@@ -307,12 +307,22 @@
 			children = (
 				F816B15B2BFC93FF00AD387D /* CellCustomer.swift */,
 				8D7C81602BFF893200DDC23F /* ImportExportCell.swift */,
+<<<<<<< HEAD
+<<<<<<< .merge_file_rDkhcg
+=======
 				8DAD34B42C01BF53006D8910 /* ProductCollectionViewCell.swift */,
 				8DC2CB442C0430C000C14AA7 /* BillCollectionViewCell.swift */,
+>>>>>>> features/bill-detail-ui
 				F88127512C019AAD0027D87A /* UIProductStepper.swift */,
 				F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */,
+<<<<<<< HEAD
+=======
+				8DAD34B42C01BF53006D8910 /* ProductCollectionViewCell.swift */,
+>>>>>>> .merge_file_6h3Etv
+=======
 				F8F55D482C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift */,
 				F8CC2FFC2C05BDDE0046021C /* UIOrderComfirmationViewCell.swift */,
+>>>>>>> features/bill-detail-ui
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -486,7 +496,16 @@
 				F8031F7E2BE334B800CE8604 /* SceneDelegate.swift in Sources */,
 				8D6769BE2BFDC1E6002C790A /* FMResultSet.m in Sources */,
 				8D6769BF2BFDC1E6002C790A /* FMDatabasePool.m in Sources */,
+<<<<<<< HEAD
+<<<<<<< .merge_file_rDkhcg
+				F88127542C01CD750027D87A /* ProductOfBillCell.swift in Sources */,
+				8DCF00732BFC79AC005A6B0F /* UpdateStorageController.swift in Sources */,
 				F8B6AD0B2C0350CB003CD04E /* UIDraftAndSaveButton.swift in Sources */,
+=======
+>>>>>>> .merge_file_6h3Etv
+=======
+				F8B6AD0B2C0350CB003CD04E /* UIDraftAndSaveButton.swift in Sources */,
+>>>>>>> features/bill-detail-ui
 				8D6769BB2BFDC1E6002C790A /* FMDatabaseAdditions.m in Sources */,
 				F84980CD2BFBABFF00F6B2CB /* (null) in Sources */,
 				CE73EB552C0198790056FFFE /* AddCustomController.swift in Sources */,

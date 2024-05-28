@@ -17,9 +17,19 @@ class Product : Hashable {
     var profit : Double
     var quantity : Int
     
-
+    
+<<<<<<< HEAD
+<<<<<<< .merge_file_Br3bBQ
+    //MARK : Constructor
+    init?( name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
+=======
     //MaRK : Constructor
     init?(id:Int32 = -1 , name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
+>>>>>>> .merge_file_Q9W1hK
+=======
+    //MaRK : Constructor
+    init?(id:Int32 = -1 , name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
+>>>>>>> features/bill-detail-ui
         if name.isEmpty || unit.isEmpty{
             return nil
         }

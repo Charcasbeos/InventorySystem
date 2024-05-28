@@ -17,7 +17,7 @@ class Product : Hashable {
     var profit : Double
     var quantity : Int
     
-
+    
     //MaRK : Constructor
     init?(id:Int32 = -1 , name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
         if name.isEmpty || unit.isEmpty{

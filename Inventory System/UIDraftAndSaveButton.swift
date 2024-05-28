@@ -1,62 +1,46 @@
 import UIKit
 import OSLog
-class UIDraftAndSaveButton: UIStackView {
+
+
+
+class UIDraftAndSaveButton: UICollectionReusableView {
+    
     
     // MARK: - Properties
+    static let reuseIdentifier = "UIDraftAndSaveButton"
+    public var onDraftButtonTapped: (() -> Void)?
+    public var onSaveButtonTapped: (() -> Void)?
     
-    private let draftButton: UIButton = {
-           let button = UIButton()
-           button.setTitle("Draft", for: .normal)
-           button.setTitleColor(.white, for: .normal)
-           button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-           
-           // Set gradient background
-           let gradientLayer = CAGradientLayer()
-           gradientLayer.colors = [UIColor.blue.cgColor, UIColor.systemBlue.cgColor]
-           gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-           gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
-           gradientLayer.frame = button.bounds
-           button.layer.insertSublayer(gradientLayer, at: 0)
-           
-           // Set corner radius
-           button.layer.cornerRadius = 8
-           button.layer.masksToBounds = true
-           
-           // Set shadow
-           button.layer.shadowColor = UIColor.black.cgColor
-           button.layer.shadowOpacity = 0.3
-           button.layer.shadowOffset = CGSize(width: 2, height: 2)
-           button.layer.shadowRadius = 4
-           
-           return button
-       }()
-           
-       private let saveButton: UIButton = {
-           let button = UIButton()
-           button.setTitle("Save", for: .normal)
-           button.setTitleColor(.white, for: .normal)
-           button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-           
-           // Set gradient background
-           let gradientLayer = CAGradientLayer()
-           gradientLayer.colors = [UIColor.blue.cgColor, UIColor.systemBlue.cgColor]
-           gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-           gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
-           gradientLayer.frame = button.bounds
-           button.layer.insertSublayer(gradientLayer, at: 0)
-           
-           // Set corner radius
-           button.layer.cornerRadius = 8
-           button.layer.masksToBounds = true
-           
-           // Set shadow
-           button.layer.shadowColor = UIColor.black.cgColor
-           button.layer.shadowOpacity = 0.3
-           button.layer.shadowOffset = CGSize(width: 2, height: 2)
-           button.layer.shadowRadius = 4
-           
-           return button
-       }()
+     let draftButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Draft", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.2
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 6
+        return button
+    }()
+    
+     let saveButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Save", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.2
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 6
+        return button
+    }()
+    
+    private let draftButtonGradientLayer = CAGradientLayer()
+    private let saveButtonGradientLayer = CAGradientLayer()
     
     // MARK: - Initialization
     
@@ -65,7 +49,7 @@ class UIDraftAndSaveButton: UIStackView {
         setupUI()
     }
     
-    required init(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()
     }
@@ -73,21 +57,35 @@ class UIDraftAndSaveButton: UIStackView {
     // MARK: - Private Methods
     
     private func setupUI() {
-        // Customize stack view properties if needed
-        axis = .horizontal
+        // Configure gradient layers
+        draftButtonGradientLayer.colors = [UIColor.systemBlue.cgColor, UIColor.systemTeal.cgColor]
+        draftButtonGradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        draftButtonGradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
         
-        alignment = .fill
+        saveButtonGradientLayer.colors = [UIColor.systemGreen.cgColor, UIColor.systemTeal.cgColor]
+        saveButtonGradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        saveButtonGradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
         
-        distribution = .fillEqually
-        spacing = 8
+        // Create a stack view
+        let stackView = UIStackView(arrangedSubviews: [draftButton, saveButton])
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 16 // Increased spacing for a more comfortable look
         
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
+        NSLayoutConstraint.activate([
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+        ])
         
-        // Add buttons to stack view
-        addArrangedSubview(draftButton)
-        addArrangedSubview(saveButton)
-        
-
+        // Add gradient layers to buttons
+        draftButton.layer.insertSublayer(draftButtonGradientLayer, at: 0)
+        saveButton.layer.insertSublayer(saveButtonGradientLayer, at: 0)
         
         // Add targets for buttons
         draftButton.addTarget(self, action: #selector(draftButtonTapped), for: .touchUpInside)
@@ -96,27 +94,28 @@ class UIDraftAndSaveButton: UIStackView {
     
     // MARK: - Button Actions
     
-    @objc private func draftButtonTapped() {
+    @objc public func draftButtonTapped() {
         os_log("Draft button tapped")
+        onDraftButtonTapped?()
     }
     
-    @objc private func saveButtonTapped() {
+    @objc public func saveButtonTapped() {
         os_log("Save button tapped")
+        print("Save button tapped")
+        if let onSaveButtonTapped = onSaveButtonTapped {
+            print("onSaveButtonTapped closure is not nil")
+            onSaveButtonTapped()
+        } else {
+            print("onSaveButtonTapped closure is nil")
+        }
     }
+    
+    
     override func layoutSubviews() {
-           super.layoutSubviews()
-           
-           // Ensure gradient layers are properly sized
-           if let gradientLayers = draftButton.layer.sublayers?.compactMap({ $0 as? CAGradientLayer }) {
-               for gradientLayer in gradientLayers {
-                   gradientLayer.frame = draftButton.bounds
-               }
-           }
-           
-           if let gradientLayers = saveButton.layer.sublayers?.compactMap({ $0 as? CAGradientLayer }) {
-               for gradientLayer in gradientLayers {
-                   gradientLayer.frame = saveButton.bounds
-               }
-           }
-       }
+        super.layoutSubviews()
+        
+        // Ensure gradient layers are properly sized
+        draftButtonGradientLayer.frame = draftButton.bounds
+        saveButtonGradientLayer.frame = saveButton.bounds
+    }
 }
