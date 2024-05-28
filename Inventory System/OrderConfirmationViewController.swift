@@ -12,7 +12,8 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
     
     //Properties
     let editButton = UIButton(type: .custom)
-    var cart: [Product:Int] = [:]
+    var cart: [Product:Int]? = [:]
+    
     @IBOutlet weak var customerName: UITextField!
     @IBOutlet weak var customerPhone: UITextField!
     @IBOutlet weak var tableView: UITableView!
@@ -32,6 +33,10 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let cart = cart{
+            os_log("Cart data: \(cart)")
+        }
+        
         //custom UI for cart button
         editButton.setImage(UIImage(named: "edit-30"), for: .normal)
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
@@ -50,6 +55,7 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
     
     @objc func editButtonTapped(){
         os_log("editButtonTapped")
+        dismiss(animated: true, completion: nil)
     }
     
     func setupDoneButton() {
@@ -72,6 +78,7 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
     @objc func doneButtonTapped() {
         // Handle the button tap action here
         print("Done button tapped")
+        performSegue(withIdentifier: "unwindToAddProductToBillController", sender: self)
     }
     
     

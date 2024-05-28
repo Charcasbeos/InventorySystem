@@ -184,7 +184,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         }
         fatalError("Unexpected element kind")
     }
- 
+    
     
     //MARK: Add sample products
     func addSampleProducts(){
@@ -285,10 +285,19 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let orderConfirmationVC = storyboard.instantiateViewController(withIdentifier: "showOrderConfirmation") as? OrderConfirmationViewController {
             orderConfirmationVC.cart = cart
+            
             present(orderConfirmationVC, animated: true, completion: nil)
         }
     }
     
+    // Unwind segue action
+    @IBAction func unwindToAddProductToBillController(_ unwindSegue: UIStoryboardSegue) {
+        if let sourceVC = unwindSegue.source as? OrderConfirmationViewController {
+            self.cart = sourceVC.cart!
+            updateCartBadge()
+            collectionView.reloadData()
+        }
+    }
     
     
     // MARK: - Navigation

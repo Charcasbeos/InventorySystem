@@ -424,7 +424,7 @@
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textAttributes>
                                 <items>
-                                    <navigationItem title="Comfirmation" id="f4A-tS-gYs"/>
+                                    <navigationItem title="Confirmation" id="f4A-tS-gYs"/>
                                 </items>
                             </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1t9-3U-C6e">
@@ -541,6 +541,9 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Iy-sk-rEA">
                                                             <rect key="frame" x="20" y="44" width="350" height="2"/>
                                                             <color key="backgroundColor" systemColor="separatorColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="2" id="uzQ-9Y-iUB"/>
+                                                            </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pb2-2g-zan">
                                                             <rect key="frame" x="20" y="83" width="44" height="21"/>
@@ -2162,9 +2165,6 @@
         <image name="history" width="170.66667175292969" height="170.66667175292969"/>
         <image name="pencil.line" catalog="system" width="128" height="117"/>
         <image name="price-30" width="30" height="30"/>
-
-        <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="108"/>
-
         <image name="square.and.arrow.up" catalog="system" width="108" height="128"/>
         <image name="square.and.arrow.up.on.square" catalog="system" width="113" height="128"/>
         <image name="storage" width="170.66667175292969" height="170.66667175292969"/>
