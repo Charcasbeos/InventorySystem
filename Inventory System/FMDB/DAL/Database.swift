@@ -53,8 +53,6 @@ class Database {
     private let BILL_DETAIL_PRODUCT_PROFIT = "product_profit"
     private let BILL_DETAIL_PRODUCT_COST = "product_cost"
     private let BILL_DETAIL_QUANTITY = "quantity"
-    
-    
     //MARK: Constructor
     init(){
         //Lay tat ca duong dan den cac thu muc doccument trong mot ung dung iOS
@@ -171,6 +169,7 @@ class Database {
     private func close(){
         if let database = database {
             database.close()
+            os_log("Dong CSDL")
         }
         
     }
@@ -207,6 +206,8 @@ class Database {
                 if database!.executeUpdate(sql, withArgumentsIn: [product.name, strImage, product.unit, product.profit,product.quantity, product.cost]){
                     os_log("Them du lieu product thanh cong")
                     OK = true
+                    //Cap nhat id cho product
+                    product.id = Int32(database!.lastInsertRowId)
                     //Dong co so du lieu
                     close()
                 }
@@ -423,7 +424,7 @@ class Database {
                 //Cau lenh sql de them du lieu vao CSDL
                 let sql = "INSERT INTO \(CUSTOMER_TABLE_NAME) "
                 + "(\(CUSTOMER_NAME) ,\(CUSTOMER_PHONE),\(CUSTOMER_ACCUMULATED_MONEY)) VALUES (?,?,?)"
-               
+                
                 //Luu gia tri customer vao CSDL
                 if database!.executeUpdate(sql, withArgumentsIn: [customer.name,customer.phoneNumber,customer.accumulatedMoney]){
                     os_log("Them du lieu customer thanh cong")
@@ -436,6 +437,48 @@ class Database {
                 }
             }
             
+        }
+        return OK
+    }
+    
+    //4. Delete
+    ///4.1 All product
+    func deleteAllProducts()->Bool{
+        var OK = false
+        if open(){
+            if database!.tableExists(PRODUCT_TABLE_NAME){
+                
+                let sql = "DELETE FROM \(PRODUCT_TABLE_NAME)"
+                if database!.executeStatements(sql){
+                    os_log("Xoa du lieu all product  thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Xoa du lieu all product  khong thanh cong")
+                }
+            }
+        }
+        return OK
+    }
+    ///4.2 Product
+    func deleteProduct(id:Int)->Bool{
+        var OK = false
+        if open(){
+            if database!.tableExists(PRODUCT_TABLE_NAME){
+                
+                let sql = "DELETE FROM \(PRODUCT_TABLE_NAME) WHERE \(PRODUCT_ID) = \(id)"
+                if database!.executeStatements(sql){
+                    os_log("Xoa du lieu product  thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Xoa du lieu product  khong thanh cong")
+                }
+            }
         }
         return OK
     }
@@ -497,7 +540,7 @@ class Database {
             if database!.tableExists(CUSTOMER_TABLE_NAME) {
                 // CAU LENH
                 let sql = "UPDATE \(CUSTOMER_TABLE_NAME) SET \(CUSTOMER_NAME) = ?, \(CUSTOMER_PHONE) = ?, \(CUSTOMER_ACCUMULATED_MONEY) = ? WHERE \(CUSTOMER_ID) = ?"
-               
+                
                 //THUC thi cau lenh sql
                 if database!.executeUpdate(sql, withArgumentsIn: [customer.name, customer.phoneNumber, customer.accumulatedMoney, customer.id]) {
                     os_log("cap nhap customer thu \(customer.id) thanh cong ")
