@@ -2162,10 +2162,9 @@
         <image name="history" width="170.66667175292969" height="170.66667175292969"/>
         <image name="pencil.line" catalog="system" width="128" height="117"/>
         <image name="price-30" width="30" height="30"/>
-<<<<<<< .merge_file_bIq4w7
+
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="108"/>
-=======
->>>>>>> .merge_file_MQ1oJK
+
         <image name="square.and.arrow.up" catalog="system" width="108" height="128"/>
         <image name="square.and.arrow.up.on.square" catalog="system" width="113" height="128"/>
         <image name="storage" width="170.66667175292969" height="170.66667175292969"/>
