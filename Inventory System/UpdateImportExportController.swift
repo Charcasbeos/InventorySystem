@@ -117,7 +117,7 @@ func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let quantity = quantity.text
             ,let cost = cost.text, let product = product{
             if !quantity.isEmpty && !cost.isEmpty{
-                import_export = ImportExport(productID: product.id, quantity: Int(quantity)!, cost: Double(cost)!, date: currentDate)
+                import_export = ImportExport(productID: Int(product.id), quantity: Int(quantity)!, cost: Double(cost)!, date: currentDate)
             }
             
         }
