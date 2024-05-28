@@ -45,6 +45,8 @@
 		F88127522C019AAD0027D87A /* UIProductStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88127512C019AAD0027D87A /* UIProductStepper.swift */; };
 		F8B6AD0B2C0350CB003CD04E /* UIDraftAndSaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */; };
 		F8B6AD0E2C0414F9003CD04E /* UIProductStepperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */; };
+		F8CC2FFB2C05BC970046021C /* OrderConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC2FFA2C05BC970046021C /* OrderConfirmationViewController.swift */; };
+		F8CC2FFD2C05BDDE0046021C /* UIOrderComfirmationViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC2FFC2C05BDDE0046021C /* UIOrderComfirmationViewCell.swift */; };
 		F8F55D492C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F55D482C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +120,8 @@
 		F8B6AD082C033F12003CD04E /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDraftAndSaveButton.swift; sourceTree = "<group>"; };
 		F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProductStepperDelegate.swift; sourceTree = "<group>"; };
+		F8CC2FFA2C05BC970046021C /* OrderConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderConfirmationViewController.swift; sourceTree = "<group>"; };
+		F8CC2FFC2C05BDDE0046021C /* UIOrderComfirmationViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOrderComfirmationViewCell.swift; sourceTree = "<group>"; };
 		F8F55D482C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductOfBillCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -281,6 +285,7 @@
 				8DAD34B22C01B6B1006D8910 /* ListProductViewController.swift */,
 				CE73EB542C0198790056FFFE /* AddCustomController.swift */,
 				8DC2CB422C0429CA00C14AA7 /* ListBillViewController.swift */,
+				F8CC2FFA2C05BC970046021C /* OrderConfirmationViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -307,6 +312,7 @@
 				F88127512C019AAD0027D87A /* UIProductStepper.swift */,
 				F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */,
 				F8F55D482C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift */,
+				F8CC2FFC2C05BDDE0046021C /* UIOrderComfirmationViewCell.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -501,7 +507,9 @@
 				8D7C81532BFE437D00DDC23F /* Database.swift in Sources */,
 				F816B15E2BFC965F00AD387D /* CustomerTableViewController.swift in Sources */,
 				8DC2CB492C043A6C00C14AA7 /* BillDetail.swift in Sources */,
+				F8CC2FFD2C05BDDE0046021C /* UIOrderComfirmationViewCell.swift in Sources */,
 				8D7C81632BFF8BF900DDC23F /* UpdateImportExportController.swift in Sources */,
+				F8CC2FFB2C05BC970046021C /* OrderConfirmationViewController.swift in Sources */,
 				F8F55D492C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

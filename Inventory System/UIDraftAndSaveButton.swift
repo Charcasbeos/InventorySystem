@@ -1,12 +1,17 @@
 import UIKit
 import OSLog
 
+
+
 class UIDraftAndSaveButton: UICollectionReusableView {
+    
     
     // MARK: - Properties
     static let reuseIdentifier = "UIDraftAndSaveButton"
+    public var onDraftButtonTapped: (() -> Void)?
+    public var onSaveButtonTapped: (() -> Void)?
     
-    private let draftButton: UIButton = {
+     let draftButton: UIButton = {
         let button = UIButton()
         button.setTitle("Draft", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -20,7 +25,7 @@ class UIDraftAndSaveButton: UICollectionReusableView {
         return button
     }()
     
-    private let saveButton: UIButton = {
+     let saveButton: UIButton = {
         let button = UIButton()
         button.setTitle("Save", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -89,13 +94,22 @@ class UIDraftAndSaveButton: UICollectionReusableView {
     
     // MARK: - Button Actions
     
-    @objc private func draftButtonTapped() {
+    @objc public func draftButtonTapped() {
         os_log("Draft button tapped")
+        onDraftButtonTapped?()
     }
     
-    @objc private func saveButtonTapped() {
+    @objc public func saveButtonTapped() {
         os_log("Save button tapped")
+        print("Save button tapped")
+        if let onSaveButtonTapped = onSaveButtonTapped {
+            print("onSaveButtonTapped closure is not nil")
+            onSaveButtonTapped()
+        } else {
+            print("onSaveButtonTapped closure is nil")
+        }
     }
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()

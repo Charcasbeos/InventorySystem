@@ -10,7 +10,7 @@ import OSLog
 
 class AddProductToBillController: UIViewController, UITabBarControllerDelegate, UIProductStepperDelegate,UISearchBarDelegate,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
-    
+    let orderConfirmationStoryBoardId = "showOrderConfirmation"
     private let dao = Database()
     var products:[Product] = []
     var cart: [Product:Int] = [:]
@@ -51,6 +51,15 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         
         draftAndSaveButton.translatesAutoresizingMaskIntoConstraints = false
         
+        // Assign closures
+        draftAndSaveButton.onDraftButtonTapped = { [weak self] in
+            self?.handleDraftButtonTapped()
+        }
+        draftAndSaveButton.onSaveButtonTapped = { [weak self] in
+            self?.handleSaveButtonTapped()
+        }
+        
+        
         NSLayoutConstraint.activate([
             draftAndSaveButton.leadingAnchor.constraint(equalTo: footerView.leadingAnchor),
             draftAndSaveButton.trailingAnchor.constraint(equalTo: footerView.trailingAnchor),
@@ -59,7 +68,11 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
             draftAndSaveButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
-        let _ = addSampleProducts()
+        
+        
+        
+        //fetch data from db
+        let _ = dao.readProducts(products: &products)
         
         updateCartBadge()
         
@@ -104,12 +117,12 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         filteredProducts = products
         collectionView.reloadData()
     }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         isSearching = false
         searchBar.resignFirstResponder()
     }
-        
+    
     
     
     @objc func dissmisKeyBoard(){
@@ -149,19 +162,30 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         fatalError("Cell hasn't been created !!!")
     }
     
-
+    
     // MARK: - Collection view delegate flow layout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 50)
     }
-        
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionFooter {
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: UIDraftAndSaveButton.reuseIdentifier, for: indexPath) as! UIDraftAndSaveButton
+            // Assign closures
+            footerView.onDraftButtonTapped = { [weak self] in
+                self?.handleDraftButtonTapped()
+            }
+            footerView.onSaveButtonTapped = { [weak self] in
+                self?.handleSaveButtonTapped()
+            }
+            
+            print("Assigned onDraftButtonTapped and onSaveButtonTapped closures to footer view")
             return footerView
         }
         fatalError("Unexpected element kind")
     }
+ 
+    
     //MARK: Add sample products
     func addSampleProducts(){
         
@@ -187,6 +211,8 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         products.append(product7!)
         products.append(product8!)
         products.append(product9!)
+        
+        
         
         
     }
@@ -226,12 +252,12 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
             cartButton.addSubview(badgeLabel)
         }
     }
-        
+    
     func getTotalProductsInCart() -> Int {
         // Return the actual total products count from your cart data source
         return cart.values.reduce(0, +)
     }
-
+    
     func productStepper(_ stepper: UIProductStepper, didChangeQuantity quantity: Int) {
         //The tag property is used to store the index of the product in the products array.
         let productIndex = stepper.tag
@@ -247,51 +273,36 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         os_log("Cart Button Tapped")
     }
     
-   
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    // Handle Draft Button Tap
+    func handleDraftButtonTapped() {
+        print("Draft button tapped in controller")
+        // Handle draft action here
     }
-    */
     
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    // Handle Save Button Tap
+    func handleSaveButtonTapped() {
+        print("Save button tapped in controller")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let orderConfirmationVC = storyboard.instantiateViewController(withIdentifier: "showOrderConfirmation") as? OrderConfirmationViewController {
+            orderConfirmationVC.cart = cart
+            present(orderConfirmationVC, animated: true, completion: nil)
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
+    
+    
+    
     // MARK: - Navigation
-
+    /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "showOrderConfirmation" {
+            if let destinationVC = segue.destination as? OrderConfirmationViewController {
+                destinationVC.cart = cart
+            }
+        }
     }
+    
     */
-
+    
+    
 }

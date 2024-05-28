@@ -53,6 +53,8 @@ class Database {
     private let BILL_DETAIL_PRODUCT_PROFIT = "product_profit"
     private let BILL_DETAIL_PRODUCT_COST = "product_cost"
     private let BILL_DETAIL_QUANTITY = "quantity"
+    
+    
     //MARK: Constructor
     init(){
         //Lay tat ca duong dan den cac thu muc doccument trong mot ung dung iOS
