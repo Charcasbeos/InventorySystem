@@ -374,41 +374,7 @@ class Database {
                 close()
             }
         }
-    }
-    func readCustomerByPhone(phone: String) -> Customer? {
-        if open() {
-            defer { close() } // Ensure the database is closed after the query
-            
-            if database!.tableExists(CUSTOMER_TABLE_NAME) {
-                // Parameterized SQL query to prevent SQL injection
-                let sql = "SELECT * FROM \(CUSTOMER_TABLE_NAME) WHERE \(CUSTOMER_PHONE) = ?"
-                
-                // Data read from the database
-                var result: FMResultSet?
-                do {
-                    result = try database!.executeQuery(sql, values: [phone])
-                } catch {
-                    os_log("Failed to query the database: %@", error.localizedDescription)
-                    return nil
-                }
-                
-                // Read data from the result set
-                if let result = result {
-                    while result.next() {
-                        let name = result.string(forColumn: CUSTOMER_NAME) ?? ""
-                        let phone  = result.string(forColumn: CUSTOMER_PHONE) ?? ""
-                        let accumulated_money = result.double(forColumn: CUSTOMER_ACCUMULATED_MONEY)
-                        let id = result.int(forColumn: CUSTOMER_ID)
-                        // Create customer object from the retrieved data
-                        if let customer = Customer(name: name, phoneNumber: phone, accumulatedMoney: accumulated_money, id: id) {
-                            return customer
-                        }
-                    }
-                }
-            }
-        }
-        return nil
-    }
+    }   
     //3. Update
     ///3.1 Product
     func updateProduct(product:Product)->Bool{
