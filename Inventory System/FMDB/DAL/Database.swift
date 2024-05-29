@@ -29,7 +29,7 @@ class Database {
     //2.ImportExport
     private let IMPORTEXPORT_TABLE_NAME = "import_export"
     private let IMPORTEXPORT_ID = "_id"
-    private let IMPORTEXPOR_PRODUCTID = "productID"
+    private let IMPORTEXPOR_PRODUCT_ID = "product_id"
     private let IMPORTEXPOR_QUANTITY = "quantity"
     private let IMPORTEXPOR_COST = "cost"
     private let IMPORTEXPOR_DATE = "date"
@@ -39,8 +39,20 @@ class Database {
     private let CUSTOMER_NAME = "name"
     private let CUSTOMER_PHONE = "phone"
     private let CUSTOMER_ACCUMULATED_MONEY = "accumulated_money"
-    
-    
+    //4. Bill
+    private let BILL_TABLE_NAME = "bills"
+    private let BILL_ID = "_id"
+    private let BILL_CUSTOMER_ID = "custormer_id"
+    private let BILL_STATUS = "status"
+    private let BILL_DATE = "date"
+    //4. Bill
+    private let BILL_DETAIL_TABLE_NAME = "bill_detail"
+    private let BILL_DETAIL_BILL_ID = "bill_id"
+    private let BILL_DETAIL_PRODUCT_ID = "product_id"
+    private let BILL_DETAIL_PRODUCT_NAME = "product_name"
+    private let BILL_DETAIL_PRODUCT_PROFIT = "product_profit"
+    private let BILL_DETAIL_PRODUCT_COST = "product_cost"
+    private let BILL_DETAIL_QUANTITY = "quantity"
     //MARK: Constructor
     init(){
         //Lay tat ca duong dan den cac thu muc doccument trong mot ung dung iOS
@@ -65,7 +77,7 @@ class Database {
             //2.ImportExport
             let sql_import_export = "Create table \(IMPORTEXPORT_TABLE_NAME)("
             + "\(IMPORTEXPORT_ID) INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "\(IMPORTEXPOR_PRODUCTID) INTEGER ,"
+            + "\(IMPORTEXPOR_PRODUCT_ID) INTEGER ,"
             + "\(IMPORTEXPOR_QUANTITY) INTEGER ,"
             + "\(IMPORTEXPOR_COST) DOUBLE ,"
             + "\(IMPORTEXPOR_DATE) DEFAULT CURRENT_DATE)"
@@ -75,6 +87,20 @@ class Database {
             + "\(CUSTOMER_NAME) TEXT ,"
             + "\(CUSTOMER_PHONE) TEXT ,"
             + "\(CUSTOMER_ACCUMULATED_MONEY) DOUBLE)"
+            //4. Bill
+            let sql_bill = "Create table \(BILL_TABLE_NAME)("
+            + "\(BILL_ID) INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "\(BILL_CUSTOMER_ID) INTEGER ,"
+            + "\(BILL_STATUS) INTEGER ,"
+            + "\(BILL_DATE) DATE)"
+            //4. BillDetail
+            let sql_bill_detail = "Create table \(BILL_DETAIL_TABLE_NAME)("
+            + "\(BILL_DETAIL_BILL_ID) INTEGER , "
+            + "\(BILL_DETAIL_PRODUCT_ID) INTEGER ,"
+            + "\(BILL_DETAIL_PRODUCT_NAME) TEXT ,"
+            + "\(BILL_DETAIL_PRODUCT_PROFIT) DOUBLE ,"
+            + "\(BILL_DETAIL_PRODUCT_COST) DOUBLE ,"
+            + "\(BILL_DETAIL_QUANTITY) INTEGER)"
             
             if open(){
                 if !database!.tableExists(PRODUCT_TABLE_NAME){
@@ -97,6 +123,20 @@ class Database {
                         os_log("Tao bang customers thanh cong")
                     }else{
                         os_log("Tao bang customers khong thanh cong")
+                    }
+                }
+                if !database!.tableExists(BILL_TABLE_NAME){
+                    if createTable(sql: sql_bill){
+                        os_log("Tao bang bills thanh cong")
+                    }else{
+                        os_log("Tao bang bills khong thanh cong")
+                    }
+                }
+                if !database!.tableExists(BILL_DETAIL_TABLE_NAME){
+                    if createTable(sql: sql_bill_detail){
+                        os_log("Tao bang bill detail thanh cong")
+                    }else{
+                        os_log("Tao bang bill detail khong thanh cong")
                     }
                 }
             }
@@ -129,6 +169,7 @@ class Database {
     private func close(){
         if let database = database {
             database.close()
+            os_log("Dong CSDL")
         }
         
     }
@@ -165,6 +206,8 @@ class Database {
                 if database!.executeUpdate(sql, withArgumentsIn: [product.name, strImage, product.unit, product.profit,product.quantity, product.cost]){
                     os_log("Them du lieu product thanh cong")
                     OK = true
+                    //Cap nhat id cho product
+                    product.id = Int32(database!.lastInsertRowId)
                     //Dong co so du lieu
                     close()
                 }
@@ -184,7 +227,7 @@ class Database {
             if  database!.tableExists(PRODUCT_TABLE_NAME){
                 //Cau lenh sql de them du lieu vao CSDL
                 let sql = "INSERT INTO \(IMPORTEXPORT_TABLE_NAME) "
-                + "(\(IMPORTEXPOR_PRODUCTID),\(IMPORTEXPOR_QUANTITY),\(IMPORTEXPOR_COST),\(IMPORTEXPOR_DATE)) VALUES (?,?,?,?)"
+                + "(\(IMPORTEXPOR_PRODUCT_ID),\(IMPORTEXPOR_QUANTITY),\(IMPORTEXPOR_COST),\(IMPORTEXPOR_DATE)) VALUES (?,?,?,?)"
                 
                 //Luu gia tri meal vao CSDL
                 if database!.executeUpdate(sql, withArgumentsIn: [importexport.productID, importexport.quantity, importexport.cost, importexport.date]){
@@ -195,6 +238,173 @@ class Database {
                 }
                 else{
                     os_log("Them du lieu importexport khong thanh cong")
+                }
+            }
+            
+        }
+        return OK
+    }
+    
+    //2. Select
+    ///2.1 Product
+    func readProducts(products: inout [Product]){
+        if open(){
+            if  database!.tableExists(PRODUCT_TABLE_NAME){
+                //Cau lenh sql
+                let sql = "SELECT * FROM \(PRODUCT_TABLE_NAME) ORDER BY \(PRODUCT_NAME) ASC"
+                //Du lieu doc ve tu CSDL
+                var result:FMResultSet?
+                do{
+                    result = try database!.executeQuery(sql, values: nil)
+                    
+                }
+                catch{
+                    os_log("Khong the truy van CSDL")
+                }
+                //Thuc hien doc du lieu tu doi tuong FMResultSet,
+                //tao bien product moi va dua vao datasource
+                if let result = result{
+                    products = [Product]()
+                    while result.next(){
+                        var image:UIImage? = nil
+                        let name = result.string(forColumn: PRODUCT_NAME) ?? ""
+                        let unit = result.string(forColumn: PRODUCT_UNIT) ?? ""
+                        let id = result.int(forColumn: PRODUCT_ID)
+                        let quantity = result.int(forColumn: PRODUCT_QUANTITY)
+                        let cost = result.double(forColumn: PRODUCT_COST)
+                        let profit = result.double(forColumn: PRODUCT_PROFIT)
+                        if let strImage = result.string(forColumn: PRODUCT_IMAGE), !strImage.isEmpty{
+                            //Buoc 1. Chuyen strImage thanh Data
+                            let dataImage = Data(base64Encoded: strImage, options: .ignoreUnknownCharacters)
+                            //Buoc 2. Chuyen dataImage thanh UIImage
+                            image = UIImage(data: dataImage!)
+                        }
+                        
+                        //Tao bien product moi tu du lieu doc trong csdl
+                        if let product = Product(id:id, name: name, image:image, unit: unit , profit: profit, quantity: Int(quantity), cost: cost){
+                            products.append(product)
+                            
+                        }
+                    }
+                }
+                //Dong csdl
+                close()
+            }
+        }
+    }
+    func readProductByID(id:Int)->Product?{
+        var productRs:Product? = nil
+        if open(){
+            if  database!.tableExists(PRODUCT_TABLE_NAME){
+                
+                //Cau lenh sql
+                let sql = "SELECT * FROM \(PRODUCT_TABLE_NAME) WHERE \(PRODUCT_ID) = \(id)"
+                //Du lieu doc ve tu CSDL
+                var result:FMResultSet?
+                do{
+                    result = try database!.executeQuery(sql, values: nil)
+                    
+                }
+                catch{
+                    os_log("Khong the truy van CSDL")
+                }
+                //Thuc hien doc du lieu tu doi tuong FMResultSet,
+                //tao bien product moi va dua vao datasource
+                if let result = result{
+                    while result.next(){
+                        var image:UIImage? = nil
+                        let name = result.string(forColumn: PRODUCT_NAME) ?? ""
+                        let unit = result.string(forColumn: PRODUCT_UNIT) ?? ""
+                        let id = result.int(forColumn: PRODUCT_ID)
+                        let quantity = result.int(forColumn: PRODUCT_QUANTITY)
+                        let cost = result.double(forColumn: PRODUCT_COST)
+                        let profit = result.double(forColumn: PRODUCT_PROFIT)
+                        if let strImage = result.string(forColumn: PRODUCT_IMAGE), !strImage.isEmpty{
+                            //Buoc 1. Chuyen strImage thanh Data
+                            let dataImage = Data(base64Encoded: strImage, options: .ignoreUnknownCharacters)
+                            //Buoc 2. Chuyen dataImage thanh UIImage
+                            image = UIImage(data: dataImage!)
+                        }
+                        
+                        //Tao bien product moi tu du lieu doc trong csdl
+                        if let product = Product(id:id, name: name, image:image, unit: unit , profit: profit, quantity: Int(quantity), cost: cost){
+                            productRs = product
+                        }
+                    }
+                }
+                //Dong csdl
+                close()
+            }
+        }
+        return productRs
+    }
+    
+    ///2.2 ImportExport
+    func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExport]){
+        if open(){
+            if  database!.tableExists(IMPORTEXPORT_TABLE_NAME){
+                //Cau lenh sql
+                let sql = "SELECT * FROM \(IMPORTEXPORT_TABLE_NAME) WHERE \(IMPORTEXPOR_PRODUCT_ID) = \(productID) ORDER BY \(IMPORTEXPOR_DATE) DESC"
+                //Du lieu doc ve tu CSDL
+                var result:FMResultSet?
+                do{
+                    result = try database!.executeQuery(sql, values: nil)
+                    
+                }
+                catch{
+                    os_log("Khong the truy van CSDL")
+                }
+                //Thuc hien doc du lieu tu doi tuong FMResultSet,
+                //tao bien importexport moi va dua vao datasource
+                if let result = result{
+                    importexports = [ImportExport]()
+                    while result.next(){
+                        let productID = result.int(forColumn: IMPORTEXPOR_PRODUCT_ID)
+                        let quantity = result.int(forColumn: IMPORTEXPOR_QUANTITY)
+                        let cost = result.double(forColumn: IMPORTEXPOR_COST)
+                        let date = result.date(forColumn: IMPORTEXPOR_DATE) ?? Date()
+                        
+                        //Tao importexport meal moi tu du lieu doc trong csdl
+                        let importexport = ImportExport(productID: Int(productID), quantity: Int(quantity), cost: cost, date: date)
+                        importexports.append(importexport)
+                        
+                    }
+                }
+                //Dong csdl
+                close()
+            }
+        }
+    }
+    //3. Update
+    ///3.1 Product
+    func updateProduct(product:Product)->Bool{
+        var OK = false
+        if open(){
+            //Kiem tra su ton tai cua bang du lieu
+            if  database!.tableExists(PRODUCT_TABLE_NAME){
+                //Cau lenh sql de them du lieu vao CSDL
+                let sql = "UPDATE \(PRODUCT_TABLE_NAME) SET "
+                + "\(PRODUCT_NAME) = ?,\(PRODUCT_IMAGE) = ? ,\(PRODUCT_PROFIT) = ?,\(PRODUCT_QUANTITY) = ?, \(PRODUCT_COST) = ?  WHERE \(PRODUCT_ID) = ?"
+                //Chuyen UIImage thanh chuoi
+                var strImage = ""
+                if let image = product.image{
+                    //B1. Chuyen anh thanh NSData
+                    let nsdataImage = image.pngData()! as NSData
+                    //B2. Chuyen nsdataImage thanh chuoi
+                    strImage = nsdataImage.base64EncodedString(options: .lineLength64Characters)
+                }
+                //Luu gia tri meal vao CSDL
+                if database!.executeUpdate(sql, withArgumentsIn: [product.name, strImage, product.profit, product.quantity, product.cost, product.id]){
+                    
+                    os_log("Sua du lieu product thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    
+                    os_log("Sua du lieu product khong thanh cong")
+                    
                 }
             }
             
@@ -214,7 +424,7 @@ class Database {
                 //Cau lenh sql de them du lieu vao CSDL
                 let sql = "INSERT INTO \(CUSTOMER_TABLE_NAME) "
                 + "(\(CUSTOMER_NAME) ,\(CUSTOMER_PHONE),\(CUSTOMER_ACCUMULATED_MONEY)) VALUES (?,?,?)"
-               
+                
                 //Luu gia tri customer vao CSDL
                 if database!.executeUpdate(sql, withArgumentsIn: [customer.name,customer.phoneNumber,customer.accumulatedMoney]){
                     os_log("Them du lieu customer thanh cong")
@@ -227,6 +437,48 @@ class Database {
                 }
             }
             
+        }
+        return OK
+    }
+    
+    //4. Delete
+    ///4.1 All product
+    func deleteAllProducts()->Bool{
+        var OK = false
+        if open(){
+            if database!.tableExists(PRODUCT_TABLE_NAME){
+                
+                let sql = "DELETE FROM \(PRODUCT_TABLE_NAME)"
+                if database!.executeStatements(sql){
+                    os_log("Xoa du lieu all product  thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Xoa du lieu all product  khong thanh cong")
+                }
+            }
+        }
+        return OK
+    }
+    ///4.2 Product
+    func deleteProduct(id:Int)->Bool{
+        var OK = false
+        if open(){
+            if database!.tableExists(PRODUCT_TABLE_NAME){
+                
+                let sql = "DELETE FROM \(PRODUCT_TABLE_NAME) WHERE \(PRODUCT_ID) = \(id)"
+                if database!.executeStatements(sql){
+                    os_log("Xoa du lieu product  thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Xoa du lieu product  khong thanh cong")
+                }
+            }
         }
         return OK
     }
@@ -288,7 +540,7 @@ class Database {
             if database!.tableExists(CUSTOMER_TABLE_NAME) {
                 // CAU LENH
                 let sql = "UPDATE \(CUSTOMER_TABLE_NAME) SET \(CUSTOMER_NAME) = ?, \(CUSTOMER_PHONE) = ?, \(CUSTOMER_ACCUMULATED_MONEY) = ? WHERE \(CUSTOMER_ID) = ?"
-               
+                
                 //THUC thi cau lenh sql
                 if database!.executeUpdate(sql, withArgumentsIn: [customer.name, customer.phoneNumber, customer.accumulatedMoney, customer.id]) {
                     os_log("cap nhap customer thu \(customer.id) thanh cong ")
@@ -302,5 +554,104 @@ class Database {
             }
         }
         return OK;
+    }
+    
+    //Bills
+    func insertBill(bill:Bill)->Bool{
+        var OK = false
+        if open(){
+            //Kiem tra su ton tai cua bang du lieu
+            if  database!.tableExists(PRODUCT_TABLE_NAME){
+                //Cau lenh sql de them du lieu vao CSDL
+                let sql = "INSERT INTO \(BILL_TABLE_NAME) "
+                + "(\(BILL_CUSTOMER_ID),\(BILL_STATUS),\(BILL_DATE)) VALUES (?,?,?)"
+                
+                //Luu gia tri meal vao CSDL
+                if database!.executeUpdate(sql, withArgumentsIn: [bill.customerID, bill.status, bill.date]){
+                    os_log("Them du lieu bill thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Them du lieu bill khong thanh cong")
+                }
+            }
+            
+        }
+        return OK
+    }
+    func updateSatusBill(billID:Int,status:Int)->Bool{
+        var OK = false
+        if open(){
+            //Kiem tra su ton tai cua bang du lieu
+            if  database!.tableExists(BILL_TABLE_NAME){
+                //Cau lenh sql de cap nhat du lieu vao CSDL
+                let sql = "UPDATE \(BILL_TABLE_NAME) SET "
+                + "\(BILL_STATUS) = ? WHERE \(BILL_ID) = ?"
+                
+                //Luu gia tri meal vao CSDL
+                if database!.executeUpdate(sql, withArgumentsIn: [status,billID]){
+                    os_log("Cap nhat trang thai bill thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Cap nhat trang thai bill khong thanh cong")
+                }
+            }
+            
+        }
+        return OK
+    }
+    //BillDetail
+    func insertBillDetail(billDetail:BillDetail)->Bool{
+        var OK = false
+        if open(){
+            //Kiem tra su ton tai cua bang du lieu
+            if  database!.tableExists(BILL_DETAIL_TABLE_NAME){
+                //Cau lenh sql de them du lieu vao CSDL
+                let sql = "INSERT INTO \(BILL_DETAIL_TABLE_NAME) "
+                + "(\(BILL_DETAIL_BILL_ID),\(BILL_DETAIL_PRODUCT_ID),\(BILL_DETAIL_PRODUCT_NAME),\(BILL_DETAIL_PRODUCT_PROFIT),\(BILL_DETAIL_PRODUCT_COST),\(BILL_DETAIL_QUANTITY) VALUES (?,?,?,?,?,?)"
+                
+                //Luu gia tri meal vao CSDL
+                if database!.executeUpdate(sql, withArgumentsIn: [billDetail.billID,billDetail.productID,billDetail.productName,billDetail.productProfit, billDetail.productCost, billDetail.quantity]){
+                    os_log("Them du lieu bill detail thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Them du lieu bill detail khong thanh cong")
+                }
+            }
+            
+        }
+        return OK
+    }
+    func updateBillDetail(billDetail:BillDetail)->Bool{
+        var OK = false
+        if open(){
+            //Kiem tra su ton tai cua bang du lieu
+            if  database!.tableExists(BILL_DETAIL_TABLE_NAME){
+                //Cau lenh sql de them du lieu vao CSDL
+                let sql = "UPDATE \(BILL_DETAIL_TABLE_NAME) "
+                + "SET \(BILL_DETAIL_PRODUCT_NAME) = ? ,\(BILL_DETAIL_PRODUCT_PROFIT) = ? ,\(BILL_DETAIL_PRODUCT_COST) = ? ,\(BILL_DETAIL_QUANTITY) = ? WHERE \(BILL_DETAIL_BILL_ID) = ? AND \(BILL_DETAIL_PRODUCT_ID) = ? "
+                
+                //Luu gia tri meal vao CSDL
+                if database!.executeUpdate(sql, withArgumentsIn: [billDetail.billID,billDetail.productID,billDetail.productName,billDetail.productProfit, billDetail.productCost, billDetail.quantity]){
+                    os_log("Sua du lieu bill detail thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Sua du lieu bill detail khong thanh cong")
+                }
+            }
+            
+        }
+        return OK
     }
 }
