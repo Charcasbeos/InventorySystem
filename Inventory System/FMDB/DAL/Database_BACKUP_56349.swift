@@ -454,9 +454,16 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
                 close()
             }
         }
+<<<<<<< HEAD
+    }   
+    //3. Update
+    ///3.1 Product
+    func updateProduct(product:Product)->Bool{
+=======
     }
     //1.3 Delete by Product ID
     func deleteImportExportByProductID(id:Int)->Bool{
+>>>>>>> main
         var OK = false
         if open(){
             if database!.tableExists(PRODUCT_TABLE_NAME){

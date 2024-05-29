@@ -14,4 +14,13 @@ class BillCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var dateBill: UILabel!
     @IBOutlet weak var totalBill: UILabel!
     @IBOutlet weak var customerPhone: UILabel!
+    var parent:ListBillViewController?
+    var index = 0
+    var dao:Database? = nil
+    
+    @IBAction func showDetail(_ sender: UIButton) {
+        //Lay vi tri cell tap vao
+        // Lay ID bill tai vi tri cell dc tap vao
+        //Chuyen du lieu sang man hinh confirm voi status da thanh toan
+    }
 }

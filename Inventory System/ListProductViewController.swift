@@ -27,6 +27,7 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
         searchbar.delegate = self
         collectionView.dataSource = self
         collectionView.delegate = self
+        
         //Doc du lieu product tren csdl
         dao.readProducts(products: &products)
         //Gan gia tri ban dau cho mang filter = products
@@ -90,9 +91,13 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
             let product = filteredProducts[indexPath.row]
             //Do du lieu vao cell
             cell.cost.text = "\(String(format: "%.2f", product.cost))"
-            cell.price.text = "\(String(format: "%.2f",product.cost * ((product.profit/100)+1)))"
-            cell.quantity.text = "\(product.quantity) \(product.unit)"
-            cell.profit.text = "\(String(format: "%.2f",product.profit)) %"
+        cell.price.text = "\(String(format: "%.2f",product.cost * ((product.profit/100)+1)))"
+            cell.quantity.text = "\(product.quantity)"
+            cell.unit.text = "\(product.unit)"
+            cell.profit.text = "\(String(format: "%.2f",product.profit))"
+            cell.productName.numberOfLines = 0
+            cell.productName.lineBreakMode = .byWordWrapping
+            cell.productName.translatesAutoresizingMaskIntoConstraints = false
             cell.productName.text = product.name
             cell.productImage.image = product.image
             cell.parent = self
@@ -106,6 +111,10 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     // MARK: - Navigation
+    
+    @IBAction func back(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
     //Chuyen sang man hinh update product
     @IBAction func addItem(_ sender: UIBarButtonItem) {
         if isSearching{
