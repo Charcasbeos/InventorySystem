@@ -87,6 +87,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+<<<<<<< HEAD
             uuid = "D2D34815-F36D-4C71-BE46-7331949A45E1"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -98,6 +99,19 @@
             endingLineNumber = "22"
             landmarkName = "AnalysisViewController"
             landmarkType = "3">
+=======
+            uuid = "DF5CD783-4914-4408-B0FF-9CB5F9311762"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Inventory System/FMDB/DAL/Database.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "406"
+            endingLineNumber = "406"
+            landmarkName = "updateProduct(product:)"
+            landmarkType = "7">
+>>>>>>> main
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
