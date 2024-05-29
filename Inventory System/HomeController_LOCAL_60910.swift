@@ -51,11 +51,11 @@ class HomeController: UIViewController {
                 
                 switch tappedView.tag {
                 case 1:
-                    if let addProductsToTheBill = self.storyboard!.instantiateViewController(withIdentifier: "addProductstoTheBill") as? AddProductToBillController
-                    {
-                        addProductsToTheBill.modalPresentationStyle = .fullScreen
-                        present(addProductsToTheBill, animated: true)
+                    if let addProductToTheBill = self.storyboard!.instantiateViewController(withIdentifier: "addProductstoTheBill") as? AddProductToBillController {
+                        addProductToTheBill.modalPresentationStyle = .fullScreen
+                        present(addProductToTheBill, animated: true)
                     }
+                    
                 case 2:
                     if let storage = self.storyboard!.instantiateViewController(withIdentifier: "ListProduct") as? ListProductViewController
                     {

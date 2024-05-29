@@ -58,9 +58,9 @@ class HomeController: UIViewController {
                     }
                 case 2:
                     if let storage = self.storyboard!.instantiateViewController(withIdentifier: "ListProduct") as? ListProductViewController
-                    {
-                        present(storage, animated: true)
-                    }
+                                        {
+                                            present(storage, animated: true)
+                                        }
                 case 3:
                     //Chuyen trang
                     if let bills = self.storyboard!.instantiateViewController(withIdentifier: "ListBill") as? ListBillViewController

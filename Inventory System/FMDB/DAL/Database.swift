@@ -478,8 +478,8 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
     
     ////////////////////////////  3. Customers  /////////////////////////////
     ///3.1 Insert
-    func insertCustomer(customer:Customer)->Bool{
-        var OK = false
+    func insertCustomer(customer:Customer)->Int{
+        var index = -1
         if open(){
             //Kiem tra su ton tai cua bang du lieu
             if  database!.tableExists(CUSTOMER_TABLE_NAME){
@@ -490,8 +490,7 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
                 //Luu gia tri customer vao CSDL
                 if database!.executeUpdate(sql, withArgumentsIn: [customer.name,customer.phoneNumber,customer.accumulatedMoney]){
                     os_log("Them du lieu customer thanh cong")
-                    OK = true
-                    //Dong co so du lieu
+                    index = Int(database!.lastInsertRowId)
                     close()
                 }
                 else{
@@ -500,7 +499,7 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
             }
             
         }
-        return OK
+        return index
     }
     
     //// 3.2 Read Customer
@@ -520,6 +519,7 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
                 }
                 // Đọc dữ liệu ra từ đối tượng result
                 if let result = result {
+                    customers = [Customer]()
                     while result.next() {
                         let name = result.string(forColumn: CUSTOMER_NAME) ?? ""
                         let phone  = result.string(forColumn: CUSTOMER_PHONE) ?? ""
@@ -619,6 +619,26 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
         }
         return OK;
     }
+    ////3.5 Delete Customer all
+    func deleteCustomer() -> Bool {
+        var OK = false
+        if open() {
+            if database!.tableExists(CUSTOMER_TABLE_NAME) {
+                // cau lenh
+                let sql = "DELETE FROM \(CUSTOMER_TABLE_NAME)"
+                // THUC THI
+                if database!.executeUpdate(sql, withArgumentsIn: []) {
+                    os_log("xoa tat ca customer thanh cong")
+                    OK = true
+                }
+                else {
+                    os_log("xoa tat ca customer thanh bai")
+                }
+                close()
+            }
+        }
+        return OK;
+    }
     ///3.6 Update Customer
     func updateCustomer(customer:Customer) ->Bool {
         var OK = false
@@ -641,16 +661,17 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
         }
         return OK;
     }
+    
     ///3.7 Update Accumulated
-    func updateCustomer(customerPhone:String, money:Double) ->Bool {
+    func updateCustomer(customerID:Int, money:Double) ->Bool {
         var OK = false
         if open(){
             if database!.tableExists(CUSTOMER_TABLE_NAME) {
                 // CAU LENH
-                let sql = "UPDATE \(CUSTOMER_TABLE_NAME) SET \(CUSTOMER_ACCUMULATED_MONEY) += ? WHERE \(CUSTOMER_PHONE) = ?"
+                let sql = "UPDATE \(CUSTOMER_TABLE_NAME) SET \(CUSTOMER_ACCUMULATED_MONEY) = \(CUSTOMER_ACCUMULATED_MONEY) + ? WHERE \(CUSTOMER_ID) = ?"
                 
                 //THUC thi cau lenh sql
-                if database!.executeUpdate(sql, withArgumentsIn: [money, customerPhone]) {
+                if database!.executeUpdate(sql, withArgumentsIn: [money, customerID]) {
                     os_log("cap nhap accumulated thanh cong ")
                     OK = true
                 }
@@ -663,10 +684,11 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
         }
         return OK;
     }
+    
     ////////////////////////////  4. Bills  /////////////////////////////
     //4.1 Insert
-    func insertBill(bill:Bill)->Bool{
-        var OK = false
+    func insertBill(bill:Bill)->Int{
+        var index = -1
         if open(){
             //Kiem tra su ton tai cua bang du lieu
             if  database!.tableExists(PRODUCT_TABLE_NAME){
@@ -677,8 +699,7 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
                 //Luu gia tri meal vao CSDL
                 if database!.executeUpdate(sql, withArgumentsIn: [bill.customerID, bill.status, bill.date]){
                     os_log("Them du lieu bill thanh cong")
-                    OK = true
-                    //Dong co so du lieu
+                    index = Int(database!.lastInsertRowId)
                     close()
                 }
                 else{
@@ -687,20 +708,20 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
             }
             
         }
-        return OK
+        return index
     }
     ///4.2 Update
-    func updateSatusBill(billID:Int,status:Int)->Bool{
+    func updateSatusBill(billID:Int,status:Int, customerId:Int)->Bool{
         var OK = false
         if open(){
             //Kiem tra su ton tai cua bang du lieu
             if  database!.tableExists(BILL_TABLE_NAME){
                 //Cau lenh sql de cap nhat du lieu vao CSDL
                 let sql = "UPDATE \(BILL_TABLE_NAME) SET "
-                + "\(BILL_STATUS) = ? WHERE \(BILL_ID) = ?"
+                + "\(BILL_STATUS) = ?, \(BILL_CUSTOMER_ID)=? WHERE \(BILL_ID) = ?"
                 
                 //Luu gia tri meal vao CSDL
-                if database!.executeUpdate(sql, withArgumentsIn: [status,billID]){
+                if database!.executeUpdate(sql, withArgumentsIn: [status,customerId,billID]){
                     os_log("Cap nhat trang thai bill thanh cong")
                     OK = true
                     //Dong co so du lieu
