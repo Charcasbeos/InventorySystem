@@ -85,6 +85,24 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         
     }
     
+    @IBAction func back(_ sender: UIBarButtonItem) {
+        // Tạo hộp thoại cảnh báo
+                let alert = UIAlertController(title: "Confirm back", message: "Are you sure you want to back ?", preferredStyle: .alert)
+                
+                // Thêm hành động cho nút "Xoá"
+                alert.addAction(UIAlertAction(title: "Back", style: .destructive, handler: { action in
+                    self.dismiss(animated: true)
+                }))
+                
+                // Thêm hành động cho nút "Huỷ"
+                alert.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: nil))
+                
+                // Hiển thị hộp thoại cảnh báo
+                present(alert, animated: true, completion: nil)
+    
+        
+    }
+    
     // MARK: - UISearchBar Delegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
@@ -326,7 +344,8 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
             if cart.isEmpty{
                 showAlertForExceedingEmptyCart()
             }
-            
+            let bill = Bill(customerID: -1, status: 0, date: Date())
+            orderConfirmationVC.billId = dao.insertBill(bill: bill)
             orderConfirmationVC.cart = cart
             orderConfirmationVC.modalPresentationStyle = .fullScreen
             present(orderConfirmationVC, animated: true, completion: nil)

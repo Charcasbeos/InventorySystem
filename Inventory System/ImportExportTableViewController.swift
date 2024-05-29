@@ -26,7 +26,9 @@ class ImportExportTableViewController: UITableViewController {
         if let product = product{
             productId = Int(product.id)
             dao.readImportExportsByProductID(productID: Int(product.id), importexports: &import_exports)
+            
         }
+        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

@@ -697,6 +697,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="doneConfirmation:" destination="3Oo-Ow-x9f" eventType="touchUpInside" id="TYC-bD-jc8"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fIM-dO-fEj">
                                 <rect key="frame" x="20" y="778" width="390" height="62"/>
@@ -770,7 +773,6 @@
                             <constraint firstItem="1t9-3U-C6e" firstAttribute="top" secondItem="Gzy-x1-8S3" secondAttribute="bottom" constant="16" id="zIE-2q-FZs"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="7Ut-NZ-sCC"/>
                     <connections>
                         <outlet property="customerName" destination="VFL-2w-pVa" id="Q0F-nj-Jnu"/>
                         <outlet property="customerPhone" destination="Zda-Jf-tX1" id="Ya9-Ep-CaA"/>
@@ -2257,7 +2259,13 @@
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textAttributes>
                                 <items>
-                                    <navigationItem title="List Product" id="HSa-JW-2ND"/>
+                                    <navigationItem title="List Product" id="HSa-JW-2ND">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="arrow.backward" catalog="system" id="SPW-5s-GF0">
+                                            <connections>
+                                                <action selector="back:" destination="k1W-W6-TLA" id="8yK-RH-BQy"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                             <searchBar multipleTouchEnabled="YES" contentMode="redraw" restorationIdentifier="searchBar" text="" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23Q-5b-3Of">
