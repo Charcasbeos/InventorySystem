@@ -110,14 +110,14 @@ class ImportExportTableViewController: UITableViewController {
         //B1. Lay doi tuong man hinh updateProduct va lay bien product truyen ve
         if let updateImportExport = segue.source as? UpdateImportExportController,
            let import_export = updateImportExport.import_export{
-//            
+//
 //            //B2. Them product moi vao tableView
 //            //B2.1 Them vao data source
 //            import_exports.append(import_export)
-//            
+//
 //            //B2.1 Them dong moi vao table view
 //            let newIndexPath = IndexPath(row: import_exports.count - 1, section: 0)
-//            
+//
 //            tableView.insertRows(at: [newIndexPath], with: .left)
             
             //Ghi vap co so du lieu

@@ -34,6 +34,7 @@ class AnalysisViewController: UIViewController {
     var productIDs = [Int]()
     var quantities = [Int]()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpDatePicker()
@@ -46,7 +47,7 @@ class AnalysisViewController: UIViewController {
         //Default
         dateFrom.date = Date()
         dateTo.date = Date()
-
+        getValueByDate(dateMin: dateFrom.date, dateMax: dateTo.date)
     }
     
     @IBAction func dateFromChange(_ sender: UIDatePicker) {
