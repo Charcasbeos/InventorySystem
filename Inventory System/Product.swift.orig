@@ -19,12 +19,17 @@ class Product : Hashable {
     
     
 <<<<<<< HEAD
+<<<<<<< .merge_file_Br3bBQ
     //MARK : Constructor
     init?( name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
 =======
     //MaRK : Constructor
     init?(id:Int32 = -1 , name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
->>>>>>> main
+>>>>>>> .merge_file_Q9W1hK
+=======
+    //MaRK : Constructor
+    init?(id:Int32 = -1 , name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
+>>>>>>> features/bill-detail-ui
         if name.isEmpty || unit.isEmpty{
             return nil
         }
@@ -36,17 +41,20 @@ class Product : Hashable {
         self.profit = profit
         self.quantity = quantity
     }
-    
     //MARK: - Hashable
-    static func == (lhs: Product, rhs: Product) -> Bool {
-        return lhs.name == rhs.name && lhs.unit == rhs.unit && lhs.cost == rhs.cost && lhs.profit == rhs.profit && lhs.quantity == rhs.quantity
-    }
+       static func == (lhs: Product, rhs: Product) -> Bool {
+           return lhs.name == rhs.name &&
+                  lhs.unit == rhs.unit &&
+                  lhs.cost == rhs.cost &&
+                  lhs.profit == rhs.profit &&
+                  lhs.quantity == rhs.quantity
+       }
 
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(unit)
-        hasher.combine(cost)
-        hasher.combine(profit)
-        hasher.combine(quantity)
-    }
+       func hash(into hasher: inout Hasher) {
+           hasher.combine(name)
+           hasher.combine(unit)
+           hasher.combine(cost)
+           hasher.combine(profit)
+           hasher.combine(quantity)
+       }
 }

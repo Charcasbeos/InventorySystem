@@ -8,35 +8,29 @@
 import UIKit
 import OSLog
 
-class OrderConfirmationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class OrderConfirmationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate {
     
     //Properties
     let editButton = UIButton(type: .custom)
     var cart: [Product:Int]? = [:]
+    let dao: Database = Database()
+    var customers:[Customer] = []
     
     @IBOutlet weak var customerName: UITextField!
     @IBOutlet weak var customerPhone: UITextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navigation: UINavigationItem!
-    
-    
-    
-    var doneButton = UIButton()
-    let items = [
-            ["name": "Thịt bò cube nhập khẩu", "pricePerKg": "250,000 đ/Kg", "discount": "Giảm giá: 10%", "total": "2,500,000 đ"],
-            ["name": "Thịt bò cube nhập khẩu", "pricePerKg": "250,000 đ/Kg", "discount": "Giảm giá: 10%", "total": "2,500,000 đ"],
-            ["name": "Thịt bò cube nhập khẩu", "pricePerKg": "250,000 đ/Kg", "discount": "Giảm giá: 10%", "total": "2,500,000 đ"],
-            ["name": "Thịt bò cube nhập khẩu", "pricePerKg": "250,000 đ/Kg", "discount": "Giảm giá: 10%", "total": "2,500,000 đ"]
-        ]
-    
+    @IBOutlet weak var totalAmountText: UILabel!
+    var totalAmount:Double = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Read customers from db
+        dao.readAllCustomer(customers: &customers)
         
-        if let cart = cart{
-            os_log("Cart data: \(cart)")
+        for (product, quantity) in cart! {
+            os_log("Product: %@, Quantity: %d", product.name, quantity)
         }
-        
         //custom UI for cart button
         editButton.setImage(UIImage(named: "edit-30"), for: .normal)
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
@@ -47,9 +41,30 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
         tableView.dataSource = self
         tableView.delegate = self
         
+        //calculate the sum of cart product's price
+        for (product, quantity) in cart! {
+            // set value for total amount label
+            totalAmount += product.cost * ((product.profit / 100) + 1) * Double(quantity)
+        }
+            
+        customerPhone.keyboardType = .numberPad
+        customerPhone.addTarget(self, action: #selector(customerPhoneEditingChanged), for: .editingChanged)
         
-        
-        setupDoneButton()
+    }
+    @objc func customerPhoneEditingChanged(){
+      
+        if customerPhone.state.isEmpty{
+            customerName.text = ""
+        }
+        if let phone = customerPhone.text {
+            for customer in customers {
+                if customer.phoneNumber.elementsEqual(phone){
+                    os_log("Order: \(customer.name)")
+                    customerName.text = customer.name
+                }
+            }
+            os_log("not found !!!")
+        }
         
     }
     
@@ -58,27 +73,12 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
         dismiss(animated: true, completion: nil)
     }
     
-    func setupDoneButton() {
-        doneButton = UIButton(type: .system)
-        doneButton.setTitle("Done", for: .normal)
-        doneButton.translatesAutoresizingMaskIntoConstraints = false
-        doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
-        
-        view.addSubview(doneButton)
-        
-        // Set constraints for the button
-        NSLayoutConstraint.activate([
-            doneButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            doneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            doneButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
-    }
+    
     
     @objc func doneButtonTapped() {
         // Handle the button tap action here
         print("Done button tapped")
-        performSegue(withIdentifier: "unwindToAddProductToBillController", sender: self)
+        
     }
     
     
@@ -86,18 +86,21 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
     //MARK: Table view controller
     // UITableViewDataSource methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return cart!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let reuseCell = "UIOrderComfirmationViewCell"
         if let cell = tableView.dequeueReusableCell(withIdentifier: reuseCell, for: indexPath) as? UIOrderComfirmationViewCell{
             
-            let item = items[indexPath.row]
-            cell.productName.text = item["name"]
-            cell.productPrice.text = "222222 d"
-            cell.productQuantity.text = "2222 pcs"
+            let product = Array(cart!.keys)[indexPath.row]
+            let quantity = cart![product] ?? 0
             
+            cell.productName.text = product.name
+            cell.productPrice.text = "\(String(format: "%.2f",product.cost * ((product.profit/100)+1)))"
+            cell.productQuantity.text = "\(quantity) \(product.unit)"
+          
+            totalAmountText.text =  "\(String(format: "%.2f",totalAmount)) đ"
             return cell
         }
         fatalError("khong the tao cell")
@@ -107,15 +110,6 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150 // Customize this value as needed
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+      
     
 }

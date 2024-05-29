@@ -68,6 +68,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
             draftAndSaveButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
+
         
         
         
@@ -152,8 +153,10 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
             
             
             // Set delegate for product stepper
-            cell.stepper.delegate = self
+            cell.stepper.setProgrammaticValue(cart[product] ?? 0)
             cell.stepper.tag = indexPath.row
+            cell.stepper.delegate = self
+            
             
             
             return cell
@@ -191,14 +194,14 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         
         
         let product1 = Product(name: "Test1", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
-        let product2 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 10, cost: 10)
-        let product3 = Product(name: "Test3", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
-        let product4 = Product(name: "Test1", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
-        let product5 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 10, cost: 10)
-        let product6 = Product(name: "Test3", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
-        let product7 = Product(name: "Test1", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
-        let product8 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 10, cost: 10)
-        let product9 = Product(name: "Test3", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
+        let product2 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 20, cost: 10)
+        let product3 = Product(name: "Test3", unit: "unit1", profit: 10.0, quantity: 30, cost: 10)
+        let product4 = Product(name: "Test4", unit: "unit1", profit: 10.0, quantity: 40, cost: 10)
+        let product5 = Product(name: "Test5", unit: "unit2", profit: 10.0, quantity: 50, cost: 10)
+        let product6 = Product(name: "Test6", unit: "unit1", profit: 10.0, quantity: 60, cost: 10)
+        let product7 = Product(name: "Test7", unit: "unit1", profit: 10.0, quantity: 70, cost: 10)
+        let product8 = Product(name: "Test8", unit: "unit2", profit: 10.0, quantity: 80, cost: 10)
+        let product9 = Product(name: "Test9", unit: "unit1", profit: 10.0, quantity: 90, cost: 10)
         
         
         
@@ -211,8 +214,10 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         products.append(product7!)
         products.append(product8!)
         products.append(product9!)
-        
-        
+//        
+//        for product in products {
+//            dao.insertProduct(product: product)
+//        }
         
         
     }
@@ -225,7 +230,6 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
     
     //MARK: update car badge
     func updateCartBadge() {
-        
         cartButton.subviews.forEach { subview in
             if subview.tag == 99 { subview.removeFromSuperview() }
         }
@@ -259,15 +263,48 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
     }
     
     func productStepper(_ stepper: UIProductStepper, didChangeQuantity quantity: Int) {
+        
         //The tag property is used to store the index of the product in the products array.
         let productIndex = stepper.tag
         let product = products[productIndex]
         
-        addToCart(product: product, quantity: quantity)
+        // Calculate the total quantity already in the cart
+        let currentCartQuantity = cart[product] ?? 0
         
+        // Calculate the remaining quantity available in storage
+        let remainingQuantity = product.quantity - currentCartQuantity
         
+        // Check if the new quantity exceeds the available quantity in storage
+        if quantity <= product.quantity {
+            if cart[product] != quantity {
+                addToCart(product: product, quantity: quantity)
+                updateCartBadge()
+            }
+        } else {
+            // Reset stepper value to the maximum available quantity
+            stepper.quantityValue = product.quantity
+            showAlertForExceedingQuantity(product: product)
+        }
+        os_log("cart: \(self.cart)")
     }
-    
+    func showAlertForExceedingQuantity(product: Product) {
+        let alert = UIAlertController(
+            title: "Quantity Exceeded",
+            message: "You cannot add more than \(product.quantity) \(product.unit) of \(product.name) to the cart.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    func showAlertForExceedingEmptyCart() {
+        let alert = UIAlertController(
+            title: "Empty Cart",
+            message: "You need to add at least 1 product to the cart.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
     
     @objc func cartButtonTapped(){
         os_log("Cart Button Tapped")
@@ -284,8 +321,21 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         print("Save button tapped in controller")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let orderConfirmationVC = storyboard.instantiateViewController(withIdentifier: "showOrderConfirmation") as? OrderConfirmationViewController {
-            orderConfirmationVC.cart = cart
             
+            // Collect the keys for items to remove
+            let itemsToRemove = cart.filter { $0.value == 0 }.map { $0.key }
+            
+            // Remove the items from the cart
+            for key in itemsToRemove {
+                cart.removeValue(forKey: key)
+            }
+            
+            if cart.isEmpty{
+                showAlertForExceedingEmptyCart()
+            }
+            
+            orderConfirmationVC.cart = cart
+            orderConfirmationVC.modalPresentationStyle = .fullScreen
             present(orderConfirmationVC, animated: true, completion: nil)
         }
     }
@@ -294,6 +344,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
     @IBAction func unwindToAddProductToBillController(_ unwindSegue: UIStoryboardSegue) {
         if let sourceVC = unwindSegue.source as? OrderConfirmationViewController {
             self.cart = sourceVC.cart!
+            os_log("cart: \(self.cart)")
             updateCartBadge()
             collectionView.reloadData()
         }

@@ -10,13 +10,15 @@ import OSLog
 class UIProductStepper: UIStackView, UITextFieldDelegate{
     
     weak var delegate: UIProductStepperDelegate?
-
+    private var isProgrammaticallyUpdating = false
     
     private var _quantityValue: Int = 0 {
         didSet {
             updateUI()
-            delegate?.productStepper(self, didChangeQuantity: _quantityValue)
-            
+            if !isProgrammaticallyUpdating {
+                delegate?.productStepper(self, didChangeQuantity: _quantityValue)
+            }
+            os_log("quantiy value: \(self._quantityValue)")
         }
     }
     
@@ -35,8 +37,8 @@ class UIProductStepper: UIStackView, UITextFieldDelegate{
     
     private let quantityTextField: UITextField = {
         let textField = UITextField()
-        textField.widthAnchor.constraint(equalToConstant: 32.0).isActive = true
-        textField.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
+        textField.widthAnchor.constraint(equalToConstant: 35.0).isActive = true
+        textField.heightAnchor.constraint(equalToConstant: 35.0).isActive = true
         textField.borderStyle = .roundedRect
         textField.textAlignment = .center
         textField.keyboardType = .numberPad
@@ -67,7 +69,7 @@ class UIProductStepper: UIStackView, UITextFieldDelegate{
         }
     }
     
-   
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -112,6 +114,10 @@ class UIProductStepper: UIStackView, UITextFieldDelegate{
         return true
     }
     
+    func setProgrammaticValue(_ value: Int) {
+        isProgrammaticallyUpdating = true
+        quantityValue = value
+        isProgrammaticallyUpdating = false
+    }
     
-
 }

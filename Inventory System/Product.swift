@@ -17,7 +17,7 @@ class Product : Hashable {
     var profit : Double
     var quantity : Int
     
-
+    
     //MaRK : Constructor
     init?(id:Int32 = -1 , name: String, image:UIImage? = nil, unit: String, profit: Double, quantity: Int, cost: Double) {
         if name.isEmpty || unit.isEmpty{
@@ -32,19 +32,12 @@ class Product : Hashable {
         self.quantity = quantity
     }
     //MARK: - Hashable
-       static func == (lhs: Product, rhs: Product) -> Bool {
-           return lhs.name == rhs.name &&
-                  lhs.unit == rhs.unit &&
-                  lhs.cost == rhs.cost &&
-                  lhs.profit == rhs.profit &&
-                  lhs.quantity == rhs.quantity
-       }
-
-       func hash(into hasher: inout Hasher) {
-           hasher.combine(name)
-           hasher.combine(unit)
-           hasher.combine(cost)
-           hasher.combine(profit)
-           hasher.combine(quantity)
-       }
+    // Implementing Equatable and Hashable
+    static func == (lhs: Product, rhs: Product) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
