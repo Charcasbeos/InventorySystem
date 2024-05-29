@@ -15,6 +15,8 @@ class ProductCollectionViewCell: UICollectionViewCell,UIGestureRecognizerDelegat
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var profit: UILabel!
     @IBOutlet weak var cost: UILabel!
+    
+    @IBOutlet weak var unit: UILabel!
     var parent:ListProductViewController?
     var index = 0
     var dao:Database? = nil
@@ -44,12 +46,13 @@ class ProductCollectionViewCell: UICollectionViewCell,UIGestureRecognizerDelegat
     
     @IBAction func deleteButton(_ sender: UIButton) {
         // Tạo hộp thoại cảnh báo
-                let alert = UIAlertController(title: "Confirm delete", message: "Do you sure delete?", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Confirm delete", message: "Deleting the product is equivalent to deleting its import and export information. Are you sure you want to delete it?", preferredStyle: .alert)
                 
                 // Thêm hành động cho nút "Xoá"
                 alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { action in
                     // Gọi hàm xoá sản phẩm tại đây
                     self.dao!.deleteProduct(id: Int(self.parent!.filteredProducts[self.index].id))
+                    self.dao!.deleteImportExportByProductID(id: Int(self.parent!.filteredProducts[self.index].id))
                     self.parent!.searchbar.text = ""
                     let _ = self.dao!.readProducts(products: &self.parent!.products)
                     self.parent!.filteredProducts = self.parent!.products

@@ -455,6 +455,26 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
             }
         }
     }
+    //1.3 Delete by Product ID
+    func deleteImportExportByProductID(id:Int)->Bool{
+        var OK = false
+        if open(){
+            if database!.tableExists(PRODUCT_TABLE_NAME){
+                
+                let sql = "DELETE FROM \(IMPORTEXPORT_TABLE_NAME) WHERE \(IMPORTEXPOR_PRODUCT_ID) = \(id)"
+                if database!.executeStatements(sql){
+                    os_log("Xoa du lieu export by product id  thanh cong")
+                    OK = true
+                    //Dong co so du lieu
+                    close()
+                }
+                else{
+                    os_log("Xoa du lieu  export by product id   khong thanh cong")
+                }
+            }
+        }
+        return OK
+    }
     
     ////////////////////////////  3. Customers  /////////////////////////////
     ///3.1 Insert

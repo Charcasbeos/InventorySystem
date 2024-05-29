@@ -60,15 +60,17 @@ class HomeController: UIViewController {
                     }
                 case 3:
                     //Chuyen trang
-                    //self.storyboard than chieu den man hinh hien tai
                     if let bills = self.storyboard!.instantiateViewController(withIdentifier: "ListBill") as? ListBillViewController
                     {
                         bills.modalPresentationStyle = .fullScreen
                         present(bills, animated: true)
                     }
                 case 4:
-                    //Xem tap da tap chua
-                    print("4 view tapped")
+                    if let analysis = self.storyboard!.instantiateViewController(withIdentifier: "Analysis") as? AnalysisViewController
+                    {
+                        analysis.modalPresentationStyle = .fullScreen
+                        present(analysis, animated: true)
+                    }
                 case 5:
                     //Chuyen trang
                     //self.storyboard than chieu den man hinh hien tai

@@ -142,7 +142,7 @@ class ImportExportTableViewController: UITableViewController {
                     //Gia moi sau khi cap nhat gia cost (Hien thi ben phuc)
                     let price = cost * (product.profit+100)/100
                     //Update lai gia cost vaf so luong ton kho cho san pham
-                    if let productUpdate = Product(id:product.id ,name: product.name, unit: product.unit, profit: product.profit, quantity: quantity, cost: cost){
+                    if let productUpdate = Product(id:product.id ,name: product.name,image: product.image, unit: product.unit, profit: product.profit, quantity: quantity, cost: cost){
                         if dao.updateProduct(product: productUpdate){
                             print("Cap nhat lai gia cost, so luong, gia price cho san pham \(productUpdate.id) q: \(productUpdate.quantity)")
                         }
