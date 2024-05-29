@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-class Product {
+class Product : Hashable {
     //MARK : Properties
     var id:Int32 = -1
     var name: String
@@ -31,5 +31,13 @@ class Product {
         self.profit = profit
         self.quantity = quantity
     }
+    //MARK: - Hashable
+    // Implementing Equatable and Hashable
+    static func == (lhs: Product, rhs: Product) -> Bool {
+        return lhs.id == rhs.id
+    }
     
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }

@@ -8,15 +8,15 @@
 import UIKit
 
 class UpdateImportExportController: UIViewController,UITextFieldDelegate {
-
+    
     @IBOutlet weak var navigation: UINavigationItem!
     @IBOutlet weak var cost: UITextField!
     @IBOutlet weak var quantity: UITextField!
     @IBOutlet weak var labelID: UILabel!
     @IBOutlet weak var labelName: UILabel!
     //Bien product dung de truyen tham so giua 2 man hinh
-        var product:Product?
-        var import_export:ImportExport?
+    var product:Product?
+    var import_export:ImportExport?
     override func viewDidLoad() {
         super.viewDidLoad()
         quantity.keyboardType = .numbersAndPunctuation
@@ -25,7 +25,7 @@ class UpdateImportExportController: UIViewController,UITextFieldDelegate {
         cost.delegate = self
         labelID.text = "\(product!.id)"
         labelName.text = "\(product!.name)"
-          
+        
     }
     // Custom keyboard
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -88,17 +88,17 @@ class UpdateImportExportController: UIViewController,UITextFieldDelegate {
         return true
     }
     // MARK: Dinh nghia ham uy quyen text field
-func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    switch textField {
-    case quantity:
-        quantity.resignFirstResponder()
-    case cost:
-        cost.resignFirstResponder()
-    default:
-        print("Error!")
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case quantity:
+            quantity.resignFirstResponder()
+        case cost:
+            cost.resignFirstResponder()
+        default:
+            print("Error!")
+        }
+        return true
     }
-    return true
-}
     
     // MARK: - Navigation
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -123,5 +123,5 @@ func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         }
     }
     
-
+    
 }
