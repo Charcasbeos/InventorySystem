@@ -39,15 +39,12 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         cartButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         
         navigation.rightBarButtonItem = UIBarButtonItem(customView: cartButton)
+   
         
-        // Register footer view
-        collectionView.register(UIDraftAndSaveButton.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: UIDraftAndSaveButton.reuseIdentifier)
+        draftAndSaveButton.frame.size = CGSize(width: 50, height: 50)
+        view.addSubview(draftAndSaveButton)
         
-        // Add draftAndSaveButton as a subview to the footview
-        let footerView = UIView()
-        footerView.addSubview(draftAndSaveButton)
-        footerView.frame.size.height = 50
-        collectionView.insertSubview(footerView, at: 0)
+        
         
         draftAndSaveButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -61,10 +58,10 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         
         
         NSLayoutConstraint.activate([
-            draftAndSaveButton.leadingAnchor.constraint(equalTo: footerView.leadingAnchor),
-            draftAndSaveButton.trailingAnchor.constraint(equalTo: footerView.trailingAnchor),
-            draftAndSaveButton.topAnchor.constraint(equalTo: footerView.topAnchor),
-            draftAndSaveButton.bottomAnchor.constraint(equalTo: footerView.bottomAnchor),
+            draftAndSaveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            draftAndSaveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            draftAndSaveButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            draftAndSaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             draftAndSaveButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
@@ -170,7 +167,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 50)
     }
-    
+    /*
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionFooter {
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: UIDraftAndSaveButton.reuseIdentifier, for: indexPath) as! UIDraftAndSaveButton
@@ -187,6 +184,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         }
         fatalError("Unexpected element kind")
     }
+     */
     
     
     //MARK: Add sample products
@@ -268,12 +266,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         let productIndex = stepper.tag
         let product = products[productIndex]
         
-        // Calculate the total quantity already in the cart
-        let currentCartQuantity = cart[product] ?? 0
-        
-        // Calculate the remaining quantity available in storage
-        let remainingQuantity = product.quantity - currentCartQuantity
-        
+                        
         // Check if the new quantity exceeds the available quantity in storage
         if quantity <= product.quantity {
             if cart[product] != quantity {

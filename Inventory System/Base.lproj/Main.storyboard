@@ -2026,7 +2026,7 @@
                                 </connections>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" preservesSuperviewLayoutMargins="YES" contentInsetAdjustmentBehavior="scrollableAxes" dataMode="prototypes" id="xxN-M3-VXX">
-                                <rect key="frame" x="0.0" y="159" width="430" height="726"/>
+                                <rect key="frame" x="0.0" y="159" width="430" height="691"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" sectionInsetReference="safeArea" id="2AF-s2-u6J">
@@ -2142,7 +2142,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uxP-Py-z7O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2844" y="700"/>
+            <point key="canvasLocation" x="2843.7209302325582" y="699.78540772532199"/>
         </scene>
     </scenes>
     <resources>

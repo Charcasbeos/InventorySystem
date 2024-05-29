@@ -3,7 +3,7 @@ import OSLog
 
 
 
-class UIDraftAndSaveButton: UICollectionReusableView {
+class UIDraftAndSaveButton: UIStackView {
     
     
     // MARK: - Properties
@@ -11,36 +11,42 @@ class UIDraftAndSaveButton: UICollectionReusableView {
     public var onDraftButtonTapped: (() -> Void)?
     public var onSaveButtonTapped: (() -> Void)?
     
-     let draftButton: UIButton = {
+    
+    let draftButton: UIButton = {
         let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Draft", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.backgroundColor = UIColor(.blue)
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.2
         button.layer.shadowOffset = CGSize(width: 0, height: 2)
         button.layer.shadowRadius = 6
+        
         return button
     }()
     
-     let saveButton: UIButton = {
+    let saveButton: UIButton = {
         let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Save", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.backgroundColor = UIColor(.blue)
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.2
         button.layer.shadowOffset = CGSize(width: 0, height: 2)
         button.layer.shadowRadius = 6
+        
+        
         return button
     }()
     
-    private let draftButtonGradientLayer = CAGradientLayer()
-    private let saveButtonGradientLayer = CAGradientLayer()
     
     // MARK: - Initialization
     
@@ -49,7 +55,7 @@ class UIDraftAndSaveButton: UICollectionReusableView {
         setupUI()
     }
     
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()
     }
@@ -57,14 +63,6 @@ class UIDraftAndSaveButton: UICollectionReusableView {
     // MARK: - Private Methods
     
     private func setupUI() {
-        // Configure gradient layers
-        draftButtonGradientLayer.colors = [UIColor.systemBlue.cgColor, UIColor.systemTeal.cgColor]
-        draftButtonGradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-        draftButtonGradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
-        
-        saveButtonGradientLayer.colors = [UIColor.systemGreen.cgColor, UIColor.systemTeal.cgColor]
-        saveButtonGradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-        saveButtonGradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
         
         // Create a stack view
         let stackView = UIStackView(arrangedSubviews: [draftButton, saveButton])
@@ -76,16 +74,25 @@ class UIDraftAndSaveButton: UICollectionReusableView {
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
+     
+        // Add constraints to draftButton
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+            draftButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            draftButton.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            draftButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            draftButton.trailingAnchor.constraint(equalTo: saveButton.leadingAnchor, constant: -16),
+            draftButton.widthAnchor.constraint(equalToConstant: 50)
         ])
         
-        // Add gradient layers to buttons
-        draftButton.layer.insertSublayer(draftButtonGradientLayer, at: 0)
-        saveButton.layer.insertSublayer(saveButtonGradientLayer, at: 0)
+        // Add constraints to saveButton
+        NSLayoutConstraint.activate([
+            saveButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            saveButton.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            saveButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            saveButton.widthAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        
         
         // Add targets for buttons
         draftButton.addTarget(self, action: #selector(draftButtonTapped), for: .touchUpInside)
@@ -111,11 +118,5 @@ class UIDraftAndSaveButton: UICollectionReusableView {
     }
     
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        // Ensure gradient layers are properly sized
-        draftButtonGradientLayer.frame = draftButton.bounds
-        saveButtonGradientLayer.frame = saveButton.bounds
-    }
+ 
 }
