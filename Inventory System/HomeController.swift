@@ -51,13 +51,16 @@ class HomeController: UIViewController {
                 
                 switch tappedView.tag {
                 case 1:
-                    //Xem tap da tap chua
-                    print("1 view tapped")
+                    if let addProductToTheBill = self.storyboard!.instantiateViewController(withIdentifier: "addProductstoTheBill") as? AddProductToBillController {
+                        addProductToTheBill.modalPresentationStyle = .fullScreen
+                        present(addProductToTheBill, animated: true)
+                    }
+                    
                 case 2:
                     if let storage = self.storyboard!.instantiateViewController(withIdentifier: "ListProduct") as? ListProductViewController
-                                        {
-                                            present(storage, animated: true)
-                                        }
+                    {
+                        present(storage, animated: true)
+                    }
                 case 3:
                     //Chuyen trang
                     if let bills = self.storyboard!.instantiateViewController(withIdentifier: "ListBill") as? ListBillViewController

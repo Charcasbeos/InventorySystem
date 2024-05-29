@@ -641,7 +641,28 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
         }
         return OK;
     }
-    
+    ///3.7 Update Accumulated
+    func updateCustomer(customerPhone:String, money:Double) ->Bool {
+        var OK = false
+        if open(){
+            if database!.tableExists(CUSTOMER_TABLE_NAME) {
+                // CAU LENH
+                let sql = "UPDATE \(CUSTOMER_TABLE_NAME) SET \(CUSTOMER_ACCUMULATED_MONEY) += ? WHERE \(CUSTOMER_PHONE) = ?"
+                
+                //THUC thi cau lenh sql
+                if database!.executeUpdate(sql, withArgumentsIn: [money, customerPhone]) {
+                    os_log("cap nhap accumulated thanh cong ")
+                    OK = true
+                }
+                else {
+                    os_log("cap nhap accumulated ko thanh cong ")
+                }
+                //dong
+                close()
+            }
+        }
+        return OK;
+    }
     ////////////////////////////  4. Bills  /////////////////////////////
     //4.1 Insert
     func insertBill(bill:Bill)->Bool{
