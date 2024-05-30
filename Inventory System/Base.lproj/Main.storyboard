@@ -2237,7 +2237,13 @@
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textAttributes>
                                 <items>
-                                    <navigationItem title="List Product" id="HSa-JW-2ND"/>
+                                    <navigationItem title="List Product" id="HSa-JW-2ND">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="arrow.backward" catalog="system" id="BLO-uj-JCK">
+                                            <connections>
+                                                <action selector="back:" destination="k1W-W6-TLA" id="sR2-Rq-iJ6"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                             <searchBar multipleTouchEnabled="YES" contentMode="redraw" restorationIdentifier="searchBar" text="" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23Q-5b-3Of">
