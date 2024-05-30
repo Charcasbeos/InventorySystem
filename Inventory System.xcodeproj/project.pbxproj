@@ -25,6 +25,7 @@
 		8DC2CB452C0430C000C14AA7 /* BillCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2CB442C0430C000C14AA7 /* BillCollectionViewCell.swift */; };
 		8DC2CB472C043A5E00C14AA7 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2CB462C043A5E00C14AA7 /* Bill.swift */; };
 		8DC2CB492C043A6C00C14AA7 /* BillDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2CB482C043A6C00C14AA7 /* BillDetail.swift */; };
+		8DC2CB4D2C05D10F00C14AA7 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2CB4C2C05D10F00C14AA7 /* AnalysisViewController.swift */; };
 		8DCF00862BFCFF00005A6B0F /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DCF00852BFCFF00005A6B0F /* libsqlite3.0.tbd */; };
 		CE73EB552C0198790056FFFE /* AddCustomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73EB542C0198790056FFFE /* AddCustomController.swift */; };
 		F8031F7C2BE334B800CE8604 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8031F7B2BE334B800CE8604 /* AppDelegate.swift */; };
@@ -96,6 +97,7 @@
 		8DC2CB442C0430C000C14AA7 /* BillCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillCollectionViewCell.swift; sourceTree = "<group>"; };
 		8DC2CB462C043A5E00C14AA7 /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		8DC2CB482C043A6C00C14AA7 /* BillDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetail.swift; sourceTree = "<group>"; };
+		8DC2CB4C2C05D10F00C14AA7 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		8DCF00852BFCFF00005A6B0F /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		CE73EB542C0198790056FFFE /* AddCustomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomController.swift; sourceTree = "<group>"; };
 		F8031F782BE334B800CE8604 /* Inventory System.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Inventory System.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -285,6 +287,7 @@
 				8DAD34B22C01B6B1006D8910 /* ListProductViewController.swift */,
 				CE73EB542C0198790056FFFE /* AddCustomController.swift */,
 				8DC2CB422C0429CA00C14AA7 /* ListBillViewController.swift */,
+				8DC2CB4C2C05D10F00C14AA7 /* AnalysisViewController.swift */,
 				F8CC2FFA2C05BC970046021C /* OrderConfirmationViewController.swift */,
 			);
 			name = Controllers;
@@ -493,6 +496,7 @@
 				8DC2CB452C0430C000C14AA7 /* BillCollectionViewCell.swift in Sources */,
 				8DC2CB432C0429CA00C14AA7 /* ListBillViewController.swift in Sources */,
 				F85B9CB12BFBA10A001A8B37 /* AddProductToBillController.swift in Sources */,
+				8DC2CB4D2C05D10F00C14AA7 /* AnalysisViewController.swift in Sources */,
 				F8031F7E2BE334B800CE8604 /* SceneDelegate.swift in Sources */,
 				8D7C81592BFEFF9600DDC23F /* UpdateProductController.swift in Sources */,
 				8DC2CB472C043A5E00C14AA7 /* Bill.swift in Sources */,
