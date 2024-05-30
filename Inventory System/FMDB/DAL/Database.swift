@@ -391,7 +391,32 @@ class Database {
         }
         return OK
     }
-    
+    func decreaseProductQuantity(products:[Product:Int]){
+        if open(){
+            //Kiem tra su ton tai cua bang du lieu
+            if  database!.tableExists(PRODUCT_TABLE_NAME){
+                for (product,quantity) in products{
+                    //Cau lenh sql de them du lieu vao CSDL
+                    let sql = "UPDATE \(PRODUCT_TABLE_NAME) SET " +
+                    "\(PRODUCT_QUANTITY) = \(PRODUCT_QUANTITY) - ?  WHERE \(PRODUCT_ID) = ?"
+                    
+                    //Luu gia tri meal vao CSDL
+                    if database!.executeUpdate(sql, withArgumentsIn: [quantity, product.id]){
+                        
+                        os_log("Decrease product's quantity successfully")
+                                                                        
+                    }
+                    else{
+                        
+                        os_log("Decrease product's quantity unsuccessfully")
+                        
+                    }
+                }
+                close()
+            }
+        }
+        
+    }
     
     ////////////////////////////  2.ImportExport  /////////////////////////////
     ///2.1 Insert

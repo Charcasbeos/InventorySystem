@@ -19,7 +19,6 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
     var fromConfirm = false
     
     let cartButton = UIButton(type: .custom)
-    let draftAndSaveButton = UIDraftAndSaveButton()
     
     @IBOutlet weak var navigation: UINavigationItem!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -40,32 +39,6 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         cartButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         
         navigation.rightBarButtonItem = UIBarButtonItem(customView: cartButton)
-   
-        
-        draftAndSaveButton.frame.size = CGSize(width: 50, height: 50)
-        view.addSubview(draftAndSaveButton)
-        
-        
-        
-        draftAndSaveButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Assign closures
-        draftAndSaveButton.onDraftButtonTapped = { [weak self] in
-           
-        }
-        draftAndSaveButton.onSaveButtonTapped = { [weak self] in
-            self?.handleSaveButtonTapped()
-        }
-        
-        
-        NSLayoutConstraint.activate([
-            draftAndSaveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            draftAndSaveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            draftAndSaveButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
-            draftAndSaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -40),
-            draftAndSaveButton.heightAnchor.constraint(equalToConstant: 25)
-        ])
-        
 
         
         
@@ -290,6 +263,9 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         let productIndex = stepper.tag
         let product = products[productIndex]
         
+        if product.quantity == 0 {
+            showAlertForExceedingSoldOutProduct()
+        }
                         
         // Check if the new quantity exceeds the available quantity in storage
         if quantity <= product.quantity {
@@ -322,15 +298,22 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    func showAlertForExceedingSoldOutProduct() {
+        let alert = UIAlertController(
+            title: "Sold Out",
+            message: "Sorry your product was sold out. ",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
     
     @objc func cartButtonTapped(){
         os_log("Cart Button Tapped")
     }
     
     
-    
-    // Handle Save Button Tap
-    func handleSaveButtonTapped() {
+    @IBAction func didSaveButtonTap(_ sender: UIButton) {
         print("Save button tapped in controller")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let orderConfirmationVC = storyboard.instantiateViewController(withIdentifier: "showOrderConfirmation") as? OrderConfirmationViewController {
@@ -362,6 +345,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
             
         }
     }
+    
     // Unwind segue action
     @IBAction func unwindToAddProductToBillController(_ unwindSegue: UIStoryboardSegue) {
         if let sourceVC = unwindSegue.source as? OrderConfirmationViewController {
