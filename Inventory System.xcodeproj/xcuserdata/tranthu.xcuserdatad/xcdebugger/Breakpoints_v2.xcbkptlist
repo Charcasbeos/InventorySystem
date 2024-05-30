@@ -7,17 +7,65 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "614B4996-3CA9-48B1-92B8-0CA537447F93"
-            shouldBeEnabled = "Yes"
+            uuid = "C37B8B3D-E6B0-47F7-9D6D-7B0D38B266D9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Inventory System/AddProductToBillController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
+            landmarkName = "handleSaveButtonTapped()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0CAE994D-E6C5-438D-93FE-18906CD75F26"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Inventory System/OrderConfirmationViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "doneButtonTapped()"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0CAE994D-E6C5-438D-93FE-18906CD75F26 - db7c8503aea8764c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Inventory_System.OrderConfirmationViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "Inventory System"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tranthu/InventorySystem/Inventory%20System/OrderConfirmationViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "75"
+                  endingLineNumber = "75"
+                  offsetFromSymbolStart = "300">
+               </Location>
+               <Location
+                  uuid = "0CAE994D-E6C5-438D-93FE-18906CD75F26 - db7c8503aea8764c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Inventory_System.OrderConfirmationViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "Inventory System"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tranthu/InventorySystem/Inventory%20System/OrderConfirmationViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "75"
+                  endingLineNumber = "75"
+                  offsetFromSymbolStart = "284">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

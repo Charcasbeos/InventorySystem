@@ -35,7 +35,7 @@ class HomeController: UIViewController {
         addTapGesture(to: analysisView, action: #selector(handleTap(_:)))
         addTapGesture(to: customerView, action: #selector(handleTap(_:)))
         addTapGesture(to: draftView, action: #selector(handleTap(_:)))
-            }
+    }
             
             // Add Tap
             private func addTapGesture(to view: UIView, action: Selector) {
@@ -83,8 +83,11 @@ class HomeController: UIViewController {
                         present(customer, animated: true)
                     }
                 case 6:
-                    //Xem tap da tap chua
-                    print("6 view tapped")
+                    if let bills = self.storyboard!.instantiateViewController(withIdentifier: "ListBill") as? ListBillViewController
+                    {
+                        bills.modalPresentationStyle = .fullScreen
+                        present(bills, animated: true)
+                    }
                 default:
                     break
                 }
