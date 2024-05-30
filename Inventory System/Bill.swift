@@ -11,10 +11,10 @@ class Bill{
     var id:Int32 = -1
     var customerID: Int32
     var status: Int32
-    var date: Date
+    var date: String
     
     // Constructor
-    init(id: Int32 = -1, customerID: Int32, status: Int32, date: Date) {
+    init(id: Int32 = -1, customerID: Int32, status: Int32, date: String) {
         self.id = id
         self.customerID = customerID
         self.status = status

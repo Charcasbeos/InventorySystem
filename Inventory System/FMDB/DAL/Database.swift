@@ -53,7 +53,7 @@ class Database {
     private let BILL_DETAIL_PRODUCT_PROFIT = "product_profit"
     private let BILL_DETAIL_PRODUCT_COST = "product_cost"
     private let BILL_DETAIL_QUANTITY = "quantity"
-
+    
     //MARK: Constructor
     init(){
         //Lay tat ca duong dan den cac thu muc doccument trong mot ung dung iOS
@@ -93,7 +93,7 @@ class Database {
             + "\(BILL_ID) INTEGER PRIMARY KEY AUTOINCREMENT, "
             + "\(BILL_CUSTOMER_ID) INTEGER ,"
             + "\(BILL_STATUS) INTEGER ,"
-            + "\(BILL_DATE) DATE)"
+            + "\(BILL_DATE) TEXT)"
             //4. BillDetail
             let sql_bill_detail = "Create table \(BILL_DETAIL_TABLE_NAME)("
             + "\(BILL_DETAIL_BILL_ID) INTEGER , "
@@ -223,7 +223,7 @@ class Database {
         return OK
     }
     ///1.2 Update
-func updateProduct(product:Product)->Bool{
+    func updateProduct(product:Product)->Bool{
         var OK = false
         if open(){
             //Kiem tra su ton tai cua bang du lieu
@@ -257,9 +257,9 @@ func updateProduct(product:Product)->Bool{
         }
         return OK
     }
-
+    
     ///1.3 ReadAll
- func readProducts(products: inout [Product]){
+    func readProducts(products: inout [Product]){
         if open(){
             if  database!.tableExists(PRODUCT_TABLE_NAME){
                 //Cau lenh sql
@@ -305,7 +305,7 @@ func updateProduct(product:Product)->Bool{
         }
     }
     ///1.4 ReadOne
-func readProductByID(id:Int)->Product?{
+    func readProductByID(id:Int)->Product?{
         var productRs:Product? = nil
         if open(){
             if  database!.tableExists(PRODUCT_TABLE_NAME){
@@ -352,7 +352,7 @@ func readProductByID(id:Int)->Product?{
         return productRs
     }
     ///1.5 DeleteAll
-func deleteAllProducts()->Bool{
+    func deleteAllProducts()->Bool{
         var OK = false
         if open(){
             if database!.tableExists(PRODUCT_TABLE_NAME){
@@ -420,7 +420,7 @@ func deleteAllProducts()->Bool{
         return OK
     }
     ///2.2ReadAll
-func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExport]){
+    func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExport]){
         if open(){
             if  database!.tableExists(IMPORTEXPORT_TABLE_NAME){
                 //Cau lenh sql
@@ -559,7 +559,7 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
                         let id = result.int(forColumn: CUSTOMER_ID)
                         // Tạo đối tượng customer từ dữ liệu đọc được
                         if let customer = Customer(name: name, phoneNumber: phone, accumulatedMoney: accumulated_money,id: id) {
-                           customerRs = customer
+                            customerRs = customer
                         }
                     }
                 }
@@ -573,7 +573,7 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
         if open() {
             if database!.tableExists(CUSTOMER_TABLE_NAME) {
                 // Câu lệnh sql truy vấn dữ liệu từ csdl
-//                let sql = "SELECT \(CUSTOMER_ID) FROM \(CUSTOMER_TABLE_NAME) WHERE \(CUSTOMER_PHONE) = \(phone)"
+                //                let sql = "SELECT \(CUSTOMER_ID) FROM \(CUSTOMER_TABLE_NAME) WHERE \(CUSTOMER_PHONE) = \(phone)"
                 let sql = "SELECT \(CUSTOMER_ID) FROM \(CUSTOMER_TABLE_NAME) WHERE \(CUSTOMER_PHONE) = ?"
                 // Khai báo biến chứa dữ liệu trả về
                 var result:FMResultSet?
@@ -598,6 +598,44 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
         }
         print("\(customer_id)")
         return customer_id
+    }
+    ///3.4 Read customer_id by id
+    func findCustomerById(id:Int)->Customer? {
+        var customer:Customer? = nil
+        if open() {
+            if database!.tableExists(CUSTOMER_TABLE_NAME) {
+                // Câu lệnh sql truy vấn dữ liệu từ csdl
+                //                let sql = "SELECT \(CUSTOMER_ID) FROM \(CUSTOMER_TABLE_NAME) WHERE \(CUSTOMER_PHONE) = \(phone)"
+                let sql = "SELECT * FROM \(CUSTOMER_TABLE_NAME) WHERE \(CUSTOMER_ID) = ?"
+                // Khai báo biến chứa dữ liệu trả về
+                var result:FMResultSet?
+                do {
+                    result = try database!.executeQuery(sql, values: [id])
+                    os_log("Truy vấn csdl thành công")
+                }
+                catch {
+                    os_log("Không thể truy vấn csdl")
+                }
+                
+                // Đọc dữ liệu ra từ đối tượng result
+                if let result = result {
+                    while result.next() {
+                        let customer_id = Int(result.int(forColumn: CUSTOMER_ID))
+                        let customer_phone = result.string(forColumn: CUSTOMER_PHONE) ?? ""
+                        let customer_name = result.string(forColumn: CUSTOMER_NAME) ?? ""
+                        let accumulatedMoney = result.double(forColumn: CUSTOMER_ACCUMULATED_MONEY)
+                        
+                        if let customerRs = Customer(name: customer_name, phoneNumber: customer_phone, accumulatedMoney: accumulatedMoney, id: Int32(customer_id)){
+                            customer = customerRs
+                        }
+                    }
+                }
+                close()
+                
+            }
+        }
+       
+        return customer
     }
     ////3.5 Delete Custome
     func deleteCustomerById(id:Int32) -> Bool {
@@ -697,9 +735,11 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
                 + "(\(BILL_CUSTOMER_ID),\(BILL_STATUS),\(BILL_DATE)) VALUES (?,?,?)"
                 
                 //Luu gia tri meal vao CSDL
+                
                 if database!.executeUpdate(sql, withArgumentsIn: [bill.customerID, bill.status, bill.date]){
                     os_log("Them du lieu bill thanh cong")
                     index = Int(database!.lastInsertRowId)
+                    print("bill at \(index)")
                     close()
                 }
                 else{
@@ -735,12 +775,12 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
         }
         return OK
     }
-///4.3 read list bill
-    func readBills(bills: inout [Bill]){
+    ///4.3 read list bill
+    func readBillsByStatus(bills: inout [Bill], status:Int){
         if open(){
             if  database!.tableExists(BILL_TABLE_NAME){
                 //Cau lenh sql
-                let sql = "SELECT * FROM \(BILL_TABLE_NAME) ORDER BY \(BILL_DATE) DESC"
+                let sql = "SELECT * FROM \(BILL_TABLE_NAME) WHERE \(BILL_STATUS) = \(status) ORDER BY \(BILL_DATE) DESC"
                 //Du lieu doc ve tu CSDL
                 var result:FMResultSet?
                 do{
@@ -758,7 +798,8 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
                         let id = result.int(forColumn: BILL_ID)
                         let customer_id = result.int(forColumn: BILL_CUSTOMER_ID)
                         let status = result.int(forColumn: BILL_STATUS)
-                        let date = result.date(forColumn: BILL_DATE) ?? Date()
+                        let date = result.string(forColumn: BILL_DATE) ?? ""
+                        
                         //Tao bien bill moi tu du lieu doc trong csdl
                         let bill = Bill(id: id, customerID: customer_id, status: status, date: date)
                         bills.append(bill)
@@ -771,6 +812,26 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
         }
     }
     
+    //Delete bill
+    func deleteBill() -> Bool {
+        var OK = false
+        if open() {
+            if database!.tableExists(BILL_TABLE_NAME) {
+                // cau lenh
+                let sql = "DELETE FROM \(BILL_TABLE_NAME)"
+                // THUC THI
+                if database!.executeUpdate(sql, withArgumentsIn: []) {
+                    os_log("xoa tat ca bill  thanh cong")
+                    OK = true
+                }
+                else {
+                    os_log("xoa tat ca bill  thanh bai")
+                }
+                close()
+            }
+        }
+        return OK;
+    }
     ////////////////////////////  5. BillDetail  /////////////////////////////
     ///5.1 Insert
     func insertBillDetail(billDetail:BillDetail)->Bool{
@@ -780,7 +841,7 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
             if  database!.tableExists(BILL_DETAIL_TABLE_NAME){
                 //Cau lenh sql de them du lieu vao CSDL
                 let sql = "INSERT INTO \(BILL_DETAIL_TABLE_NAME) "
-                + "(\(BILL_DETAIL_BILL_ID),\(BILL_DETAIL_PRODUCT_ID),\(BILL_DETAIL_PRODUCT_NAME),\(BILL_DETAIL_PRODUCT_PROFIT),\(BILL_DETAIL_PRODUCT_COST),\(BILL_DETAIL_QUANTITY) VALUES (?,?,?,?,?,?)"
+                + "(\(BILL_DETAIL_BILL_ID),\(BILL_DETAIL_PRODUCT_ID),\(BILL_DETAIL_PRODUCT_NAME),\(BILL_DETAIL_PRODUCT_PROFIT),\(BILL_DETAIL_PRODUCT_COST),\(BILL_DETAIL_QUANTITY)) VALUES (?,?,?,?,?,?)"
                 
                 //Luu gia tri meal vao CSDL
                 if database!.executeUpdate(sql, withArgumentsIn: [billDetail.billID,billDetail.productID,billDetail.productName,billDetail.productProfit, billDetail.productCost, billDetail.quantity]){
@@ -822,20 +883,69 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
         }
         return OK
     }
+    //Delete all bill_detail
+    func deleteBillDetail() -> Bool {
+        var OK = false
+        if open() {
+            if database!.tableExists(BILL_DETAIL_TABLE_NAME) {
+                // cau lenh
+                let sql = "DELETE FROM \(BILL_DETAIL_TABLE_NAME)"
+                // THUC THI
+                if database!.executeUpdate(sql, withArgumentsIn: []) {
+                    os_log("xoa tat ca bill detail thanh cong")
+                    OK = true
+                }
+                else {
+                    os_log("xoa tat ca bill detail thanh bai")
+                }
+                close()
+            }
+        }
+        return OK;
+    }
     ///5.3 dateMin  < bill.date < dateMax
-    func billDetailFromTo(dateMin:Date, dateMax:Date, listBillDetailFromTo: inout [BillDetail]){
+    func listBillDetailByDateFromTo(dateMin:String, dateMax:String, listBillDetailFromTo: inout [BillDetail]){
         if open(){
             if database!.tableExists(BILL_TABLE_NAME) && database!.tableExists(BILL_DETAIL_TABLE_NAME){
-                let sql = "SELECT * FROM \(BILL_DETAIL_TABLE_NAME) WHERE \(BILL_DETAIL_BILL_ID) IN (SELECT \(BILL_ID) FROM \(BILL_TABLE_NAME) WHERE \(BILL_DATE) > ?  AND \(BILL_DATE) < ?)"
+                let sql_listBillID = "SELECT *  FROM \(BILL_TABLE_NAME) WHERE \(BILL_DATE) BETWEEN ? AND ?"
+               
                 //Du lieu doc ve tu CSDL
                 var result:FMResultSet?
-                result = database!.executeQuery(sql, withArgumentsIn: [dateMin,dateMax])
-                
-                //Thuc hien doc du lieu tu doi tuong FMResultSet,
-                 
+                result = database!.executeQuery(sql_listBillID, withArgumentsIn: [dateMin,dateMax])
+                var bills = [Bill]()
+                var billIDs = [Int]()
                 if let result = result{
-                listBillDetailFromTo = [BillDetail]()
                     while result.next(){
+                        let bill_id = result.int(forColumn: BILL_ID)
+                        let customerID = result.int(forColumn: BILL_CUSTOMER_ID)
+                        let date = result.string(forColumn: BILL_DATE) ?? ""
+                        let status = result.int(forColumn: BILL_STATUS)
+                        let bill = Bill(id: bill_id, customerID: customerID, status: status, date: date)
+                        print("bill_id \(bill_id)")
+                        print("customerID \(customerID)")
+                        print("date \(date)")
+                        bills.append(bill)
+                        billIDs.append(Int(bill_id))
+                    }
+                    print("count bill =  \(bills.count)")
+                }
+                //Thuc hien doc du lieu tu doi tuong FMResultSet,
+                // Chuyển đổi mảng billIDs thành một chuỗi các giá trị, mỗi giá trị được bao quanh bởi dấu nháy đơn và cách nhau bởi dấu phẩy
+                            let billIDsString = billIDs.map { String($0) }.joined(separator: ",")
+
+                let sql_listBillDetail = "SELECT * FROM \(BILL_DETAIL_TABLE_NAME) WHERE \(BILL_DETAIL_TABLE_NAME).\(BILL_DETAIL_BILL_ID) IN (\(billIDsString))"
+                do{
+                    result = try database!.executeQuery(sql_listBillDetail, values: nil)
+                    
+                }
+                catch{
+                    os_log("Khong the truy van CSDL")
+                }
+                if let result = result{
+                    
+                    listBillDetailFromTo = [BillDetail]()
+                    while result.next(){
+                        print("111")
                         let bill_id = result.int(forColumn: BILL_DETAIL_BILL_ID)
                         let product_name = result.string(forColumn: BILL_DETAIL_PRODUCT_NAME) ?? ""
                         let product_id = result.int(forColumn: BILL_DETAIL_PRODUCT_ID)
@@ -843,25 +953,60 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
                         let product_cost = result.double(forColumn: BILL_DETAIL_PRODUCT_COST)
                         let quantity = result.int(forColumn: BILL_DETAIL_QUANTITY)
                         let bill_detail = BillDetail(billID: Int32(bill_id), productID: Int32(product_id), productName: product_name, productProfit: product_profit, productCost: product_cost, quantity: Int(quantity))
-                            
+                        
                         listBillDetailFromTo.append(bill_detail)
                     }
+                    print("list = \(listBillDetailFromTo.count)")
+                }
+            }
+            close()
+        }
+    }
+    ///Get list bill detail
+    func listBillDetailByBillId(billId:Int, listBillDetailById: inout [BillDetail]){
+        if open(){
+            if database!.tableExists(BILL_DETAIL_TABLE_NAME){
+                var result:FMResultSet?
+                let sql_listBillDetail = "SELECT * FROM \(BILL_DETAIL_TABLE_NAME) WHERE \(BILL_DETAIL_TABLE_NAME).\(BILL_DETAIL_BILL_ID) = \(billId)"
+                do{
+                    result = try database!.executeQuery(sql_listBillDetail, values: nil)
+                    
+                }
+                catch{
+                    os_log("Khong the truy van CSDL")
+                }
+                if let result = result{
+                    
+                    listBillDetailById = [BillDetail]()
+                    while result.next(){
+                        print("111")
+                        let bill_id = result.int(forColumn: BILL_DETAIL_BILL_ID)
+                        let product_name = result.string(forColumn: BILL_DETAIL_PRODUCT_NAME) ?? ""
+                        let product_id = result.int(forColumn: BILL_DETAIL_PRODUCT_ID)
+                        let product_profit = result.double(forColumn: BILL_DETAIL_PRODUCT_PROFIT)
+                        let product_cost = result.double(forColumn: BILL_DETAIL_PRODUCT_COST)
+                        let quantity = result.int(forColumn: BILL_DETAIL_QUANTITY)
+                        let bill_detail = BillDetail(billID: Int32(bill_id), productID: Int32(product_id), productName: product_name, productProfit: product_profit, productCost: product_cost, quantity: Int(quantity))
+                        
+                        listBillDetailById.append(bill_detail)
+                    }
+                    print("list detail by id count = \(listBillDetailById.count)")
                 }
             }
             close()
         }
     }
     ///5.4 Top 3 seller
-    func getTopSeller(dateMin:Date, dateMax:Date, productIDs: inout [Int], quatities: inout [Int]){
+    func getTopSeller(dateMin:String, dateMax:String, productIDs: inout [Int], quatities: inout [Int]){
         if open(){
             if database!.tableExists(BILL_TABLE_NAME) && database!.tableExists(BILL_DETAIL_TABLE_NAME){
                 let sql = "SELECT \(BILL_DETAIL_TABLE_NAME).\(BILL_DETAIL_PRODUCT_ID), SUM(\(BILL_DETAIL_TABLE_NAME).\(BILL_DETAIL_QUANTITY)) AS total_quantity"
-                + "FROM \(BILL_DETAIL_TABLE_NAME)"
-                + "JOIN \(BILL_TABLE_NAME) ON \(BILL_DETAIL_TABLE_NAME).\(BILL_DETAIL_BILL_ID) = \(BILL_TABLE_NAME).\(BILL_ID)"
-                + "WHERE \(BILL_TABLE_NAME).\(BILL_DATE) >= ? AND \(BILL_TABLE_NAME).\(BILL_DATE) <= ?"
-                + "GROUP BY \(BILL_DETAIL_TABLE_NAME).\(BILL_DETAIL_PRODUCT_ID)"
-                + "ORDER BY total_quantity DESC"
-                + "LIMIT 3"
+                + " FROM \(BILL_DETAIL_TABLE_NAME)"
+                + " JOIN \(BILL_TABLE_NAME) ON \(BILL_DETAIL_TABLE_NAME).\(BILL_DETAIL_BILL_ID) = \(BILL_TABLE_NAME).\(BILL_ID)"
+                + " WHERE \(BILL_TABLE_NAME).\(BILL_DATE) BETWEEN ? AND ?"
+                + " GROUP BY \(BILL_DETAIL_TABLE_NAME).\(BILL_DETAIL_PRODUCT_ID)"
+                + " ORDER BY total_quantity DESC"
+                + " LIMIT 3"
                 
                 //Du lieu doc ve tu CSDL
                 var result:FMResultSet?
@@ -874,13 +1019,14 @@ func readImportExportsByProductID(productID:Int ,importexports: inout [ImportExp
                         productIDs.append(Int(productId))
                         let quantity = result.int(forColumn: "total_quantity")
                         quatities.append(Int(quantity))
+                        print("Lay duoc du lieu top 3")
                     }
                     
                 }
+                close()
             }
-            close()
+           
         }
-       
+        
     }
 }
-  

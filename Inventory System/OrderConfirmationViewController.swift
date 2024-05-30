@@ -17,6 +17,7 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
     var customers:[Customer] = []
     var customerID = -1
     var check = false
+    var billFromBillCell:Bill?
     @IBOutlet weak var customerName: UITextField!
     @IBOutlet weak var customerPhone: UITextField!
     @IBOutlet weak var tableView: UITableView!
@@ -27,7 +28,7 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
     @IBAction func doneConfirmation(_ sender: UIButton) {
         //Kiem tra customer có nhập thì lưu, chua co thi tao va cap nhat accumula
         if let customerPhone = customerPhone{
-            if let phone = customerPhone.text , !phone.isEmpty{
+            if let phone = customerPhone.text, let name = customerName.text{
                 for customer in customers {
                     if customer.phoneNumber.elementsEqual(phone){
                         check = true
@@ -35,16 +36,35 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
                     
                 }
                 if check == false{
-                    if let customerNew = Customer(name: customerName.text!, phoneNumber: phone, accumulatedMoney: 0){
+                    if let customerNew = Customer(name: customerName.text!, phoneNumber: customerPhone.text!, accumulatedMoney: 0){
                         customerID =  dao.insertCustomer(customer: customerNew)}
                 }
                 print("\(totalAmount)")
                 dao.updateCustomer(customerID: customerID,  money: totalAmount)
+                // Tạo một đối tượng DateFormatter
+                let dateFormatter = DateFormatter()
+                
+                // Đặt định dạng cho DateFormatter
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                
+                // Chuyển đổi Date thành String
+                let dateStr = dateFormatter.string(from: Date())
+
+                let billId = dao.insertBill(bill: Bill(customerID: Int32(customerID), status: 1, date: dateStr))
+                for (product,quantity) in cart! {
+                    let billDetail = BillDetail(billID:Int32(billId),productID: product.id, productName: product.name, productProfit: product.profit, productCost: product.cost, quantity: quantity)
+                    dao.insertBillDetail(billDetail: billDetail)
+                }
                 
             }
+            
         }
         
-        dao.updateSatusBill(billID: billId, status: 1,customerId: customerID)
+        if let home = self.storyboard!.instantiateViewController(withIdentifier: "Home") as? HomeController
+        {
+            home.modalPresentationStyle = .fullScreen
+            present(home, animated: true)
+        }
         
     }
     var totalAmount:Double = 0
@@ -77,8 +97,35 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
         customerPhone.keyboardType = .numberPad
         customerPhone.addTarget(self, action: #selector(customerPhoneEditingChanged), for: .editingChanged)
         
-        print("bill id: \(billId)")
-        
+        //Kiem tra co phai di tu man hinh ListBill
+        if let billFromBillCell = billFromBillCell{
+            var customerPhone = "unknown"
+            var customerName = "unknown"
+            
+            if let customer = dao.readCustomerByID(customer_id: Int(billFromBillCell.customerID)){
+                customerName = customer.name
+                customerPhone = customer.phoneNumber
+            }
+            // Lay thong tin cua billDetail
+            var listBillDetailById = [BillDetail]()
+            dao.listBillDetailByBillId(billId: Int(billFromBillCell.id), listBillDetailById: &listBillDetailById)
+            var cartRs: [Product:Int] = [:]
+            for item in listBillDetailById{
+                let unit = dao.readProductByID(id: Int(item.productID))!.unit
+                var product = Product(id: item.productID,name: item.productName, unit:unit , profit: item.productProfit, quantity: 0, cost: item.productCost)
+              
+                cartRs[product!] = item.quantity
+                print("\(cartRs.count)")
+                
+            }
+           
+            cart! = cartRs
+            print("cart count = \(cart!.count)")
+            self.customerName.text = customerName
+            self.customerPhone.text = customerPhone
+            editButton.isHidden = true
+        }
+            
     }
     @objc func customerPhoneEditingChanged(){
       
@@ -100,16 +147,13 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
     }
     
     @objc func editButtonTapped(){
-        os_log("editButtonTapped")
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
     
-    
-    
-    @objc func doneButtonTapped() {
-        
-        
+    @IBAction func edit(_ sender: UIBarButtonItem) {
     }
+    
+
     
     
     
@@ -141,5 +185,5 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
         return 150 // Customize this value as needed
     }
       
-    
+   
 }
