@@ -16,6 +16,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
     var cart: [Product:Int] = [:]
     var filteredProducts:[Product] = []
     var isSearching = false
+    var fromConfirm = false
     
     let cartButton = UIButton(type: .custom)
     let draftAndSaveButton = UIDraftAndSaveButton()
@@ -50,7 +51,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         
         // Assign closures
         draftAndSaveButton.onDraftButtonTapped = { [weak self] in
-            self?.handleDraftButtonTapped()
+           
         }
         draftAndSaveButton.onSaveButtonTapped = { [weak self] in
             self?.handleSaveButtonTapped()
@@ -83,24 +84,29 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         view.addGestureRecognizer(tapGesture)
         
         
+        
     }
     
     @IBAction func back(_ sender: UIBarButtonItem) {
-        // Tạo hộp thoại cảnh báo
-                let alert = UIAlertController(title: "Confirm back", message: "Are you sure you want to back ?", preferredStyle: .alert)
-                
-                // Thêm hành động cho nút "Xoá"
-                alert.addAction(UIAlertAction(title: "Back", style: .destructive, handler: { action in
-                    self.dismiss(animated: true)
-                }))
-                
-                // Thêm hành động cho nút "Huỷ"
-                alert.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: nil))
-                
-                // Hiển thị hộp thoại cảnh báo
-                present(alert, animated: true, completion: nil)
-    
-        
+        if cart.count != 0 {
+            // Tạo hộp thoại cảnh báo
+            let alert = UIAlertController(title: "Confirm back", message: "Are you sure you want to back ?", preferredStyle: .alert)
+            
+            // Thêm hành động cho nút "Xoá"
+            alert.addAction(UIAlertAction(title: "Back", style: .destructive, handler: { action in
+                self.dismiss(animated: true)
+            }))
+            
+            // Thêm hành động cho nút "Huỷ"
+            alert.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: nil))
+            
+            // Hiển thị hộp thoại cảnh báo
+            present(alert, animated: true, completion: nil)
+            
+        }
+        else{
+            dismiss(animated: true)
+        }
     }
     
     // MARK: - UISearchBar Delegate
@@ -321,11 +327,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         os_log("Cart Button Tapped")
     }
     
-    // Handle Draft Button Tap
-    func handleDraftButtonTapped() {
-        print("Draft button tapped in controller")
-        // Handle draft action here
-    }
+    
     
     // Handle Save Button Tap
     func handleSaveButtonTapped() {
@@ -344,19 +346,28 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
             if cart.isEmpty{
                 showAlertForExceedingEmptyCart()
             }
-            let bill = Bill(customerID: -1, status: 0, date: Date())
-            orderConfirmationVC.billId = dao.insertBill(bill: bill)
+            // Tạo một đối tượng DateFormatter
+            let dateFormatter = DateFormatter()
+            
+            // Đặt định dạng cho DateFormatter
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            // Chuyển đổi Date thành String
+            let dateString = dateFormatter.string(from: Date())
+            
             orderConfirmationVC.cart = cart
             orderConfirmationVC.modalPresentationStyle = .fullScreen
             present(orderConfirmationVC, animated: true, completion: nil)
+            
+            
         }
     }
-    
     // Unwind segue action
     @IBAction func unwindToAddProductToBillController(_ unwindSegue: UIStoryboardSegue) {
         if let sourceVC = unwindSegue.source as? OrderConfirmationViewController {
             self.cart = sourceVC.cart!
             os_log("cart: \(self.cart)")
+            fromConfirm = true
             updateCartBadge()
             collectionView.reloadData()
         }

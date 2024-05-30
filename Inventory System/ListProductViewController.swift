@@ -14,6 +14,7 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
      var products = [Product]()
     var filteredProducts = [Product]()
     var isSearching = false
+    
     //Khai bao doi tuong xu dung CSDL
     private let dao = Database()
     //UI
@@ -24,6 +25,9 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
 //        let _ = dao.deleteProductTable()
+//        dao.deleteBill()
+//        dao.deleteBillDetail()
+//        
         searchbar.delegate = self
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -113,7 +117,7 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
     // MARK: - Navigation
     
     @IBAction func back(_ sender: UIBarButtonItem) {
-        dismiss(animated: true)
+     dismiss(animated: true)
     }
     //Chuyen sang man hinh update product
     @IBAction func addItem(_ sender: UIBarButtonItem) {
