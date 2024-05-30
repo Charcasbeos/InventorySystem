@@ -61,8 +61,8 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
             draftAndSaveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             draftAndSaveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             draftAndSaveButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
-            draftAndSaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            draftAndSaveButton.heightAnchor.constraint(equalToConstant: 50)
+            draftAndSaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -40),
+            draftAndSaveButton.heightAnchor.constraint(equalToConstant: 25)
         ])
         
 
@@ -209,11 +209,11 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
     func addSampleProducts(){
         
         
-        let product1 = Product(name: "Test1", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
-        let product2 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 20, cost: 10)
-        let product3 = Product(name: "Test3", unit: "unit1", profit: 10.0, quantity: 30, cost: 10)
+        let product1 = Product(name: "Test1", unit: "unit1", profit: 10.0, quantity: 10, cost: 10000)
+        let product2 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 20, cost: 1000)
+        let product3 = Product(name: "Test3", unit: "unit1", profit: 10.0, quantity: 30, cost: 100)
         let product4 = Product(name: "Test4", unit: "unit1", profit: 10.0, quantity: 40, cost: 10)
-        let product5 = Product(name: "Test5", unit: "unit2", profit: 10.0, quantity: 50, cost: 10)
+        let product5 = Product(name: "Test5", unit: "unit2", profit: 10.0, quantity: 50, cost: 1)
         let product6 = Product(name: "Test6", unit: "unit1", profit: 10.0, quantity: 60, cost: 10)
         let product7 = Product(name: "Test7", unit: "unit1", profit: 10.0, quantity: 70, cost: 10)
         let product8 = Product(name: "Test8", unit: "unit2", profit: 10.0, quantity: 80, cost: 10)
@@ -231,9 +231,9 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         products.append(product8!)
         products.append(product9!)
 //        
-//        for product in products {
-//            dao.insertProduct(product: product)
-//        }
+        for product in products {
+            dao.insertProduct(product: product)
+        }
         
         
     }
