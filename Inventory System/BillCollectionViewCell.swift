@@ -20,7 +20,7 @@ class BillCollectionViewCell: UICollectionViewCell {
     @IBAction func showDetail(_ sender: UIButton) {
         if let confirm = parent!.storyboard!.instantiateViewController(withIdentifier: "showOrderConfirmation") as? OrderConfirmationViewController {
             //Gan billID sang Confirm
-            confirm.billFromBillCell  = parent!.bills[index]
+            confirm.billFromBillCell  = parent!.filteredBills[index]
             parent!.present(confirm, animated: true)
         }
     }

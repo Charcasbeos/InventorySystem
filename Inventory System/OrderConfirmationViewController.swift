@@ -105,7 +105,10 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
             dao.listBillDetailByBillId(billId: Int(billFromBillCell.id), listBillDetailById: &listBillDetailById)
             var cartRs: [Product:Int] = [:]
             for item in listBillDetailById{
-                let unit = dao.readProductByID(id: Int(item.productID))!.unit
+                var unit = "con"
+                if let product = dao.readProductByID(id: Int(item.productID)){
+                    unit = product.unit
+                }
                 var product = Product(id: item.productID,name: item.productName, unit:unit , profit: item.productProfit, quantity: 0, cost: item.productCost)
               
                 cartRs[product!] = item.quantity
@@ -119,8 +122,17 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
             self.customerPhone.text = customerPhone
             editButton.isHidden = true
         }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dissmisKeyBoard))
+                view.addGestureRecognizer(tapGesture)
+                    
+            
             
     }
+    @objc func dissmisKeyBoard(){
+        view.endEditing(true)
+    }
+
     @objc func customerPhoneEditingChanged(){
       
         if customerPhone.state.isEmpty{
@@ -178,6 +190,5 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150 // Customize this value as needed
     }
-      
-   
+
 }

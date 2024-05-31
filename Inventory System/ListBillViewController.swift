@@ -38,7 +38,6 @@ class ListBillViewController: UIViewController, UICollectionViewDataSource, UICo
         searchbar.placeholder = "Input customer phone and search"
     }
     // MARK: - UISearchBar Delegate
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         searchBar.resignFirstResponder()
@@ -48,7 +47,6 @@ class ListBillViewController: UIViewController, UICollectionViewDataSource, UICo
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let phone = searchBar.text, !phone.isEmpty{
-            print("phone \(phone)")
             //Truy cap csdl de lay customerID
             let customer_id = dao.findCustomerByPhone(phone: phone)
             if customer_id != -1{
@@ -111,16 +109,12 @@ class ListBillViewController: UIViewController, UICollectionViewDataSource, UICo
                 cell.dateBill.text = "\(bill.date)"
                 
             }
+            //chuan bi du lieu de do vao cell total
             var listBillDetailById = [BillDetail]()
             var total:Double = 0.0
             dao.listBillDetailByBillId(billId: Int(bill.id), listBillDetailById: &listBillDetailById)
             for item in listBillDetailById{
-                var unit = "pcs"
-                if let product = dao.readProductByID(id: Int(item.productID)){
-                    unit = product.unit
-                }
-                var product = Product(id: item.productID,name: item.productName, unit:unit , profit: item.productProfit, quantity: 0, cost: item.productCost)
-                var price:Double = item.productCost*(100+item.productProfit)/100
+                var price:Double = item.productCost * (100+item.productProfit)/100
                 total += Double(item.quantity) * price
             }
             cell.total.text = "\(String(format: "%.2f",total)) VND"
