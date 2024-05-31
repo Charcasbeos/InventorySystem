@@ -266,8 +266,8 @@
 		F8031FAC2BE3355100CE8604 /* System files */ = {
 			isa = PBXGroup;
 			children = (
-				F8031F842BE334BA00CE8604 /* Assets.xcassets */,
 				F8031F862BE334BA00CE8604 /* LaunchScreen.storyboard */,
+				F8031F842BE334BA00CE8604 /* Assets.xcassets */,
 				F8031F892BE334BA00CE8604 /* Info.plist */,
 				F8031F7B2BE334B800CE8604 /* AppDelegate.swift */,
 				F8031F7D2BE334B800CE8604 /* SceneDelegate.swift */,
