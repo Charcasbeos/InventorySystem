@@ -55,7 +55,7 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
                     let billDetail = BillDetail(billID:Int32(billId),productID: product.id, productName: product.name, productProfit: product.profit, productCost: product.cost, quantity: quantity)
                     dao.insertBillDetail(billDetail: billDetail)
                 }
-                
+                dao.decreaseProductQuantity(products: cart!)
             }
             
         }

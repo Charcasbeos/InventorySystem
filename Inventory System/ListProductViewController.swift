@@ -95,7 +95,7 @@ class ListProductViewController: UIViewController, UICollectionViewDataSource, U
             let product = filteredProducts[indexPath.row]
             //Do du lieu vao cell
             cell.cost.text = "\(String(format: "%.2f", product.cost))"
-        cell.price.text = "\(String(format: "%.2f",product.cost * ((product.profit/100)+1)))"
+            cell.price.text = "\(String(format: "%.2f",product.cost * ((product.profit/100)+1)))"
             cell.quantity.text = "\(product.quantity)"
             cell.unit.text = "\(product.unit)"
             cell.profit.text = "\(String(format: "%.2f",product.profit))"
