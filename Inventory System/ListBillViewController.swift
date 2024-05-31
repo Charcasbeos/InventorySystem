@@ -29,7 +29,7 @@ class ListBillViewController: UIViewController, UICollectionViewDataSource, UICo
         collectionView.delegate = self
         //Doc du lieu bill tren csdl
         
-        dao.readBillsByStatus(bills: &bills, status: 1)
+        dao.readBills(bills: &bills)
         
         
         //Gan gia tri ban dau cho mang filter = bill
@@ -115,7 +115,10 @@ class ListBillViewController: UIViewController, UICollectionViewDataSource, UICo
             var total:Double = 0.0
             dao.listBillDetailByBillId(billId: Int(bill.id), listBillDetailById: &listBillDetailById)
             for item in listBillDetailById{
-                let unit = dao.readProductByID(id: Int(item.productID))!.unit
+                var unit = "pcs"
+                if let product = dao.readProductByID(id: Int(item.productID)){
+                    unit = product.unit
+                }
                 var product = Product(id: item.productID,name: item.productName, unit:unit , profit: item.productProfit, quantity: 0, cost: item.productCost)
                 var price:Double = item.productCost*(100+item.productProfit)/100
                 total += Double(item.quantity) * price
