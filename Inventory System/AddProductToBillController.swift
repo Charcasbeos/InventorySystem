@@ -28,6 +28,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         //set delegate
         searchBar.delegate = self
         collectionView.dataSource = self
@@ -143,7 +144,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
             cell.productName.text = product.name
             cell.productPrice.text = "\(String(format: "%.2f",product.cost * ((product.profit/100)+1)))"
             cell.productQuantity.text = "\(product.quantity) \(product.unit)"
-            cell.productImage.image = UIImage(named: "shopping-cart")
+            cell.productImage.image = product.image
             
             
             // Set delegate for product stepper
