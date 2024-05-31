@@ -2240,9 +2240,9 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rvr-HP-4gB">
-                                                    <rect key="frame" x="184" y="41" width="68" height="25"/>
+                                                    <rect key="frame" x="184" y="41" width="89" height="25"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="68" id="9L2-NJ-uP5"/>
+                                                        <constraint firstAttribute="width" constant="89" id="9L2-NJ-uP5"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2252,9 +2252,9 @@
                                                     <rect key="frame" x="151" y="71" width="25" height="25"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Le-XK-ajf">
-                                                    <rect key="frame" x="184" y="71" width="68" height="25"/>
+                                                    <rect key="frame" x="184" y="71" width="89" height="25"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="68" id="3e8-Mo-Xtv"/>
+                                                        <constraint firstAttribute="width" constant="89" id="3e8-Mo-Xtv"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2283,7 +2283,7 @@
                                                 <constraint firstItem="Fy4-Ud-mTY" firstAttribute="bottom" secondItem="Rvr-HP-4gB" secondAttribute="bottom" id="gRz-Vq-rPp"/>
                                                 <constraint firstItem="Rvr-HP-4gB" firstAttribute="leading" secondItem="2Le-XK-ajf" secondAttribute="leading" id="hGZ-Eu-mn6"/>
                                                 <constraint firstItem="Y27-Gz-dI7" firstAttribute="top" secondItem="E0K-6L-5fs" secondAttribute="top" constant="53" id="hVj-JG-0ID"/>
-                                                <constraint firstItem="Y27-Gz-dI7" firstAttribute="leading" secondItem="Rvr-HP-4gB" secondAttribute="trailing" constant="31" id="jhL-PC-SQ0"/>
+                                                <constraint firstItem="Y27-Gz-dI7" firstAttribute="leading" secondItem="Rvr-HP-4gB" secondAttribute="trailing" constant="10" id="jhL-PC-SQ0"/>
                                                 <constraint firstItem="Y27-Gz-dI7" firstAttribute="leading" secondItem="ahe-40-Etk" secondAttribute="leading" constant="283" id="na6-GT-pgJ"/>
                                                 <constraint firstItem="Fy4-Ud-mTY" firstAttribute="leading" secondItem="34l-wu-FTA" secondAttribute="leading" id="oBH-Oc-qUA"/>
                                                 <constraint firstItem="E0K-6L-5fs" firstAttribute="bottom" secondItem="emi-Yh-ePt" secondAttribute="bottom" constant="47" id="ppi-gz-Q27"/>

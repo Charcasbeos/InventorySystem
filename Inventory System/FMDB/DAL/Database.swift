@@ -801,11 +801,11 @@ class Database {
         return OK
     }
     ///4.3 read list bill
-    func readBillsByStatus(bills: inout [Bill], status:Int){
+    func readBills(bills: inout [Bill]){
         if open(){
             if  database!.tableExists(BILL_TABLE_NAME){
                 //Cau lenh sql
-                let sql = "SELECT * FROM \(BILL_TABLE_NAME) WHERE \(BILL_STATUS) = \(status) ORDER BY \(BILL_DATE) DESC"
+                let sql = "SELECT * FROM \(BILL_TABLE_NAME)  ORDER BY \(BILL_ID) DESC"
                 //Du lieu doc ve tu CSDL
                 var result:FMResultSet?
                 do{
