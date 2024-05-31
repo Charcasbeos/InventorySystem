@@ -15,7 +15,6 @@ class HomeController: UIViewController {
     @IBOutlet weak var createBillView: UIView!
     @IBOutlet weak var storageView: UIView!
     @IBOutlet weak var historyView: UIView!
-    @IBOutlet weak var draftView: UIView!
     
     
     override func viewDidLoad() {
@@ -27,14 +26,13 @@ class HomeController: UIViewController {
         historyView.tag = 3
         analysisView.tag = 4
         customerView.tag = 5
-        draftView.tag = 6
+    
              
         addTapGesture(to: createBillView, action: #selector(handleTap(_:)))
         addTapGesture(to: storageView, action: #selector(handleTap(_:)))
         addTapGesture(to: historyView, action: #selector(handleTap(_:)))
         addTapGesture(to: analysisView, action: #selector(handleTap(_:)))
         addTapGesture(to: customerView, action: #selector(handleTap(_:)))
-        addTapGesture(to: draftView, action: #selector(handleTap(_:)))
     }
             
             // Add Tap
@@ -82,12 +80,6 @@ class HomeController: UIViewController {
                         customer.modalPresentationStyle = .fullScreen
                         present(customer, animated: true)
                     }
-                case 6:
-                    if let bills = self.storyboard!.instantiateViewController(withIdentifier: "ListBill") as? ListBillViewController
-                    {
-                        bills.modalPresentationStyle = .fullScreen
-                        present(bills, animated: true)
-                    }
                 default:
                     break
                 }
@@ -97,4 +89,6 @@ class HomeController: UIViewController {
             override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
                 
             }
+    @IBAction func unwindAtHome(_ segue:UIStoryboardSegue){}
+   
 }
