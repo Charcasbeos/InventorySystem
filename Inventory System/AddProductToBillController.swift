@@ -170,8 +170,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
             cell.productName.text = product.name
             cell.productPrice.text = "\(String(format: "%.2f",product.cost * ((product.profit/100)+1)))"
             cell.productQuantity.text = "\(product.quantity) \(product.unit)"
-            cell.productImage.image = UIImage(named: "shopping-cart")
-            
+            cell.productImage.image = product.image
             
             // Set delegate for product stepper
             cell.stepper.setProgrammaticValue(cart[product] ?? 0)

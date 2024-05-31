@@ -35,7 +35,7 @@ class ListBillViewController: UIViewController, UICollectionViewDataSource, UICo
         //Gan gia tri ban dau cho mang filter = bill
         filteredBills = bills
         collectionView.reloadData()
-        searchbar.placeholder = "Enter name product"
+        searchbar.placeholder = "Input customer phone and search"
     }
     // MARK: - UISearchBar Delegate
     
