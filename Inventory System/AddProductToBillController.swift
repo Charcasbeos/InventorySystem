@@ -19,7 +19,6 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
     var fromConfirm = false
     
     let cartButton = UIButton(type: .custom)
-    let draftAndSaveButton = UIDraftAndSaveButton()
     
     @IBOutlet weak var navigation: UINavigationItem!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -28,6 +27,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         //set delegate
         searchBar.delegate = self
@@ -40,32 +40,6 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         cartButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         
         navigation.rightBarButtonItem = UIBarButtonItem(customView: cartButton)
-   
-        
-        draftAndSaveButton.frame.size = CGSize(width: 50, height: 50)
-        view.addSubview(draftAndSaveButton)
-        
-        
-        
-        draftAndSaveButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Assign closures
-        draftAndSaveButton.onDraftButtonTapped = { [weak self] in
-           
-        }
-        draftAndSaveButton.onSaveButtonTapped = { [weak self] in
-            self?.handleSaveButtonTapped()
-        }
-        
-        
-        NSLayoutConstraint.activate([
-            draftAndSaveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            draftAndSaveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            draftAndSaveButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
-            draftAndSaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            draftAndSaveButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
-        
 
         
         
@@ -170,7 +144,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
             cell.productName.text = product.name
             cell.productPrice.text = "\(String(format: "%.2f",product.cost * ((product.profit/100)+1)))"
             cell.productQuantity.text = "\(product.quantity) \(product.unit)"
-            cell.productImage.image = UIImage(named: "shopping-cart")
+            cell.productImage.image = product.image
             
             
             // Set delegate for product stepper
@@ -215,11 +189,11 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
     func addSampleProducts(){
         
         
-        let product1 = Product(name: "Test1", unit: "unit1", profit: 10.0, quantity: 10, cost: 10)
-        let product2 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 20, cost: 10)
-        let product3 = Product(name: "Test3", unit: "unit1", profit: 10.0, quantity: 30, cost: 10)
+        let product1 = Product(name: "Test1", unit: "unit1", profit: 10.0, quantity: 10, cost: 10000)
+        let product2 = Product(name: "Test2", unit: "unit2", profit: 10.0, quantity: 20, cost: 1000)
+        let product3 = Product(name: "Test3", unit: "unit1", profit: 10.0, quantity: 30, cost: 100)
         let product4 = Product(name: "Test4", unit: "unit1", profit: 10.0, quantity: 40, cost: 10)
-        let product5 = Product(name: "Test5", unit: "unit2", profit: 10.0, quantity: 50, cost: 10)
+        let product5 = Product(name: "Test5", unit: "unit2", profit: 10.0, quantity: 50, cost: 1)
         let product6 = Product(name: "Test6", unit: "unit1", profit: 10.0, quantity: 60, cost: 10)
         let product7 = Product(name: "Test7", unit: "unit1", profit: 10.0, quantity: 70, cost: 10)
         let product8 = Product(name: "Test8", unit: "unit2", profit: 10.0, quantity: 80, cost: 10)
@@ -237,9 +211,9 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         products.append(product8!)
         products.append(product9!)
 //        
-//        for product in products {
-//            dao.insertProduct(product: product)
-//        }
+        for product in products {
+            dao.insertProduct(product: product)
+        }
         
         
     }
@@ -290,6 +264,9 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         let productIndex = stepper.tag
         let product = products[productIndex]
         
+        if product.quantity == 0 {
+            showAlertForExceedingSoldOutProduct()
+        }
                         
         // Check if the new quantity exceeds the available quantity in storage
         if quantity <= product.quantity {
@@ -322,15 +299,22 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    func showAlertForExceedingSoldOutProduct() {
+        let alert = UIAlertController(
+            title: "Sold Out",
+            message: "Sorry your product was sold out. ",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
     
     @objc func cartButtonTapped(){
         os_log("Cart Button Tapped")
     }
     
     
-    
-    // Handle Save Button Tap
-    func handleSaveButtonTapped() {
+    @IBAction func didSaveButtonTap(_ sender: UIButton) {
         print("Save button tapped in controller")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let orderConfirmationVC = storyboard.instantiateViewController(withIdentifier: "showOrderConfirmation") as? OrderConfirmationViewController {
@@ -362,6 +346,7 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
             
         }
     }
+    
     // Unwind segue action
     @IBAction func unwindToAddProductToBillController(_ unwindSegue: UIStoryboardSegue) {
         if let sourceVC = unwindSegue.source as? OrderConfirmationViewController {

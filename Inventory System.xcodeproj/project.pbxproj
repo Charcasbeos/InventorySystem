@@ -44,7 +44,7 @@
 		F84980D52BFC5A7000F6B2CB /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84980D42BFC5A7000F6B2CB /* HomeController.swift */; };
 		F85B9CB12BFBA10A001A8B37 /* AddProductToBillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85B9CB02BFBA10A001A8B37 /* AddProductToBillController.swift */; };
 		F88127522C019AAD0027D87A /* UIProductStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88127512C019AAD0027D87A /* UIProductStepper.swift */; };
-		F8B6AD0B2C0350CB003CD04E /* UIDraftAndSaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */; };
+		F8B6AD0B2C0350CB003CD04E /* UISaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0A2C0350CB003CD04E /* UISaveButton.swift */; };
 		F8B6AD0E2C0414F9003CD04E /* UIProductStepperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */; };
 		F8CC2FFB2C05BC970046021C /* OrderConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC2FFA2C05BC970046021C /* OrderConfirmationViewController.swift */; };
 		F8CC2FFD2C05BDDE0046021C /* UIOrderComfirmationViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC2FFC2C05BDDE0046021C /* UIOrderComfirmationViewCell.swift */; };
@@ -120,7 +120,7 @@
 		F85B9CB02BFBA10A001A8B37 /* AddProductToBillController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductToBillController.swift; sourceTree = "<group>"; };
 		F88127512C019AAD0027D87A /* UIProductStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProductStepper.swift; sourceTree = "<group>"; };
 		F8B6AD082C033F12003CD04E /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
-		F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDraftAndSaveButton.swift; sourceTree = "<group>"; };
+		F8B6AD0A2C0350CB003CD04E /* UISaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISaveButton.swift; sourceTree = "<group>"; };
 		F8B6AD0D2C0414F9003CD04E /* UIProductStepperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProductStepperDelegate.swift; sourceTree = "<group>"; };
 		F8CC2FFA2C05BC970046021C /* OrderConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderConfirmationViewController.swift; sourceTree = "<group>"; };
 		F8CC2FFC2C05BDDE0046021C /* UIOrderComfirmationViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOrderComfirmationViewCell.swift; sourceTree = "<group>"; };
@@ -313,7 +313,7 @@
 				8DAD34B42C01BF53006D8910 /* ProductCollectionViewCell.swift */,
 				8DC2CB442C0430C000C14AA7 /* BillCollectionViewCell.swift */,
 				F88127512C019AAD0027D87A /* UIProductStepper.swift */,
-				F8B6AD0A2C0350CB003CD04E /* UIDraftAndSaveButton.swift */,
+				F8B6AD0A2C0350CB003CD04E /* UISaveButton.swift */,
 				F8F55D482C045A5000254CF1 /* ProductOfBillCollectionViewCell.swift */,
 				F8CC2FFC2C05BDDE0046021C /* UIOrderComfirmationViewCell.swift */,
 			);
@@ -489,7 +489,7 @@
 				F8031F7E2BE334B800CE8604 /* SceneDelegate.swift in Sources */,
 				8D6769BE2BFDC1E6002C790A /* FMResultSet.m in Sources */,
 				8D6769BF2BFDC1E6002C790A /* FMDatabasePool.m in Sources */,
-				F8B6AD0B2C0350CB003CD04E /* UIDraftAndSaveButton.swift in Sources */,
+				F8B6AD0B2C0350CB003CD04E /* UISaveButton.swift in Sources */,
 				8D6769BB2BFDC1E6002C790A /* FMDatabaseAdditions.m in Sources */,
 				F84980CD2BFBABFF00F6B2CB /* (null) in Sources */,
 				CE73EB552C0198790056FFFE /* AddCustomController.swift in Sources */,

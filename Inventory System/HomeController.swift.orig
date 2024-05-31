@@ -35,7 +35,7 @@ class HomeController: UIViewController {
         addTapGesture(to: analysisView, action: #selector(handleTap(_:)))
         addTapGesture(to: customerView, action: #selector(handleTap(_:)))
         addTapGesture(to: draftView, action: #selector(handleTap(_:)))
-    }
+            }
             
             // Add Tap
             private func addTapGesture(to view: UIView, action: Selector) {
@@ -51,11 +51,19 @@ class HomeController: UIViewController {
                 
                 switch tappedView.tag {
                 case 1:
+<<<<<<< HEAD
+                    if let addProductToTheBill = self.storyboard!.instantiateViewController(withIdentifier: "addProductstoTheBill") as? AddProductToBillController {
+                        addProductToTheBill.modalPresentationStyle = .fullScreen
+                        present(addProductToTheBill, animated: true)
+                    }
+                    
+=======
                     if let addProductsToTheBill = self.storyboard!.instantiateViewController(withIdentifier: "addProductstoTheBill") as? AddProductToBillController
                     {
                         addProductsToTheBill.modalPresentationStyle = .fullScreen
                         present(addProductsToTheBill, animated: true)
                     }
+>>>>>>> main
                 case 2:
                     if let storage = self.storyboard!.instantiateViewController(withIdentifier: "ListProduct") as? ListProductViewController
                     {
@@ -83,11 +91,8 @@ class HomeController: UIViewController {
                         present(customer, animated: true)
                     }
                 case 6:
-                    if let bills = self.storyboard!.instantiateViewController(withIdentifier: "ListBill") as? ListBillViewController
-                    {
-                        bills.modalPresentationStyle = .fullScreen
-                        present(bills, animated: true)
-                    }
+                    //Xem tap da tap chua
+                    print("6 view tapped")
                 default:
                     break
                 }
