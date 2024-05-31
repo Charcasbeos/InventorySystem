@@ -146,7 +146,6 @@ class AddProductToBillController: UIViewController, UITabBarControllerDelegate, 
             cell.productQuantity.text = "\(product.quantity) \(product.unit)"
             cell.productImage.image = product.image
             
-            
             // Set delegate for product stepper
             cell.stepper.setProgrammaticValue(cart[product] ?? 0)
             cell.stepper.tag = indexPath.row

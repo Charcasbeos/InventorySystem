@@ -57,7 +57,7 @@ class UpdateImportExportController: UIViewController,UITextFieldDelegate {
         else if textField == quantity {
             
             // Chỉ cho phép nhập các ký tự số và dấu trừ
-            let allowedCharacters = CharacterSet(charactersIn: "0123456789.-")
+            let allowedCharacters = CharacterSet(charactersIn: "0123456789-")
             let characterSet = CharacterSet(charactersIn: string)
             let currentText = textField.text ?? ""
             
@@ -75,12 +75,6 @@ class UpdateImportExportController: UIViewController,UITextFieldDelegate {
                 return false
             }
             
-            // Kiểm tra chỉ có một dấu chấm thập phân
-            if string == "." {
-                if currentText.contains(".") {
-                    return false
-                }
-            }
             
             // Cho phép thay đổi cho tất cả các trường hợp khác
             return true

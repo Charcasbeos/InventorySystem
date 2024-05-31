@@ -49,7 +49,7 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
                 
                 // Chuyển đổi Date thành String
                 let dateStr = dateFormatter.string(from: Date())
-
+                
                 let billId = dao.insertBill(bill: Bill(customerID: Int32(customerID), status: 1, date: dateStr))
                 for (product,quantity) in cart! {
                     let billDetail = BillDetail(billID:Int32(billId),productID: product.id, productName: product.name, productProfit: product.profit, productCost: product.cost, quantity: quantity)
@@ -58,12 +58,6 @@ class OrderConfirmationViewController: UIViewController, UITableViewDataSource, 
                 dao.decreaseProductQuantity(products: cart!)
             }
             
-        }
-        
-        if let home = self.storyboard!.instantiateViewController(withIdentifier: "Home") as? HomeController
-        {
-            home.modalPresentationStyle = .fullScreen
-            present(home, animated: true)
         }
         
     }
