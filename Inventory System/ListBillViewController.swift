@@ -35,7 +35,7 @@ class ListBillViewController: UIViewController, UICollectionViewDataSource, UICo
         //Gan gia tri ban dau cho mang filter = bill
         filteredBills = bills
         collectionView.reloadData()
-        searchbar.placeholder = "Enter name product"
+        searchbar.placeholder = "Input customer phone and search"
     }
     // MARK: - UISearchBar Delegate
     
@@ -111,6 +111,17 @@ class ListBillViewController: UIViewController, UICollectionViewDataSource, UICo
                 cell.dateBill.text = "\(bill.date)"
                 
             }
+            var listBillDetailById = [BillDetail]()
+            var total:Double = 0.0
+            dao.listBillDetailByBillId(billId: Int(bill.id), listBillDetailById: &listBillDetailById)
+            for item in listBillDetailById{
+                let unit = dao.readProductByID(id: Int(item.productID))!.unit
+                var product = Product(id: item.productID,name: item.productName, unit:unit , profit: item.productProfit, quantity: 0, cost: item.productCost)
+                var price:Double = item.productCost*(100+item.productProfit)/100
+                total += Double(item.quantity) * price
+            }
+            cell.total.text = "\(String(format: "%.2f",total)) VND"
+            
             return cell
         }
         

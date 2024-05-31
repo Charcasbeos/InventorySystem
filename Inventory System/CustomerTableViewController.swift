@@ -83,7 +83,7 @@ class CustomerTableViewController: UITableViewController, UIGestureRecognizerDel
             //do du lieu vao cell
             cell.nameCustomer.text = customer.name
             cell.phoneCustomer.text = customer.phoneNumber
-            cell.accumulatedMoneyCustomer.text = String(customer.accumulatedMoney)
+            cell.accumulatedMoneyCustomer.text = String(format: "%.2f",customer.accumulatedMoney)
             
             return cell
         }
